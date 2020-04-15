@@ -9,21 +9,25 @@
 /* Begin PBXBuildFile section */
 		0784823B243E4CBC006511C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0784823A243E4CBC006511C5 /* AppDelegate.swift */; };
 		0784823D243E4CBC006511C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0784823C243E4CBC006511C5 /* SceneDelegate.swift */; };
-		0784823F243E4CBC006511C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0784823E243E4CBC006511C5 /* ViewController.swift */; };
 		07848242243E4CBC006511C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07848240243E4CBC006511C5 /* Main.storyboard */; };
 		07848244243E4CBE006511C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07848243243E4CBE006511C5 /* Assets.xcassets */; };
 		07848247243E4CBE006511C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07848245243E4CBE006511C5 /* LaunchScreen.storyboard */; };
+		0790DB7324468AC500E0EC19 /* MiDiaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790DB7224468AC500E0EC19 /* MiDiaViewController.swift */; };
+		0790DB762446909800E0EC19 /* MiPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790DB752446909700E0EC19 /* MiPlanViewController.swift */; };
+		0790DB782446B4CD00E0EC19 /* RegistraComidaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790DB772446B4CD00E0EC19 /* RegistraComidaViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		07848237243E4CBC006511C5 /* TecNutricion-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TecNutricion-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0784823A243E4CBC006511C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0784823C243E4CBC006511C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0784823E243E4CBC006511C5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		07848241243E4CBC006511C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		07848243243E4CBE006511C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07848246243E4CBE006511C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07848248243E4CBE006511C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0790DB7224468AC500E0EC19 /* MiDiaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiDiaViewController.swift; sourceTree = "<group>"; };
+		0790DB752446909700E0EC19 /* MiPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiPlanViewController.swift; sourceTree = "<group>"; };
+		0790DB772446B4CD00E0EC19 /* RegistraComidaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistraComidaViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +62,23 @@
 			children = (
 				0784823A243E4CBC006511C5 /* AppDelegate.swift */,
 				0784823C243E4CBC006511C5 /* SceneDelegate.swift */,
-				0784823E243E4CBC006511C5 /* ViewController.swift */,
-				07848240243E4CBC006511C5 /* Main.storyboard */,
+				0790DB7424468ACC00E0EC19 /* Controller */,
 				07848243243E4CBE006511C5 /* Assets.xcassets */,
+				07848240243E4CBC006511C5 /* Main.storyboard */,
 				07848245243E4CBE006511C5 /* LaunchScreen.storyboard */,
 				07848248243E4CBE006511C5 /* Info.plist */,
 			);
 			path = "TecNutricion-iOS";
+			sourceTree = "<group>";
+		};
+		0790DB7424468ACC00E0EC19 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0790DB7224468AC500E0EC19 /* MiDiaViewController.swift */,
+				0790DB752446909700E0EC19 /* MiPlanViewController.swift */,
+				0790DB772446B4CD00E0EC19 /* RegistraComidaViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +152,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0784823F243E4CBC006511C5 /* ViewController.swift in Sources */,
 				0784823B243E4CBC006511C5 /* AppDelegate.swift in Sources */,
+				0790DB782446B4CD00E0EC19 /* RegistraComidaViewController.swift in Sources */,
+				0790DB762446909800E0EC19 /* MiPlanViewController.swift in Sources */,
 				0784823D243E4CBC006511C5 /* SceneDelegate.swift in Sources */,
+				0790DB7324468AC500E0EC19 /* MiDiaViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
