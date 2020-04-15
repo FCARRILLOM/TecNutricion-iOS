@@ -22,10 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
-        let mainVC = MiDiaViewController()
-        let navigationController = UINavigationController(rootViewController: mainVC)
+        let mainVC = ContainerViewController()
         
-        window?.rootViewController = navigationController
+        window?.rootViewController = mainVC
         window?.makeKeyAndVisible()
     }
 
