@@ -8,13 +8,9 @@
 
 import UIKit
 
-class MiDiaViewController: UIViewController, MenuDelegate {
+class MiDiaViewController: UIViewController {
     
-    // Constants
-    let SCREEN_WIDTH: CGFloat = UIScreen.main.bounds.width
-    let SCREEN_HEIGHT: CGFloat = UIScreen.main.bounds.height
-    
-    var miDiaDelegate: MiDiaDelegate!
+    var delegate: MenuDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,17 +24,6 @@ class MiDiaViewController: UIViewController, MenuDelegate {
     
     // Enseña o esconde el menu
     @objc func toggleMenu() {
-        miDiaDelegate?.handleMenuToggle()
+        delegate?.handleMenuToggle()
     }
-   
-    // MARK: - Menu Delegate
-    func handleSectionTap(forSection section: MenuSection) {
-        print(section.description)
-    }
-    
-}
-
-// MARK: - Protocol
-protocol MiDiaDelegate {
-    func handleMenuToggle()
 }

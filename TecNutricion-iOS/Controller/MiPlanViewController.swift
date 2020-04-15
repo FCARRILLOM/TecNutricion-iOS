@@ -9,23 +9,22 @@
 import UIKit
 
 class MiPlanViewController: UIViewController {
+    
+    var delegate: MenuDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         title = "Mi Plan"
-
+        let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
+        navigationItem.leftBarButtonItem = menuButtonItem
+        
         view.backgroundColor = UIColor.blue
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // Enseña o esconde el menu
+    @objc func toggleMenu() {
+        delegate?.handleMenuToggle()
     }
-    */
 
 }

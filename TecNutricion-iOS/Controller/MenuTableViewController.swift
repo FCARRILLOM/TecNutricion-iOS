@@ -10,9 +10,10 @@ import UIKit
 
 class MenuTableViewController: UITableViewController {
     
-    let NUM_SECTIONS = 2
+    // Numero de opciones en el menu
+    let NUM_SECTIONS = 6
     
-    var menuDelegate: MenuDelegate!
+    var delegate: MenuDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,11 +43,13 @@ class MenuTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let selectecSection = MenuSection(rawValue: indexPath.row) {
-            menuDelegate?.handleSectionTap(forSection: selectecSection)
+            delegate?.handleSectionTap(forSection: selectecSection)
         }
     }
 }
 
 protocol MenuDelegate {
-    func handleSectionTap(forSection section: MenuSection)
+    func handleMenuToggle()
+    
+    func handleSectionTap(forSection section: MenuSection?)
 }
