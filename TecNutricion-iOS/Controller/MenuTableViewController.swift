@@ -50,6 +50,5 @@ class MenuTableViewController: UITableViewController {
 
 protocol MenuDelegate {
     func handleMenuToggle()
-    
     func handleSectionTap(forSection section: MenuSection?)
 }

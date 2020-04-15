@@ -23,6 +23,7 @@ class ContainerViewController: UIViewController, MenuDelegate {
         setupMiDiaController()
     }
     
+    // Inicializa MiDiaController
     func setupMiDiaController() {
         miDiaController = MiDiaViewController()
         miDiaController.delegate = self
@@ -33,6 +34,7 @@ class ContainerViewController: UIViewController, MenuDelegate {
         navController.didMove(toParent: self)
     }
     
+    // Inicializa menu
     func setupMenuController() {
         if menuController == nil {
             menuController = MenuTableViewController()
@@ -47,7 +49,7 @@ class ContainerViewController: UIViewController, MenuDelegate {
     func showMenuController(shouldExpand: Bool) {
         if shouldExpand {
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-                self.navController.view.frame.origin.x = self.miDiaController.view.frame.width - 150
+                self.navController.view.frame.origin.x = self.navController.view.frame.width - 150
             }, completion: nil)
         } else {
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
@@ -67,9 +69,11 @@ class ContainerViewController: UIViewController, MenuDelegate {
     }
     
     func handleSectionTap(forSection section: MenuSection?) {
+        // esconde menu
         isExpanded = false
         showMenuController(shouldExpand: isExpanded)
         
+        // crea y desmuestra nueva vista
         if let section = section {
             if currentSection != section {
                 currentSection = section
@@ -82,6 +86,7 @@ class ContainerViewController: UIViewController, MenuDelegate {
                 case .MiPlan:
                     let miPlanController = MiPlanViewController()
                     miPlanController.delegate = self
+                    
                     navController.setViewControllers([miPlanController], animated: true)
                     break;
                     

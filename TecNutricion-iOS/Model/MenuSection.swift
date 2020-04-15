@@ -28,15 +28,4 @@ enum MenuSection: Int, CustomStringConvertible {
         case .Recetarios: return "Recetarios"
         }
     }
-    
-    var viewControllerName: String {
-        switch self {
-        case .MiDia: return "MiDiaViewController"
-        case .MiPlan: return "MiPlanViewController"
-        case .Equivalentes: return "MiDiaViewController"
-        case .Semaforo: return "MiDiaViewController"
-        case .Historial: return "MiDiaViewController"
-        case .Recetarios: return "MiDiaViewController"
-        }
-    }
 }
