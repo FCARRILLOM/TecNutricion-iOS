@@ -6,9 +6,10 @@
 //  Copyright © 2020 FernandoCarrillo. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-enum GpoAlimenticio {
-    case agua
-    case proteina
+struct GpoAlimenticio {
+    var name: String
+    var icon: UIImage
+    var portions: Int
 }

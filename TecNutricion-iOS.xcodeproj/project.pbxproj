@@ -18,6 +18,8 @@
 		0790DB7A2446BC1600E0EC19 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790DB792446BC1600E0EC19 /* MenuTableViewController.swift */; };
 		0790DB7C2446BF4D00E0EC19 /* MenuSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790DB7B2446BF4D00E0EC19 /* MenuSection.swift */; };
 		079988AB2446CA55001B4FB2 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079988AA2446CA55001B4FB2 /* ContainerViewController.swift */; };
+		07BDAAAC244E6D770089BBC9 /* MiPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */; };
+		07BDAAB0244E73ED0089BBC9 /* GpoAlimenticio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BDAAAF244E73ED0089BBC9 /* GpoAlimenticio.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		0790DB792446BC1600E0EC19 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		0790DB7B2446BF4D00E0EC19 /* MenuSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSection.swift; sourceTree = "<group>"; };
 		079988AA2446CA55001B4FB2 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiPlanTableViewCell.swift; sourceTree = "<group>"; };
+		07BDAAAF244E73ED0089BBC9 /* GpoAlimenticio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GpoAlimenticio.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,7 @@
 			children = (
 				0784823A243E4CBC006511C5 /* AppDelegate.swift */,
 				0784823C243E4CBC006511C5 /* SceneDelegate.swift */,
+				07BDAAA8244E6B8C0089BBC9 /* View */,
 				0790DB7D2446C06400E0EC19 /* Model */,
 				0790DB7424468ACC00E0EC19 /* Controller */,
 				07848243243E4CBE006511C5 /* Assets.xcassets */,
@@ -94,8 +99,17 @@
 			isa = PBXGroup;
 			children = (
 				0790DB7B2446BF4D00E0EC19 /* MenuSection.swift */,
+				07BDAAAF244E73ED0089BBC9 /* GpoAlimenticio.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		07BDAAA8244E6B8C0089BBC9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,10 +184,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0784823B243E4CBC006511C5 /* AppDelegate.swift in Sources */,
+				07BDAAAC244E6D770089BBC9 /* MiPlanTableViewCell.swift in Sources */,
 				0790DB782446B4CD00E0EC19 /* RegistraComidaViewController.swift in Sources */,
 				079988AB2446CA55001B4FB2 /* ContainerViewController.swift in Sources */,
 				0790DB7C2446BF4D00E0EC19 /* MenuSection.swift in Sources */,
 				0790DB7A2446BC1600E0EC19 /* MenuTableViewController.swift in Sources */,
+				07BDAAB0244E73ED0089BBC9 /* GpoAlimenticio.swift in Sources */,
 				0790DB762446909800E0EC19 /* MiPlanViewController.swift in Sources */,
 				0784823D243E4CBC006511C5 /* SceneDelegate.swift in Sources */,
 				0790DB7324468AC500E0EC19 /* MiDiaViewController.swift in Sources */,
