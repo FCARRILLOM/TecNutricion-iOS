@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		075C0BE2244FD69800CC6F45 /* UIView+AnchorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C0BE1244FD69800CC6F45 /* UIView+AnchorExtension.swift */; };
 		0784823B243E4CBC006511C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0784823A243E4CBC006511C5 /* AppDelegate.swift */; };
 		0784823D243E4CBC006511C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0784823C243E4CBC006511C5 /* SceneDelegate.swift */; };
 		07848242243E4CBC006511C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07848240243E4CBC006511C5 /* Main.storyboard */; };
@@ -17,13 +18,12 @@
 		0790DB7A2446BC1600E0EC19 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790DB792446BC1600E0EC19 /* MenuTableViewController.swift */; };
 		0790DB7C2446BF4D00E0EC19 /* MenuSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790DB7B2446BF4D00E0EC19 /* MenuSection.swift */; };
 		079988AB2446CA55001B4FB2 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079988AA2446CA55001B4FB2 /* ContainerViewController.swift */; };
-		684739DE244FE9CF00734C8A /* MiDiaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790DB7224468AC500E0EC19 /* MiDiaViewController.swift */; };
-		684739E6244FEAD500734C8A /* MiDiaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684739E5244FEAD500734C8A /* MiDiaCollectionViewCell.swift */; };
-		6867EFAC244FE0A1004B333F /* View in Resources */ = {isa = PBXBuildFile; fileRef = 6867EFAB244FE0A1004B333F /* View */; };
-		6867EFB2244FE446004B333F /* GpoAlimenticio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6867EFB1244FE446004B333F /* GpoAlimenticio.swift */; };
+		07BDAAAC244E6D770089BBC9 /* MiPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */; };
+		07BDAAB0244E73ED0089BBC9 /* GpoAlimenticio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BDAAAF244E73ED0089BBC9 /* GpoAlimenticio.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		075C0BE1244FD69800CC6F45 /* UIView+AnchorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AnchorExtension.swift"; sourceTree = "<group>"; };
 		07848237243E4CBC006511C5 /* TecNutricion-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TecNutricion-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0784823A243E4CBC006511C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0784823C243E4CBC006511C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,9 +37,8 @@
 		0790DB792446BC1600E0EC19 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		0790DB7B2446BF4D00E0EC19 /* MenuSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSection.swift; sourceTree = "<group>"; };
 		079988AA2446CA55001B4FB2 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
-		684739E5244FEAD500734C8A /* MiDiaCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MiDiaCollectionViewCell.swift; path = View/MiDiaCollectionViewCell.swift; sourceTree = "<group>"; };
-		6867EFAB244FE0A1004B333F /* View */ = {isa = PBXFileReference; lastKnownFileType = folder; path = View; sourceTree = "<group>"; };
-		6867EFB1244FE446004B333F /* GpoAlimenticio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GpoAlimenticio.swift; sourceTree = "<group>"; };
+		07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiPlanTableViewCell.swift; sourceTree = "<group>"; };
+		07BDAAAF244E73ED0089BBC9 /* GpoAlimenticio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GpoAlimenticio.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +75,7 @@
 				6867EFAB244FE0A1004B333F /* View */,
 				0784823A243E4CBC006511C5 /* AppDelegate.swift */,
 				0784823C243E4CBC006511C5 /* SceneDelegate.swift */,
+				07BDAAA8244E6B8C0089BBC9 /* View */,
 				0790DB7D2446C06400E0EC19 /* Model */,
 				0790DB7424468ACC00E0EC19 /* Controller */,
 				07848243243E4CBE006511C5 /* Assets.xcassets */,
@@ -102,9 +102,18 @@
 			isa = PBXGroup;
 			children = (
 				0790DB7B2446BF4D00E0EC19 /* MenuSection.swift */,
-				6867EFB1244FE446004B333F /* GpoAlimenticio.swift */,
+				07BDAAAF244E73ED0089BBC9 /* GpoAlimenticio.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		07BDAAA8244E6B8C0089BBC9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */,
+				075C0BE1244FD69800CC6F45 /* UIView+AnchorExtension.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,10 +191,13 @@
 				6867EFB2244FE446004B333F /* GpoAlimenticio.swift in Sources */,
 				684739E6244FEAD500734C8A /* MiDiaCollectionViewCell.swift in Sources */,
 				0784823B243E4CBC006511C5 /* AppDelegate.swift in Sources */,
+				07BDAAAC244E6D770089BBC9 /* MiPlanTableViewCell.swift in Sources */,
 				0790DB782446B4CD00E0EC19 /* RegistraComidaViewController.swift in Sources */,
+				075C0BE2244FD69800CC6F45 /* UIView+AnchorExtension.swift in Sources */,
 				079988AB2446CA55001B4FB2 /* ContainerViewController.swift in Sources */,
 				0790DB7C2446BF4D00E0EC19 /* MenuSection.swift in Sources */,
 				0790DB7A2446BC1600E0EC19 /* MenuTableViewController.swift in Sources */,
+				07BDAAB0244E73ED0089BBC9 /* GpoAlimenticio.swift in Sources */,
 				0790DB762446909800E0EC19 /* MiPlanViewController.swift in Sources */,
 				0784823D243E4CBC006511C5 /* SceneDelegate.swift in Sources */,
 				684739DE244FE9CF00734C8A /* MiDiaViewController.swift in Sources */,
