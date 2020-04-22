@@ -37,8 +37,6 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
         setupTableView()
         
         view.backgroundColor = UIColor.white
-        
-        loadPlan()
     }
     
     @objc func savePlanButton() {
