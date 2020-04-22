@@ -29,6 +29,8 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         view.backgroundColor = UIColor.white
         createGroups()
         setupCollectionView()
+        
+        setupAddFoodButton()
 
     }
 
@@ -49,7 +51,9 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
             GpoAlimenticio(name: "Cereales", icon: "Apple", portions: 0),
             GpoAlimenticio(name: "Leguminosas", icon: "Apple", portions: 0),
             GpoAlimenticio(name: "Frutas", icon: "Apple", portions: 0),
-            GpoAlimenticio(name: "Grasas", icon: "Apple", portions: 0),]
+            GpoAlimenticio(name: "Grasas", icon: "Apple", portions: 0),
+            GpoAlimenticio(name: "Agua", icon: "Apple", portions: 0),
+        ]
     }
 
     func sendToPlan(_ :UIAlertAction) {
@@ -126,5 +130,21 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         }
 
         return false
+
+    func setupAddFoodButton() {
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: self.view.center.x-75, y: SCREEN_HEIGHT - 80, width: 150, height: 50)
+
+        button.setTitle("Registrar Comida", for: .normal)
+        button.backgroundColor = .lightGray
+
+        button.addTarget(self, action: #selector(showAddFood(_:)), for: .touchUpInside)
+
+        view.addSubview(button)
+    }
+
+    @objc func showAddFood(_ sender:UIButton!) {
+        let RegistraComidaVC = RegistraComidaViewController()
+        present(RegistraComidaVC, animated: true, completion: nil)
     }
 }
