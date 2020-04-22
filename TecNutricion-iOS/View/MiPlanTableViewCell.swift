@@ -21,7 +21,7 @@ class MiPlanTableViewCell: UITableViewCell {
             if gpoAlim != nil {
                 titleLabel.text = gpoAlim!.name
                 portionsLabel.text = String(gpoAlim!.portions)
-                icon.image = gpoAlim!.icon
+                icon.image = UIImage(named: gpoAlim!.icon)
             }
         }
     }

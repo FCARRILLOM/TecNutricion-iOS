@@ -18,7 +18,7 @@ class MiDiaCollectionViewCell: UICollectionViewCell {
             if gpoAlim != nil {
                 cellTitleLabel.text = gpoAlim!.name
                 cellPortionsLabel.text = String(gpoAlim!.portions)
-                cellIcon.image = gpoAlim!.icon
+                cellIcon.image = UIImage(named: gpoAlim!.icon)
             }
         }
     }

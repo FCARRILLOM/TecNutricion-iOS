@@ -35,13 +35,13 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
 
      func createGroups(){
         listaGpos = [
-            GpoAlimenticio(name: "Vegetales", icon: UIImage(named: "apple")!, portions: 0),
-            GpoAlimenticio(name: "Carnes", icon: UIImage(named: "apple")!, portions: 0),
-            GpoAlimenticio(name: "Azucares", icon: UIImage(named: "apple")!, portions: 0),
-            GpoAlimenticio(name: "Cereales", icon: UIImage(named: "apple")!, portions: 0),
-            GpoAlimenticio(name: "Leguminosas", icon: UIImage(named: "apple")!, portions: 0),
-            GpoAlimenticio(name: "Frutas", icon: UIImage(named: "apple")!, portions: 0),
-            GpoAlimenticio(name: "Grasas", icon: UIImage(named: "apple")!, portions: 0),]
+            GpoAlimenticio(name: "Vegetales", icon: "Apple", portions: 0),
+            GpoAlimenticio(name: "Carnes", icon: "Apple", portions: 0),
+            GpoAlimenticio(name: "Azucares", icon: "Apple", portions: 0),
+            GpoAlimenticio(name: "Cereales", icon: "Apple", portions: 0),
+            GpoAlimenticio(name: "Leguminosas", icon: "Apple", portions: 0),
+            GpoAlimenticio(name: "Frutas", icon: "Apple", portions: 0),
+            GpoAlimenticio(name: "Grasas", icon: "Apple", portions: 0),]
     }
     
     // MARK: - Table View
