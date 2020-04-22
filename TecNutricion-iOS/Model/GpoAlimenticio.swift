@@ -8,10 +8,20 @@
 
 import UIKit
 
-struct GpoAlimenticio: Equatable {
+class GpoAlimenticio: Equatable, Codable, CustomStringConvertible {
     var name: String
-    var icon: UIImage
+    var icon: String
     var portions: Int
+    
+    var description: String {
+        return "name: \(name), icon: \(icon), portions: \(portions)"
+    }
+    
+    init(name: String, icon: String, portions: Int) {
+        self.name = name
+        self.icon = icon
+        self.portions = portions
+    }
     
     static func == (left: GpoAlimenticio, right: GpoAlimenticio) -> Bool {
         return left.name == right.name

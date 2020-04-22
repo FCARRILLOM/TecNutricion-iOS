@@ -29,11 +29,20 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
         navigationItem.leftBarButtonItem = menuButtonItem
         
+        let saveButtonItem = UIBarButtonItem(title: "Guardar", style: .plain, target: self, action: #selector(savePlanButton))
+        navigationItem.rightBarButtonItem = saveButtonItem
+        
         createGroups()
         
         setupTableView()
         
         view.backgroundColor = UIColor.white
+        
+        loadPlan()
+    }
+    
+    @objc func savePlanButton() {
+        savePlan()
     }
     
     // MARK: - Table View
@@ -117,13 +126,47 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     func createGroups(){
-        listaGpos = [
-            GpoAlimenticio(name: "Vegetales", icon: UIImage(named: "vegetales")!, portions: 0),
-            GpoAlimenticio(name: "Carnes", icon: UIImage(named: "vegetales")!, portions: 0),
-            GpoAlimenticio(name: "Azucares", icon: UIImage(named: "vegetales")!, portions: 0),
-            GpoAlimenticio(name: "Cereales", icon: UIImage(named: "vegetales")!, portions: 0),
-            GpoAlimenticio(name: "Leguminosas", icon: UIImage(named: "vegetales")!, portions: 0),
-            GpoAlimenticio(name: "Frutas", icon: UIImage(named: "vegetales")!, portions: 0),
-            GpoAlimenticio(name: "Grasas", icon: UIImage(named: "vegetales")!, portions: 0),]
+        listaGpos = loadPlan()
+        
+        if listaGpos.count == 0 {
+            listaGpos = [
+                GpoAlimenticio(name: "Vegetales", icon: "vegetales", portions: 0),
+                GpoAlimenticio(name: "Carnes", icon: "vegetales", portions: 0),
+                GpoAlimenticio(name: "Azucares", icon: "vegetales", portions: 0),
+                GpoAlimenticio(name: "Cereales", icon: "vegetales", portions: 0),
+                GpoAlimenticio(name: "Leguminosas", icon: "vegetales", portions: 0),
+                GpoAlimenticio(name: "Frutas", icon: "vegetales", portions: 0),
+                GpoAlimenticio(name: "Grasas", icon: "vegetales", portions: 0),]
+        }
+    }
+    
+    // MARK: Save/Load Data
+    
+    func dataFileURL() -> URL {
+        let url = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+        let pathFile = url.appendingPathComponent("Plan.json")
+        return pathFile
+    }
+    
+    func savePlan() {
+        do {
+            let data = try JSONEncoder().encode(listaGpos)
+            try data.write(to: dataFileURL())
+        }
+        catch {
+            print("Error saving mi plan data")
+        }
+    }
+    
+    func loadPlan() -> [GpoAlimenticio] {
+        do {
+            let data = try Data.init(contentsOf: dataFileURL())
+            let newListaGpos = try JSONDecoder().decode([GpoAlimenticio].self, from: data)
+            return newListaGpos
+        }
+        catch {
+            print("Error loading mi plan data")
+            return []
+        }
     }
 }
