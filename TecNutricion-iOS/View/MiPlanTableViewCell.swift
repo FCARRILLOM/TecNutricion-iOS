@@ -16,46 +16,69 @@ class MiPlanTableViewCell: UITableViewCell {
     var gpoAlim : GpoAlimenticio? {
         didSet {
             if gpoAlim != nil {
-                cellTitleLabel.text = gpoAlim!.name
-                cellPortionsLabel.text = String(gpoAlim!.portions)
-                cellIcon.image = gpoAlim!.icon
+                titleLabel.text = gpoAlim!.name
+                portionsLabel.text = String(gpoAlim!.portions)
+                icon.image = gpoAlim!.icon
             }
         }
     }
 
-    let cellIcon: UIImageView = {
+    let icon: UIImageView = {
         let imgView = UIImageView()
         imgView.contentMode = .scaleAspectFit
         imgView.clipsToBounds = true
-        imgView.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
         return imgView
     }()
     
-    let cellTitleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textAlignment = .left
-        label.frame = CGRect(x: 65, y: 0, width: 100, height: 60)
         return label
     }()
     
-    let cellPortionsLabel: UILabel = {
+    let portionsLabel: UILabel = {
         let SCREEN_WIDTH = UIScreen.main.bounds.width
         
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textAlignment = .center
-        label.frame = CGRect(x: SCREEN_WIDTH - 65, y: 0, width: 60, height: 60)
         return label
+    }()
+    
+    let increaseButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "plusBtn"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        return button
+    }()
+    
+    let decreaseButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "minusBtn"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        return button
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(cellIcon)
-        addSubview(cellTitleLabel)
-        addSubview(cellPortionsLabel)
+        addSubview(icon)
+        addSubview(titleLabel)
+        addSubview(portionsLabel)
+        addSubview(increaseButton)
+        addSubview(decreaseButton)
+        
+        icon.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 0, width: 50, height: 0, enableInsets: false)
+        titleLabel.anchor(top: topAnchor, left: icon.rightAnchor, bottom: nil, right: nil, paddingTop: 20, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: frame.size.width / 2, height: 0, enableInsets: false)
+        
+        let stackView = UIStackView(arrangedSubviews: [decreaseButton, portionsLabel, increaseButton])
+        stackView.distribution = .equalSpacing
+        stackView.axis = .horizontal
+        stackView.spacing = 10
+        addSubview(stackView)
+        stackView.anchor(top: topAnchor, left: nil, bottom: bottomAnchor, right: rightAnchor, paddingTop: 15, paddingLeft: 0, paddingBottom: 15, paddingRight: 10, width: 0, height: 30, enableInsets: false)
     }
     
     required init?(coder: NSCoder) {
