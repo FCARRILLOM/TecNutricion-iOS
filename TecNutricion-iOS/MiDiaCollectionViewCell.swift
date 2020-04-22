@@ -1,17 +1,18 @@
 //
-//  MiPlanTableViewCell.swift
+//  CollectionViewCell.swift
 //  TecNutricion-iOS
 //
-//  Created by Memo Saldaña on 20/04/20.
-//  Copyright © 2020 Memo Saldaña. All rights reserved.
+//  Created by user168638 on 4/21/20.
+//  Copyright © 2020 FernandoCarrillo. All rights reserved.
 //
+
 import UIKit
 
-class MiDiaTableViewCell: UITableViewCell {
+class MiDiaCollectionViewCell: UICollectionViewCell {
     class var CELL_HEIGHT: CGFloat {
-        return 80.0
+        return 60.0
     }
-
+    
     var gpoAlim : GpoAlimenticio? {
         didSet {
             if gpoAlim != nil {
@@ -26,7 +27,7 @@ class MiDiaTableViewCell: UITableViewCell {
         let imgView = UIImageView()
         imgView.contentMode = .scaleAspectFit
         imgView.clipsToBounds = true
-        imgView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        imgView.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
         return imgView
     }()
     
@@ -35,7 +36,7 @@ class MiDiaTableViewCell: UITableViewCell {
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textAlignment = .left
-        label.frame = CGRect(x: 110, y: 0, width: 80, height: 100)
+        label.frame = CGRect(x: 65, y: 0, width: 100, height: 60)
         return label
     }()
     
@@ -46,19 +47,19 @@ class MiDiaTableViewCell: UITableViewCell {
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textAlignment = .center
-        label.frame = CGRect(x: 200, y: 0, width: 60, height: 60)
+        label.frame = CGRect(x: SCREEN_WIDTH - 65, y: 0, width: 60, height: 60)
         return label
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
         addSubview(cellIcon)
         addSubview(cellTitleLabel)
         addSubview(cellPortionsLabel)
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
