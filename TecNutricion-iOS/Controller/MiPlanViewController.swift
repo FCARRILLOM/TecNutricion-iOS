@@ -134,8 +134,9 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 GpoAlimenticio(name: "Cereales", icon: "vegetales", portions: 0),
                 GpoAlimenticio(name: "Leguminosas", icon: "vegetales", portions: 0),
                 GpoAlimenticio(name: "Frutas", icon: "vegetales", portions: 0),
-                GpoAlimenticio(name: "Grasas", icon: "vegetales", portions: 0),]
-                GpoAlimenticio(name: "Agua", icon: "vegetales", portions: 0),]
+                GpoAlimenticio(name: "Grasas", icon: "vegetales", portions: 0),
+                GpoAlimenticio(name: "Agua", icon: "vegetales", portions: 0),
+            ]
         }
     }
     

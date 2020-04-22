@@ -43,8 +43,9 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
             GpoAlimenticio(name: "Cereales", icon: "Apple", portions: 0),
             GpoAlimenticio(name: "Leguminosas", icon: "Apple", portions: 0),
             GpoAlimenticio(name: "Frutas", icon: "Apple", portions: 0),
-            GpoAlimenticio(name: "Grasas", icon: "Apple", portions: 0),]
-            GpoAlimenticio(name: "Agua", icon: "Apple", portions: 0),]
+            GpoAlimenticio(name: "Grasas", icon: "Apple", portions: 0),
+            GpoAlimenticio(name: "Agua", icon: "Apple", portions: 0),
+        ]
     }
     
     // MARK: - Table View
@@ -87,7 +88,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
 
     func setupAddFoodButton() {
         let button = UIButton(type: .system)
-        button.frame = CGRect(x: self.view.center.x, y: SCREEN_WIDTH - 20, width: 100, height: 50)
+        button.frame = CGRect(x: self.view.center.x-75, y: SCREEN_HEIGHT - 80, width: 150, height: 50)
 
         button.setTitle("Registrar Comida", for: .normal)
         button.backgroundColor = .lightGray
