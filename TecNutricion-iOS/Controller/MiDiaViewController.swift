@@ -29,7 +29,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         createGroups()
 
         setupCollectionView()
-//        print(listaGpos)
+
         view.backgroundColor = UIColor.white
     }
 
@@ -46,14 +46,15 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     // MARK: - Table View
     func setupCollectionView() {
-        let layout: UICollectionViewLayout = UICollectionViewLayout()
+        let layout: UICollectionViewLayout = MiDiaCollectionViewFlowLayout()
 
         collectionView = UICollectionView(frame: CGRect(x: 10,
-        y: NAVBAR_HEIGHT+10,
-        width: SCREEN_WIDTH-20,
-        height: SCREEN_HEIGHT - 100), collectionViewLayout: layout)
+                                                        y: NAVBAR_HEIGHT+10,
+                                                        width: SCREEN_WIDTH - 20,
+                                                        height: SCREEN_HEIGHT - 100),
+                                                        collectionViewLayout: layout)
         
-//        collectionView.backgroundColor = UIColor.white
+        collectionView.backgroundColor = UIColor.white
         collectionView.dataSource = self
         collectionView.delegate = self
         
@@ -62,21 +63,20 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
-    }
-    
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItems section: Int) -> Int {
-        print(listaGpos.count)
         return listaGpos.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "miDiaCell", for: indexPath) as! MiDiaCollectionViewCell
-            myCell.gpoAlim = listaGpos[indexPath.row]
-            print("!")
-            return myCell
+        
+        let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "miDiaCell", for: indexPath) as! MiDiaCollectionViewCell
+        
+        myCell.gpoAlim = listaGpos[indexPath.row]
+        myCell.layer.borderWidth = 1
+        myCell.layer.borderColor = UIColor.lightGray.cgColor
+        
+        return myCell
     }
+    
     // Enseña o esconde el menu
     @objc func toggleMenu() {
         delegate?.handleMenuToggle()
