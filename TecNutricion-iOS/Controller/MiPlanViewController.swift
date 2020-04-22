@@ -40,6 +40,21 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @objc func savePlanButton() {
+        var zeroes = true
+        
+        for g in listaGpos {
+            if g.portions > 0 {
+                zeroes = false
+            }
+        }
+        
+        if zeroes {
+            let alert = UIAlertController(title: "Error", message: "Debe haber al menos un grupo alimenticio con porciones", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
         savePlan()
     }
     

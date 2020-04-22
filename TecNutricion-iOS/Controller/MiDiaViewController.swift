@@ -26,16 +26,24 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
         navigationItem.leftBarButtonItem = menuButtonItem
         
+        view.backgroundColor = UIColor.white
         createGroups()
-
         setupCollectionView()
         
         setupAddFoodButton()
 
-        view.backgroundColor = UIColor.white
     }
 
-     func createGroups(){
+    func createGroups(){
+
+        let planLista = loadPlan()
+
+        if !checkValidPlan(plan: planLista) {
+            let alert = UIAlertController(title: "Alerta", message: "Aun no hay un plan registrado", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ir a Mi Plan", style: .cancel, handler: sendToPlan))
+            present(alert, animated: true, completion: nil)
+        }
+        
         listaGpos = [
             GpoAlimenticio(name: "Vegetales", icon: "Apple", portions: 0),
             GpoAlimenticio(name: "Carnes", icon: "Apple", portions: 0),
@@ -46,6 +54,10 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
             GpoAlimenticio(name: "Grasas", icon: "Apple", portions: 0),
             GpoAlimenticio(name: "Agua", icon: "Apple", portions: 0),
         ]
+    }
+
+    func sendToPlan(_ :UIAlertAction) {
+        delegate?.handleSectionTap(forSection: MenuSection.MiPlan)
     }
     
     // MARK: - Table View
@@ -85,6 +97,39 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     @objc func toggleMenu() {
         delegate?.handleMenuToggle()
     }
+
+    // MARK: Save/Load Data
+    
+    func dataFileURL() -> URL {
+        let url = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+        let pathFile = url.appendingPathComponent("Plan.json")
+        return pathFile
+    }
+
+    func loadPlan() -> [GpoAlimenticio] {
+        do {
+            let data = try Data.init(contentsOf: dataFileURL())
+            let newListaGpos = try JSONDecoder().decode([GpoAlimenticio].self, from: data)
+            return newListaGpos
+        }
+        catch {
+            print("Error loading mi plan data")
+            return []
+        }
+    }
+
+    func checkValidPlan(plan: [GpoAlimenticio]) -> Bool {
+        if plan.count == 0  {
+            return false
+        }
+
+        for g in plan {
+            if g.portions > 0 {
+                return true
+            }
+        }
+
+        return false
 
     func setupAddFoodButton() {
         let button = UIButton(type: .system)
