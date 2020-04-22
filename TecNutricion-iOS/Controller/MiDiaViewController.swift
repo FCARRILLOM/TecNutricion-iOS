@@ -29,6 +29,8 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         createGroups()
 
         setupCollectionView()
+        
+        setupAddFoodButton()
 
         view.backgroundColor = UIColor.white
     }
@@ -42,6 +44,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
             GpoAlimenticio(name: "Leguminosas", icon: "Apple", portions: 0),
             GpoAlimenticio(name: "Frutas", icon: "Apple", portions: 0),
             GpoAlimenticio(name: "Grasas", icon: "Apple", portions: 0),]
+            GpoAlimenticio(name: "Agua", icon: "Apple", portions: 0),]
     }
     
     // MARK: - Table View
@@ -80,5 +83,22 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     // Enseña o esconde el menu
     @objc func toggleMenu() {
         delegate?.handleMenuToggle()
+    }
+
+    func setupAddFoodButton() {
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: self.view.center.x, y: SCREEN_WIDTH - 20, width: 100, height: 50)
+
+        button.setTitle("Registrar Comida", for: .normal)
+        button.backgroundColor = .lightGray
+
+        button.addTarget(self, action: #selector(showAddFood(_:)), for: .touchUpInside)
+
+        view.addSubview(button)
+    }
+
+    @objc func showAddFood(_ sender:UIButton!) {
+        let RegistraComidaVC = RegistraComidaViewController()
+        present(RegistraComidaVC, animated: true, completion: nil)
     }
 }
