@@ -34,12 +34,12 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
 
     func createGroups(){
 
-        planLista = loadPlan() 
+        let planLista = loadPlan()
 
-        if !checkValidPlan(planLista) {
-            let alert = UIAlertController(title: "Error", message: "Aun no hay un plan registrado", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ir a Mi Plan", style: .cancel, handler: nil))
-            present(alert, animated: true, completion: sendToPlan)
+        if !checkValidPlan(plan: planLista) {
+            let alert = UIAlertController(title: "Alerta", message: "Aun no hay un plan registrado", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ir a Mi Plan", style: .cancel, handler: sendToPlan))
+            present(alert, animated: true, completion: nil)
         }
         
         listaGpos = [
@@ -52,8 +52,8 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
             GpoAlimenticio(name: "Grasas", icon: "Apple", portions: 0),]
     }
 
-    func sendToPlan() {
-        delegate?.handleSectionTap(section: MenuSection.MiPlan)
+    func sendToPlan(_ :UIAlertAction) {
+        delegate?.handleSectionTap(forSection: MenuSection.MiPlan)
     }
     
     // MARK: - Table View
@@ -95,6 +95,12 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
 
     // MARK: Save/Load Data
+    
+    func dataFileURL() -> URL {
+        let url = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+        let pathFile = url.appendingPathComponent("Plan.json")
+        return pathFile
+    }
 
     func loadPlan() -> [GpoAlimenticio] {
         do {
@@ -114,7 +120,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         }
 
         for g in plan {
-            if g.protions > 0 {
+            if g.portions > 0 {
                 return true
             }
         }
