@@ -20,6 +20,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NAVBAR_HEIGHT = self.navigationController?.navigationBar.bounds.height
         
         title = "Mi Día"
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
@@ -46,15 +47,16 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     // MARK: - Table View
     func setupCollectionView() {
         let layout: UICollectionViewLayout = UICollectionViewLayout()
-        
-        //layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        //layout.itemSize = CGSize(width:60, height: 60)
 
-        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: CGRect(x: 10,
+        y: NAVBAR_HEIGHT+10,
+        width: SCREEN_WIDTH-20,
+        height: SCREEN_HEIGHT - 100), collectionViewLayout: layout)
         
+//        collectionView.backgroundColor = UIColor.white
         collectionView.dataSource = self
         collectionView.delegate = self
-
+        
         collectionView.register(MiDiaCollectionViewCell.self, forCellWithReuseIdentifier: "miDiaCell")
         view.addSubview(collectionView)
     }
@@ -64,8 +66,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
     
 
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItems section: Int) -> Int {
         print(listaGpos.count)
         return listaGpos.count
     }

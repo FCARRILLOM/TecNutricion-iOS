@@ -15,6 +15,7 @@ class MiDiaCollectionViewCell: UICollectionViewCell {
     var gpoAlim : GpoAlimenticio? {
         didSet {
             if gpoAlim != nil {
+                print(gpoAlim!.name)
                 cellTitleLabel.text = gpoAlim!.name
                 cellPortionsLabel.text = String(gpoAlim!.portions)
                 cellIcon.image = gpoAlim!.icon
@@ -33,9 +34,10 @@ class MiDiaCollectionViewCell: UICollectionViewCell {
     let cellTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 12)
         label.textAlignment = .left
-        label.frame = CGRect(x: 60, y: 0, width: 80, height: 100)
+        label.backgroundColor = UIColor.white
+        label.frame = CGRect(x: 0, y: 0, width: 40, height: 50)
         return label
     }()
     
@@ -52,9 +54,10 @@ class MiDiaCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(cellIcon)
+        self.backgroundColor = UIColor.red
+//        addSubview(cellIcon)
         addSubview(cellTitleLabel)
-        addSubview(cellPortionsLabel)
+//        addSubview(cellPortionsLabel)
     }
     
     required init?(coder: NSCoder) {
