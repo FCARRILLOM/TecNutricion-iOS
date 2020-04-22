@@ -7,7 +7,7 @@
 //
 import UIKit
 
-class MiPlanTableViewCell: UITableViewCell {
+class MiDiaTableViewCell: UITableViewCell {
     class var CELL_HEIGHT: CGFloat {
         return 80.0
     }
