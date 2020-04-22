@@ -85,7 +85,7 @@ class ContainerViewController: UIViewController, MenuDelegate {
                     
                 case .MiPlan:
                     let miPlanController = MiPlanViewController()
-                    miPlanController.delegate = self
+                    miPlanController.menuDelegate = self
                     
                     navController.setViewControllers([miPlanController], animated: true)
                     break;

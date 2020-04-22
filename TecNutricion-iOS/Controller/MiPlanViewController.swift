@@ -8,12 +8,13 @@
 
 import UIKit
 
-class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MiPlanCellDelegate {
+    
     let SCREEN_WIDTH: CGFloat = UIScreen.main.bounds.width
     let SCREEN_HEIGHT: CGFloat = UIScreen.main.bounds.height
     var NAVBAR_HEIGHT: CGFloat!
     
-    var delegate: MenuDelegate!
+    var menuDelegate: MenuDelegate!
     
     var tableView: UITableView!
     
@@ -35,18 +36,8 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
         view.backgroundColor = UIColor.white
     }
     
-    func createGroups(){
-        listaGpos = [
-            GpoAlimenticio(name: "Vegetales", icon: UIImage(named: "vegetales")!, portions: 0),
-            GpoAlimenticio(name: "Carnes", icon: UIImage(named: "vegetales")!, portions: 0),
-            GpoAlimenticio(name: "Azucares", icon: UIImage(named: "vegetales")!, portions: 0),
-            GpoAlimenticio(name: "Cereales", icon: UIImage(named: "vegetales")!, portions: 0),
-            GpoAlimenticio(name: "Leguminosas", icon: UIImage(named: "vegetales")!, portions: 0),
-            GpoAlimenticio(name: "Frutas", icon: UIImage(named: "vegetales")!, portions: 0),
-            GpoAlimenticio(name: "Grasas", icon: UIImage(named: "vegetales")!, portions: 0),]
-    }
-    
     // MARK: - Table View
+    
     func setupTableView() {
         tableView = UITableView()
         tableView.delegate = self
@@ -70,6 +61,7 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "celda", for: indexPath) as! MiPlanTableViewCell
+        cell.delegate = self
         
         cell.gpoAlim = listaGpos[indexPath.row]
 
@@ -80,10 +72,58 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return MiPlanTableViewCell.CELL_HEIGHT
     }
     
-    // MARK: - Menu
+    // MARK: MiPlanCell Delegate
+    
+    func increasePortion(cell: MiPlanTableViewCell) {
+        if let gpoAlim = cell.gpoAlim {
+            let index = findGpoAlimIndex(grupo: gpoAlim)
+            if index != -1 {
+                listaGpos[index].portions += 1
+                tableView.reloadData()
+            }
+        } else {
+            print("Error al encontrar grupo")
+        }
+    }
+    
+    func decreasePortion(cell: MiPlanTableViewCell) {
+        if let gpoAlim = cell.gpoAlim {
+            let index = findGpoAlimIndex(grupo: gpoAlim)
+            if index != -1 && gpoAlim.portions > 0 {
+                listaGpos[index].portions -= 1
+                tableView.reloadData()
+            }
+        } else {
+            print("Error al encontrar grupo")
+        }
+    }
+    
+    func findGpoAlimIndex(grupo: GpoAlimenticio) -> Int {
+        for i in 0...(listaGpos.count - 1) {
+            if listaGpos[i] == grupo {
+                return i
+            }
+        }
+        
+        return -1
+    }
+    
+    // MARK: - Menu delegate
+    
     // Enseña o esconde el menu
     @objc func toggleMenu() {
-        delegate?.handleMenuToggle()
+        menuDelegate?.handleMenuToggle()
     }
-
+    
+    
+    func createGroups(){
+        listaGpos = [
+            GpoAlimenticio(name: "Vegetales", icon: UIImage(named: "vegetales")!, portions: 0),
+            GpoAlimenticio(name: "Carnes", icon: UIImage(named: "vegetales")!, portions: 0),
+            GpoAlimenticio(name: "Azucares", icon: UIImage(named: "vegetales")!, portions: 0),
+            GpoAlimenticio(name: "Cereales", icon: UIImage(named: "vegetales")!, portions: 0),
+            GpoAlimenticio(name: "Leguminosas", icon: UIImage(named: "vegetales")!, portions: 0),
+            GpoAlimenticio(name: "Frutas", icon: UIImage(named: "vegetales")!, portions: 0),
+            GpoAlimenticio(name: "Grasas", icon: UIImage(named: "vegetales")!, portions: 0),]
+    }
 }

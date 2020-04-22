@@ -9,6 +9,9 @@
 import UIKit
 
 class MiPlanTableViewCell: UITableViewCell {
+    
+    var delegate: MiPlanCellDelegate?
+    
     class var CELL_HEIGHT: CGFloat {
         return 60.0
     }
@@ -55,12 +58,20 @@ class MiPlanTableViewCell: UITableViewCell {
         return button
     }()
     
+    @objc func increasePortion() {
+           delegate?.increasePortion(cell: self)
+       }
+    
     let decreaseButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "minusBtn"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         return button
     }()
+    
+    @objc func decreasePortion() {
+        delegate?.decreasePortion(cell: self)
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -79,10 +90,19 @@ class MiPlanTableViewCell: UITableViewCell {
         stackView.spacing = 10
         addSubview(stackView)
         stackView.anchor(top: topAnchor, left: nil, bottom: bottomAnchor, right: rightAnchor, paddingTop: 15, paddingLeft: 0, paddingBottom: 15, paddingRight: 10, width: 0, height: 30, enableInsets: false)
+        
+        decreaseButton.addTarget(self, action: #selector(decreasePortion), for: .touchUpInside)
+        increaseButton.addTarget(self, action: #selector(increasePortion), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+}
+
+
+protocol MiPlanCellDelegate {
+    func increasePortion(cell: MiPlanTableViewCell)
+    func decreasePortion(cell: MiPlanTableViewCell)
 }

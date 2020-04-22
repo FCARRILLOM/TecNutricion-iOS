@@ -8,8 +8,12 @@
 
 import UIKit
 
-struct GpoAlimenticio {
+struct GpoAlimenticio: Equatable {
     var name: String
     var icon: UIImage
     var portions: Int
+    
+    static func == (left: GpoAlimenticio, right: GpoAlimenticio) -> Bool {
+        return left.name == right.name
+    }
 }
