@@ -21,7 +21,8 @@ class RegistraComidaViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Agrega una comida"
+
+        NAVBAR_HEIGHT = 70
 
         view.backgroundColor = UIColor.green
 
@@ -29,12 +30,9 @@ class RegistraComidaViewController: UIViewController {
         
         setupTableView()
         
-        let menuButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(returnToMiDia))
-            navigationItem.leftBarButtonItem = menuButtonItem
+        setupTitle("Agrega una comida")
         
-        let saveButtonItem = UIBarButtonItem(title: "Guardar", style: .plain, target: self, action: #selector(addFood))
-            navigationItem.rightBarButtonItem = saveButtonItem
-
+        setupSaveButton()
 
         view.backgroundColor = UIColor.white
     }
@@ -46,6 +44,26 @@ class RegistraComidaViewController: UIViewController {
     @objc func returnToMiDia() {
         dismiss(animated: true, completion: nil)
     }
+
+    func setupTitle(title: String) {
+        let label = UILabel(x: 10, y: 0, width: 150, height: 50)
+        label.center.x = self.view.center.x
+        label.text = title
+        view.addSubview(label)
+    }
+
+    func setupSaveButton() {
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: self.view.center.x-75, y: SCREEN_HEIGHT - 80, width: 120, height: 50)
+
+        button.setTitle("Guardar", for: .normal)
+        button.backgroundColor = .lightGray
+
+        button.addTarget(self, action: #selector(addFood(_:)), for: .touchUpInside)
+
+        view.addSubview(button)
+    }
+
 
     // MARK: - Table View
     
@@ -146,11 +164,32 @@ class RegistraComidaViewController: UIViewController {
     
     func saveFood() {
         do {
-            let data = try JSONEncoder().encode(listaGpos)
+            let oldData = loadFoodForToday()
+
+            for i in 0...(oldData.count-1) {
+                let newIndex = findGpoAlimIndex(grupo: oldData[i])
+
+                oldData[i].portions += listaGpos[newIndex].portions
+
+            }
+
+            let data = try JSONEncoder().encode(oldData)
             try data.write(to: dataFileURL())
         }
         catch {
             print("Error registering food data")
+        }
+    }
+
+    func loadFoodForToday() -> [GpoAlimenticio] {
+        do {
+            let data = try Data.init(contentsOf: dataFileURL())
+            let newListaGpos = try JSONDecoder().decode([GpoAlimenticio].self, from: data)
+            return newListaGpos
+        }
+        catch {
+            print("Error loading mi plan data")
+            return []
         }
     }
     /*
