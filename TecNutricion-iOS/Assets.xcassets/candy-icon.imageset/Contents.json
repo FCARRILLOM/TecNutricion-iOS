@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Shape 2.png",
+      "filename" : "iconmonstr-christmas-candy-4-icon-256.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Shape 2@2x.png",
+      "filename" : "iconmonstr-christmas-candy-4-icon-256@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Shape 2@3x.png",
+      "filename" : "iconmonstr-christmas-candy-4-icon-256@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

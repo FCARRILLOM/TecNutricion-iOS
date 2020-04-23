@@ -13,7 +13,7 @@ class RegistraComidaViewController: UIViewController, UITableViewDataSource, UIT
     let SCREEN_HEIGHT: CGFloat = UIScreen.main.bounds.height
     var NAVBAR_HEIGHT: CGFloat!
     
-    let MiDiaData: MiDiaDataManager!
+    var MiDiaData: MiDiaDataManager!
     
     var tableView: UITableView!
     
@@ -142,14 +142,15 @@ class RegistraComidaViewController: UIViewController, UITableViewDataSource, UIT
     func createGroups(){
         
         listaGpos = [
-            GpoAlimenticio(name: "Vegetales", icon: "vegetales", portions: 0),
-            GpoAlimenticio(name: "Carnes", icon: "vegetales", portions: 0),
-            GpoAlimenticio(name: "Azucares", icon: "vegetales", portions: 0),
-            GpoAlimenticio(name: "Cereales", icon: "vegetales", portions: 0),
-            GpoAlimenticio(name: "Leguminosas", icon: "vegetales", portions: 0),
-            GpoAlimenticio(name: "Frutas", icon: "vegetales", portions: 0),
-            GpoAlimenticio(name: "Grasas", icon: "vegetales", portions: 0),
-            GpoAlimenticio(name: "Agua", icon: "vegetales", portions: 0),
+            GpoAlimenticio(name: "Vegetales", icon: "carrot-icon", portions: 0),
+            GpoAlimenticio(name: "Carnes", icon: "meat-icon", portions: 0),
+            GpoAlimenticio(name: "Azucares", icon: "candy-icon", portions: 0),
+            GpoAlimenticio(name: "Cereales", icon: "wheat-icon", portions: 0),
+            GpoAlimenticio(name: "Leguminosas", icon: "pea-icon", portions: 0),
+            GpoAlimenticio(name: "Frutas", icon: "apple", portions: 0),
+            GpoAlimenticio(name: "Grasas", icon: "avocado-icon", portions: 0),
+            GpoAlimenticio(name: "Leche", icon: "milk-icon", portions: 0),
+            GpoAlimenticio(name: "Agua", icon: "milk-icon", portions: 0),
         ]
         
     }

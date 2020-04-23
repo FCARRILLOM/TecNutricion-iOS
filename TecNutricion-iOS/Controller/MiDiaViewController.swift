@@ -45,14 +45,15 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         if listaGpos.count == 0 {
             listaGpos = [
-                GpoAlimenticio(name: "Vegetales", icon: "Apple", portions: 0),
-                GpoAlimenticio(name: "Carnes", icon: "Apple", portions: 0),
-                GpoAlimenticio(name: "Azucares", icon: "Apple", portions: 0),
-                GpoAlimenticio(name: "Cereales", icon: "Apple", portions: 0),
-                GpoAlimenticio(name: "Leguminosas", icon: "Apple", portions: 0),
-                GpoAlimenticio(name: "Frutas", icon: "Apple", portions: 0),
-                GpoAlimenticio(name: "Grasas", icon: "Apple", portions: 0),
-                GpoAlimenticio(name: "Agua", icon: "Apple", portions: 0),
+                GpoAlimenticio(name: "Vegetales", icon: "carrot-icon", portions: 0),
+                GpoAlimenticio(name: "Carnes", icon: "meat-icon", portions: 0),
+                GpoAlimenticio(name: "Azucares", icon: "candy-icon", portions: 0),
+                GpoAlimenticio(name: "Cereales", icon: "wheat-icon", portions: 0),
+                GpoAlimenticio(name: "Leguminosas", icon: "pea-icon", portions: 0),
+                GpoAlimenticio(name: "Frutas", icon: "apple", portions: 0),
+                GpoAlimenticio(name: "Grasas", icon: "avocado-icon", portions: 0),
+                GpoAlimenticio(name: "Leche", icon: "milk-icon", portions: 0),
+                GpoAlimenticio(name: "Agua", icon: "milk-icon", portions: 0),
             ]
         }
     }
@@ -109,7 +110,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
 
     @objc func showAddFood(_ sender:UIButton!) {
         let RegistraComidaVC = RegistraComidaViewController()
-        RegistraComidaVC.
+        RegistraComidaVC.MiDiaData = self
         present(RegistraComidaVC, animated: true, completion: nil)
     }
 
