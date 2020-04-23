@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RegistraComidaViewController: UIViewController {
+class RegistraComidaViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MiPlanCellDelegate {
     let SCREEN_WIDTH: CGFloat = UIScreen.main.bounds.width
     let SCREEN_HEIGHT: CGFloat = UIScreen.main.bounds.height
     var NAVBAR_HEIGHT: CGFloat!
@@ -30,15 +30,16 @@ class RegistraComidaViewController: UIViewController {
         
         setupTableView()
         
-        setupTitle("Agrega una comida")
+        setupTitle(title: "Agrega una comida")
         
         setupSaveButton()
 
         view.backgroundColor = UIColor.white
     }
     
-    @objc func addFood() {
+    @objc func addFood(_ sender:UIButton!) {
         saveFood()
+        returnToMiDia()
     }
 
     @objc func returnToMiDia() {
@@ -46,7 +47,8 @@ class RegistraComidaViewController: UIViewController {
     }
 
     func setupTitle(title: String) {
-        let label = UILabel(x: 10, y: 0, width: 150, height: 50)
+        let label = UILabel()
+        label.frame = CGRect(x: 10, y: 0, width: 150, height: 50)
         label.center.x = self.view.center.x
         label.text = title
         view.addSubview(label)
@@ -54,7 +56,7 @@ class RegistraComidaViewController: UIViewController {
 
     func setupSaveButton() {
         let button = UIButton(type: .system)
-        button.frame = CGRect(x: self.view.center.x-75, y: SCREEN_HEIGHT - 80, width: 120, height: 50)
+        button.frame = CGRect(x: self.view.center.x-75, y: SCREEN_HEIGHT - 150, width: 120, height: 50)
 
         button.setTitle("Guardar", for: .normal)
         button.backgroundColor = .lightGray
@@ -138,20 +140,18 @@ class RegistraComidaViewController: UIViewController {
     }
 
     func createGroups(){
-        listaGpos = loadPlan()
         
-        if listaGpos.count == 0 {
-            listaGpos = [
-                GpoAlimenticio(name: "Vegetales", icon: "vegetales", portions: 0),
-                GpoAlimenticio(name: "Carnes", icon: "vegetales", portions: 0),
-                GpoAlimenticio(name: "Azucares", icon: "vegetales", portions: 0),
-                GpoAlimenticio(name: "Cereales", icon: "vegetales", portions: 0),
-                GpoAlimenticio(name: "Leguminosas", icon: "vegetales", portions: 0),
-                GpoAlimenticio(name: "Frutas", icon: "vegetales", portions: 0),
-                GpoAlimenticio(name: "Grasas", icon: "vegetales", portions: 0),
-                GpoAlimenticio(name: "Agua", icon: "vegetales", portions: 0),
-            ]
-        }
+        listaGpos = [
+            GpoAlimenticio(name: "Vegetales", icon: "vegetales", portions: 0),
+            GpoAlimenticio(name: "Carnes", icon: "vegetales", portions: 0),
+            GpoAlimenticio(name: "Azucares", icon: "vegetales", portions: 0),
+            GpoAlimenticio(name: "Cereales", icon: "vegetales", portions: 0),
+            GpoAlimenticio(name: "Leguminosas", icon: "vegetales", portions: 0),
+            GpoAlimenticio(name: "Frutas", icon: "vegetales", portions: 0),
+            GpoAlimenticio(name: "Grasas", icon: "vegetales", portions: 0),
+            GpoAlimenticio(name: "Agua", icon: "vegetales", portions: 0),
+        ]
+        
     }
 
     // MARK: Save Data
@@ -164,13 +164,18 @@ class RegistraComidaViewController: UIViewController {
     
     func saveFood() {
         do {
-            let oldData = loadFoodForToday()
+            var oldData = loadFoodForToday()
+            if oldData.count != 0 {
+                for i in 0...(oldData.count - 1) {
+                    let newIndex = findGpoAlimIndex(grupo: oldData[i])
 
-            for i in 0...(oldData.count-1) {
-                let newIndex = findGpoAlimIndex(grupo: oldData[i])
+                    oldData[i].portions += listaGpos[newIndex].portions
 
-                oldData[i].portions += listaGpos[newIndex].portions
+                }
 
+            }
+            else {
+                oldData = listaGpos
             }
 
             let data = try JSONEncoder().encode(oldData)
