@@ -35,17 +35,22 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         view.backgroundColor = UIColor.white
     }
 
-     func createGroups(){
-        listaGpos = [
-            GpoAlimenticio(name: "Vegetales", icon: "Apple", portions: 0),
-            GpoAlimenticio(name: "Carnes", icon: "Apple", portions: 0),
-            GpoAlimenticio(name: "Azucares", icon: "Apple", portions: 0),
-            GpoAlimenticio(name: "Cereales", icon: "Apple", portions: 0),
-            GpoAlimenticio(name: "Leguminosas", icon: "Apple", portions: 0),
-            GpoAlimenticio(name: "Frutas", icon: "Apple", portions: 0),
-            GpoAlimenticio(name: "Grasas", icon: "Apple", portions: 0),
-            GpoAlimenticio(name: "Agua", icon: "Apple", portions: 0),
-        ]
+    func createGroups(){
+
+        listaGpos = loadDia()
+        
+        if listaGpos.count == 0 {
+            listaGpos = [
+                GpoAlimenticio(name: "Vegetales", icon: "Apple", portions: 0),
+                GpoAlimenticio(name: "Carnes", icon: "Apple", portions: 0),
+                GpoAlimenticio(name: "Azucares", icon: "Apple", portions: 0),
+                GpoAlimenticio(name: "Cereales", icon: "Apple", portions: 0),
+                GpoAlimenticio(name: "Leguminosas", icon: "Apple", portions: 0),
+                GpoAlimenticio(name: "Frutas", icon: "Apple", portions: 0),
+                GpoAlimenticio(name: "Grasas", icon: "Apple", portions: 0),
+                GpoAlimenticio(name: "Agua", icon: "Apple", portions: 0),
+            ]
+        }
     }
     
     // MARK: - Table View
@@ -101,5 +106,26 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     @objc func showAddFood(_ sender:UIButton!) {
         let RegistraComidaVC = RegistraComidaViewController()
         present(RegistraComidaVC, animated: true, completion: nil)
+    }
+
+    // MARK: Load Data
+
+    
+    func dataFileURL() -> URL {
+        let url = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+        let pathFile = url.appendingPathComponent("data.json")
+        return pathFile
+    }
+
+    func loadDia() -> [GpoAlimenticio] {
+        do {
+            let data = try Data.init(contentsOf: dataFileURL())
+            let newListaGpos = try JSONDecoder().decode([GpoAlimenticio].self, from: data)
+            return newListaGpos
+        }
+        catch {
+            print("Error loading mi plan data")
+            return []
+        }
     }
 }
