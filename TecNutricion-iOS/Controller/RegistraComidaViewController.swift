@@ -13,7 +13,7 @@ class RegistraComidaViewController: UIViewController, UITableViewDataSource, UIT
     let SCREEN_HEIGHT: CGFloat = UIScreen.main.bounds.height
     var NAVBAR_HEIGHT: CGFloat!
     
-    var menuDelegate: MenuDelegate!
+    let MiDiaData: MiDiaDataManager!
     
     var tableView: UITableView!
     
@@ -180,6 +180,7 @@ class RegistraComidaViewController: UIViewController, UITableViewDataSource, UIT
 
             let data = try JSONEncoder().encode(oldData)
             try data.write(to: dataFileURL())
+            MiDiaData.updateData(newData: oldData)
         }
         catch {
             print("Error registering food data")

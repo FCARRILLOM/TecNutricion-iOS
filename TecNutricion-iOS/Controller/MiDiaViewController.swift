@@ -8,7 +8,11 @@
 
 import UIKit
 
-class MiDiaViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+protocol MiDiaDataManager {
+    func updateData(newData: [GpoAlimenticio]!)
+}
+
+class MiDiaViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, MiDiaDataManager {
     let SCREEN_WIDTH: CGFloat = UIScreen.main.bounds.width
     let SCREEN_HEIGHT: CGFloat = UIScreen.main.bounds.height
     var NAVBAR_HEIGHT: CGFloat!
@@ -105,6 +109,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
 
     @objc func showAddFood(_ sender:UIButton!) {
         let RegistraComidaVC = RegistraComidaViewController()
+        RegistraComidaVC.
         present(RegistraComidaVC, animated: true, completion: nil)
     }
 
@@ -127,5 +132,12 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
             print("Error loading mi plan data")
             return []
         }
+    }
+
+    // MARK: MiDiaDataManager delegate function
+
+    func updateData(newData: [GpoAlimenticio]!) {
+        listaGpos = newData
+        collectionView.reloadData()
     }
 }
