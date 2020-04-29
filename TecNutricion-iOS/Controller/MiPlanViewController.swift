@@ -168,6 +168,10 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
         do {
             let data = try JSONEncoder().encode(listaGpos)
             try data.write(to: dataFileURL())
+            
+            let alert = UIAlertController(title: "Cambios registrados", message: "Los cambios al plan han sido registrados correctamente", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
         }
         catch {
             print("Error saving mi plan data")

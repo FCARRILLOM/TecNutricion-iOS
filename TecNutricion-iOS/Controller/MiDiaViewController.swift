@@ -138,6 +138,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         }
 
         return false
+    }
 
     func setupAddFoodButton() {
         let button = UIButton(type: .system)
