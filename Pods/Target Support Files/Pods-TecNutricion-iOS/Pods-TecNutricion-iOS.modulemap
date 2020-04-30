@@ -1,0 +1,6 @@
+module Pods_TecNutricion_iOS {
+  umbrella header "Pods-TecNutricion-iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}
