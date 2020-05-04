@@ -23,6 +23,7 @@
 		07A845CD2450BFFF0043B3FB /* MiDiaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A845CC2450BFFF0043B3FB /* MiDiaCollectionViewCell.swift */; };
 		07BDAAAC244E6D770089BBC9 /* MiPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */; };
 		07BDAAB0244E73ED0089BBC9 /* GpoAlimenticio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BDAAAF244E73ED0089BBC9 /* GpoAlimenticio.swift */; };
+		687D237A2460AF5C00265E46 /* SemaforoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D23792460AF5C00265E46 /* SemaforoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		07A845CC2450BFFF0043B3FB /* MiDiaCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiDiaCollectionViewCell.swift; sourceTree = "<group>"; };
 		07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiPlanTableViewCell.swift; sourceTree = "<group>"; };
 		07BDAAAF244E73ED0089BBC9 /* GpoAlimenticio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GpoAlimenticio.swift; sourceTree = "<group>"; };
+		687D23792460AF5C00265E46 /* SemaforoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemaforoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				079988AA2446CA55001B4FB2 /* ContainerViewController.swift */,
+				687D23792460AF5C00265E46 /* SemaforoViewController.swift */,
 				0790DB7224468AC500E0EC19 /* MiDiaViewController.swift */,
 				0790DB752446909700E0EC19 /* MiPlanViewController.swift */,
 				0790DB792446BC1600E0EC19 /* MenuTableViewController.swift */,
@@ -208,6 +211,7 @@
 				0753A0B02450C49900DFEBAF /* MiDiaCollectionViewFlowLayout.swift in Sources */,
 				075C0BE2244FD69800CC6F45 /* UIView+AnchorExtension.swift in Sources */,
 				079988AB2446CA55001B4FB2 /* ContainerViewController.swift in Sources */,
+				687D237A2460AF5C00265E46 /* SemaforoViewController.swift in Sources */,
 				0790DB7C2446BF4D00E0EC19 /* MenuSection.swift in Sources */,
 				0790DB7A2446BC1600E0EC19 /* MenuTableViewController.swift in Sources */,
 				07BDAAB0244E73ED0089BBC9 /* GpoAlimenticio.swift in Sources */,
