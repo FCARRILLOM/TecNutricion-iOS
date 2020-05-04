@@ -24,6 +24,7 @@
 		07BDAAAC244E6D770089BBC9 /* MiPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */; };
 		07BDAAB0244E73ED0089BBC9 /* GpoAlimenticio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BDAAAF244E73ED0089BBC9 /* GpoAlimenticio.swift */; };
 		687D237A2460AF5C00265E46 /* SemaforoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D23792460AF5C00265E46 /* SemaforoViewController.swift */; };
+		C6C152FF4D82E85B441B4759 /* libPods-TecNutricion-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 339F55324FB946E001AE0DBA /* libPods-TecNutricion-iOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,9 @@
 		07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiPlanTableViewCell.swift; sourceTree = "<group>"; };
 		07BDAAAF244E73ED0089BBC9 /* GpoAlimenticio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GpoAlimenticio.swift; sourceTree = "<group>"; };
 		687D23792460AF5C00265E46 /* SemaforoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemaforoViewController.swift; sourceTree = "<group>"; };
+		339F55324FB946E001AE0DBA /* libPods-TecNutricion-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TecNutricion-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3627485438354B247ECB7B9 /* Pods-TecNutricion-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TecNutricion-iOS.debug.xcconfig"; path = "Target Support Files/Pods-TecNutricion-iOS/Pods-TecNutricion-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		FEF97CFB66B3DFF3FBB2387B /* Pods-TecNutricion-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TecNutricion-iOS.release.xcconfig"; path = "Target Support Files/Pods-TecNutricion-iOS/Pods-TecNutricion-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6C152FF4D82E85B441B4759 /* libPods-TecNutricion-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +77,8 @@
 			children = (
 				07848239243E4CBC006511C5 /* TecNutricion-iOS */,
 				07848238243E4CBC006511C5 /* Products */,
+				86D72207E9E6EB69B26F368B /* Pods */,
+				60FA5E91A6A33643FE8A52B1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,6 +139,24 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		60FA5E91A6A33643FE8A52B1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				339F55324FB946E001AE0DBA /* libPods-TecNutricion-iOS.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		86D72207E9E6EB69B26F368B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D3627485438354B247ECB7B9 /* Pods-TecNutricion-iOS.debug.xcconfig */,
+				FEF97CFB66B3DFF3FBB2387B /* Pods-TecNutricion-iOS.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -139,6 +164,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0784824B243E4CBE006511C5 /* Build configuration list for PBXNativeTarget "TecNutricion-iOS" */;
 			buildPhases = (
+				8C74C04670B41EFCACE6074A /* [CP] Check Pods Manifest.lock */,
 				07848233243E4CBC006511C5 /* Sources */,
 				07848234243E4CBC006511C5 /* Frameworks */,
 				07848235243E4CBC006511C5 /* Resources */,
@@ -197,6 +223,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8C74C04670B41EFCACE6074A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TecNutricion-iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		07848233243E4CBC006511C5 /* Sources */ = {
@@ -358,6 +409,7 @@
 		};
 		0784824C243E4CBE006511C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3627485438354B247ECB7B9 /* Pods-TecNutricion-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -376,6 +428,7 @@
 		};
 		0784824D243E4CBE006511C5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FEF97CFB66B3DFF3FBB2387B /* Pods-TecNutricion-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

@@ -33,6 +33,7 @@ class SemaforoViewController: UIViewController {
     
     func setupImageView() {
         let imgView = UIImageView(frame: CGRect(x: 0, y: NAVBAR_HEIGHT + 20, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-NAVBAR_HEIGHT))
+        imgView.contentMode = .scaleAspectFit
         imgView.image = UIImage(named: "semaforo")
         view.addSubview(imgView)
     }
