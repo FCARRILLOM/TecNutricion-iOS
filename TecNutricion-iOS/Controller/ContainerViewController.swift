@@ -94,6 +94,11 @@ class ContainerViewController: UIViewController, MenuDelegate {
                     break;
                     
                 case .Semaforo:
+                    let SemaforoController = SemaforoViewController()
+                    
+                    SemaforoController.menuDelegate = self
+                    
+                    navController.setViewControllers([SemaforoController], animated: true)
                     break;
                     
                 case .Historial:
