@@ -124,9 +124,9 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         present(RegistraComidaVC, animated: true, completion: nil)
     }
     
-    func findGpoAlimIndex(grupo: GpoAlimenticio) -> Int {
-        for i in 0...(listaGpos.count - 1) {
-            if listaGpos[i] == grupo {
+    func findGpoAlimIndex(grupo: GpoAlimenticio, lista: [GpoAlimenticio]) -> Int {
+        for i in 0...(lista.count - 1) {
+            if lista[i] == grupo {
                 return i
             }
         }
@@ -145,30 +145,53 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     func saveFood(newData: [GpoAlimenticio]!, date: Date) {
         do {
-            let oldData = listaGpos!
-            if oldData.count != 0 {
-                for i in 0...(oldData.count - 1) {
-                    let newIndex = findGpoAlimIndex(grupo: oldData[i])
-
-                    oldData[i].portions += newData[newIndex].portions
-
+            if FileManager.default.fileExists(atPath: dataFileURL().path) {
+                let saved = try Data.init(contentsOf: dataFileURL())
+                var registros = try JSONDecoder().decode([RegistroDia].self, from: saved)
+                
+                print("Decoded")
+                
+                var foundOld = false
+                var updatedList = newData
+                
+                for reg in registros {
+                    if datesEqual(d1: reg.dia, d2: date) {
+                        for gr in newData {
+                            let newIndex = findGpoAlimIndex(grupo: gr, lista: reg.grupos)
+                            reg.grupos[newIndex].portions += gr.portions
+                        }
+                        updatedList = reg.grupos
+                        foundOld = true
+                    }
+                }
+                
+                if !foundOld {
+                    registros.append(RegistroDia(grupos: updatedList!, dia: date))
                 }
 
-            }
-            
-            let saved = try Data.init(contentsOf: dataFileURL())
-            let registros = try JSONDecoder().decode([RegistroDia].self, from: saved)
-            
-            print("Decoded")
-            
-            for reg in registros {
-                if datesEqual(d1: reg.dia, d2: date) {
-                    reg.grupos = oldData
+                let data = try JSONEncoder().encode(registros)
+                try data.write(to: dataFileURL())
+                
+                let today = Date()
+                
+                if datesEqual(d1: today, d2: date) {
+                    listaGpos = updatedList
+                }
+            } else {
+                let nuevaLista: [RegistroDia] = [RegistroDia(grupos: newData, dia: date)]
+                
+                print("Creating new")
+                
+                let data = try JSONEncoder().encode(nuevaLista)
+                try data.write(to: dataFileURL())
+                
+                let today = Date()
+                
+                if datesEqual(d1: today, d2: date) {
+                    listaGpos = newData
                 }
             }
-
-            let data = try JSONEncoder().encode(registros)
-            try data.write(to: dataFileURL())
+            
         }
         catch {
             print("Error registering food data")
