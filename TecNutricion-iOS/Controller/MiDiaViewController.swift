@@ -9,7 +9,7 @@
 import UIKit
 
 protocol MiDiaDataManager {
-    func updateData(newData: [GpoAlimenticio]!)
+    func updateData(newData: [GpoAlimenticio]!, date: Date)
 }
 
 class MiDiaViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, MiDiaDataManager {
@@ -47,7 +47,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
             present(alert, animated: true, completion: nil)
         }
       
-        listaGpos = loadDia()
+        listaGpos = loadFoodForToday()
         
         if listaGpos.count == 0 {
             listaGpos = [
@@ -106,7 +106,133 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         delegate?.handleMenuToggle()
     }
 
-    // MARK: Save/Load Data
+    func setupAddFoodButton() {
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: self.view.center.x-75, y: SCREEN_HEIGHT - 80, width: 150, height: 50)
+
+        button.setTitle("Registrar Comida", for: .normal)
+        button.backgroundColor = .lightGray
+
+        button.addTarget(self, action: #selector(showAddFood(_:)), for: .touchUpInside)
+
+        view.addSubview(button)
+    }
+
+    @objc func showAddFood(_ sender:UIButton!) {
+        let RegistraComidaVC = RegistraComidaViewController()
+        RegistraComidaVC.MiDiaData = self
+        present(RegistraComidaVC, animated: true, completion: nil)
+    }
+    
+    func findGpoAlimIndex(grupo: GpoAlimenticio, lista: [GpoAlimenticio]) -> Int {
+        for i in 0...(lista.count - 1) {
+            if lista[i] == grupo {
+                return i
+            }
+        }
+        
+        return -1
+    }
+
+    // MARK: Load Data
+
+    
+    func dataFileURL() -> URL {
+        let url = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+        let pathFile = url.appendingPathComponent("registros.json")
+        return pathFile
+    }
+    
+    func saveFood(newData: [GpoAlimenticio]!, date: Date) {
+        do {
+            if FileManager.default.fileExists(atPath: dataFileURL().path) {
+                let saved = try Data.init(contentsOf: dataFileURL())
+                var registros = try JSONDecoder().decode([RegistroDia].self, from: saved)
+                
+                print("Decoded")
+                
+                var foundOld = false
+                var updatedList = newData
+                
+                for reg in registros {
+                    if datesEqual(d1: reg.dia, d2: date) {
+                        for gr in newData {
+                            let newIndex = findGpoAlimIndex(grupo: gr, lista: reg.grupos)
+                            reg.grupos[newIndex].portions += gr.portions
+                        }
+                        updatedList = reg.grupos
+                        foundOld = true
+                    }
+                }
+                
+                if !foundOld {
+                    registros.append(RegistroDia(grupos: updatedList!, dia: date))
+                }
+
+                let data = try JSONEncoder().encode(registros)
+                try data.write(to: dataFileURL())
+                
+                let today = Date()
+                
+                if datesEqual(d1: today, d2: date) {
+                    listaGpos = updatedList
+                }
+            } else {
+                let nuevaLista: [RegistroDia] = [RegistroDia(grupos: newData, dia: date)]
+                
+                print("Creating new")
+                
+                let data = try JSONEncoder().encode(nuevaLista)
+                try data.write(to: dataFileURL())
+                
+                let today = Date()
+                
+                if datesEqual(d1: today, d2: date) {
+                    listaGpos = newData
+                }
+            }
+            
+        }
+        catch {
+            print("Error registering food data")
+        }
+    }
+    
+    func loadFoodForToday() -> [GpoAlimenticio] {
+        do {
+            let data = try Data.init(contentsOf: dataFileURL())
+            let registros = try JSONDecoder().decode([RegistroDia].self, from: data)
+            
+            let today = Date()
+            
+            for reg in registros {
+                if datesEqual(d1: today, d2: reg.dia) {
+                    return reg.grupos
+                }
+            }
+            
+            return []
+        }
+        catch {
+            print("Error loading mi plan data")
+            return []
+        }
+    }
+    
+    func datesEqual(d1: Date, d2: Date) -> Bool {
+        let calendar = Calendar.current
+        return calendar.component(.year, from: d1) == calendar.component(.year, from: d2) && calendar.component(.month, from: d1) == calendar.component(.month, from: d2) && calendar.component(.day, from: d1) == calendar.component(.day, from: d2)
+        
+    }
+
+    // MARK: MiDiaDataManager delegate function
+
+    func updateData(newData: [GpoAlimenticio]!, date: Date) {
+        saveFood(newData: newData, date: date)
+        collectionView.reloadData()
+    }
+    
+    // MARK: Plan verification
     
     func PlanFileURL() -> URL {
         let url = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -138,51 +264,5 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         }
 
         return false
-    }
-
-    func setupAddFoodButton() {
-        let button = UIButton(type: .system)
-        button.frame = CGRect(x: self.view.center.x-75, y: SCREEN_HEIGHT - 80, width: 150, height: 50)
-
-        button.setTitle("Registrar Comida", for: .normal)
-        button.backgroundColor = .lightGray
-
-        button.addTarget(self, action: #selector(showAddFood(_:)), for: .touchUpInside)
-
-        view.addSubview(button)
-    }
-
-    @objc func showAddFood(_ sender:UIButton!) {
-        let RegistraComidaVC = RegistraComidaViewController()
-        RegistraComidaVC.MiDiaData = self
-        present(RegistraComidaVC, animated: true, completion: nil)
-    }
-
-    // MARK: Load Data
-
-    
-    func dataFileURL() -> URL {
-        let url = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-        let pathFile = url.appendingPathComponent("data.json")
-        return pathFile
-    }
-
-    func loadDia() -> [GpoAlimenticio] {
-        do {
-            let data = try Data.init(contentsOf: dataFileURL())
-            let newListaGpos = try JSONDecoder().decode([GpoAlimenticio].self, from: data)
-            return newListaGpos
-        }
-        catch {
-            print("Error loading mi plan data")
-            return []
-        }
-    }
-
-    // MARK: MiDiaDataManager delegate function
-
-    func updateData(newData: [GpoAlimenticio]!) {
-        listaGpos = newData
-        collectionView.reloadData()
     }
 }

@@ -18,6 +18,8 @@ class RegistraComidaViewController: UIViewController, UITableViewDataSource, UIT
     var tableView: UITableView!
     
     var listaGpos: [GpoAlimenticio]!
+    
+    var datePicker: UIDatePicker!
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,12 +35,14 @@ class RegistraComidaViewController: UIViewController, UITableViewDataSource, UIT
         setupTitle(title: "Agrega una comida")
         
         setupSaveButton()
+        
+        setupDatePicker()
 
         view.backgroundColor = UIColor.white
     }
     
     @objc func addFood(_ sender:UIButton!) {
-        saveFood()
+        MiDiaData.updateData(newData: listaGpos, date: datePicker.date)
         returnToMiDia()
     }
 
@@ -56,7 +60,7 @@ class RegistraComidaViewController: UIViewController, UITableViewDataSource, UIT
 
     func setupSaveButton() {
         let button = UIButton(type: .system)
-        button.frame = CGRect(x: self.view.center.x-75, y: SCREEN_HEIGHT - 150, width: 120, height: 50)
+        button.frame = CGRect(x: self.view.center.x-65, y: SCREEN_HEIGHT - 110, width: 120, height: 50)
 
         button.setTitle("Guardar", for: .normal)
         button.backgroundColor = .lightGray
@@ -65,7 +69,15 @@ class RegistraComidaViewController: UIViewController, UITableViewDataSource, UIT
 
         view.addSubview(button)
     }
-
+    
+    func setupDatePicker() {
+        datePicker = UIDatePicker()
+        
+        datePicker.frame = CGRect(x: self.view.center.x-120, y: SCREEN_HEIGHT - 180, width: 250, height: 50)
+        datePicker.datePickerMode = .date
+        
+        view.addSubview(datePicker)
+    }
 
     // MARK: - Table View
     
@@ -77,7 +89,7 @@ class RegistraComidaViewController: UIViewController, UITableViewDataSource, UIT
         tableView.frame = CGRect(x: 0,
                                  y: NAVBAR_HEIGHT,
                                  width: SCREEN_WIDTH,
-                                 height: SCREEN_HEIGHT - 60)
+                                 height: SCREEN_HEIGHT - 250)
         
         view.addSubview(tableView)
     }
@@ -162,51 +174,4 @@ class RegistraComidaViewController: UIViewController, UITableViewDataSource, UIT
         let pathFile = url.appendingPathComponent("data.json")
         return pathFile
     }
-    
-    func saveFood() {
-        do {
-            var oldData = loadFoodForToday()
-            if oldData.count != 0 {
-                for i in 0...(oldData.count - 1) {
-                    let newIndex = findGpoAlimIndex(grupo: oldData[i])
-
-                    oldData[i].portions += listaGpos[newIndex].portions
-
-                }
-
-            }
-            else {
-                oldData = listaGpos
-            }
-
-            let data = try JSONEncoder().encode(oldData)
-            try data.write(to: dataFileURL())
-            MiDiaData.updateData(newData: oldData)
-        }
-        catch {
-            print("Error registering food data")
-        }
-    }
-
-    func loadFoodForToday() -> [GpoAlimenticio] {
-        do {
-            let data = try Data.init(contentsOf: dataFileURL())
-            let newListaGpos = try JSONDecoder().decode([GpoAlimenticio].self, from: data)
-            return newListaGpos
-        }
-        catch {
-            print("Error loading mi plan data")
-            return []
-        }
-    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
