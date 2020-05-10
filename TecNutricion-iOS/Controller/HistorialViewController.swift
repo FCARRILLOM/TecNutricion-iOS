@@ -26,6 +26,12 @@ class HistorialViewController: UIViewController {
     var x = [Double]()
     var y = [Double]()
     
+    var initialDatePicker: UIDatePicker!
+    var finalDatePicker: UIDatePicker!
+    
+    var initialLabel: UILabel!
+    var finalLabel: UILabel!
+    
     var menuDelegate: MenuDelegate!
 
     override func viewDidLoad() {
@@ -37,18 +43,20 @@ class HistorialViewController: UIViewController {
         navigationItem.leftBarButtonItem = menuButtonItem
         
         let addButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEntry))
-        
         navigationItem.rightBarButtonItem = addButtonItem
         
         view.backgroundColor = .white
         
         loadData()
-        
         setupLineChart()
+        
+        initDatePickers()
+        initLabels()
+        setFrames()
     }
     
-    // MARK: - Bar buttons
     
+    // MARK: - Bar buttons
     // Enseña o esconde el menu
     @objc func toggleMenu() {
         menuDelegate?.handleMenuToggle()
@@ -58,9 +66,64 @@ class HistorialViewController: UIViewController {
         print("Add entry")
     }
     
+    // MARK: - Date Picker
+    func initDatePickers() {
+        initialDatePicker = UIDatePicker()
+        initialDatePicker.datePickerMode = .date
+        
+        finalDatePicker = UIDatePicker()
+        finalDatePicker.datePickerMode = .date
+    }
+    
+    func initLabels() {
+        initialLabel = UILabel()
+        initialLabel.text = "Fecha inicial"
+        initialLabel.font = UIFont(name: "Arial", size: 18)
+        initialLabel.textAlignment = .left
+        initialLabel.textColor = UIColor.black
+        
+        finalLabel = UILabel()
+        finalLabel.text = "Fecha final"
+        finalLabel.font = UIFont(name: "Arial", size: 18)
+        finalLabel.textAlignment = .left
+        finalLabel.textColor = UIColor.black
+    }
+    
+    func setFrames() {
+        let LABEL_WIDTH: CGFloat = 180
+        let LABEL_HEIGHT: CGFloat = 40
+        
+        let PICKER_HEIGHT: CGFloat = 80
+
+        initialLabel.frame = CGRect(x: SIDE_PADDING,
+                                    y: lineChartView.frame.origin.y + lineChartView.frame.height + TOP_PADDING,
+                                    width: LABEL_WIDTH,
+                                    height: LABEL_HEIGHT)
+        
+        initialDatePicker.frame = CGRect(x: 0,
+                                         y: initialLabel.frame.origin.y + initialLabel.frame.height,
+                                         width: SCREEN_WIDTH,
+                                         height: PICKER_HEIGHT)
+        
+        finalLabel.frame = CGRect(x: SIDE_PADDING,
+                                  y: initialDatePicker.frame.origin.y + initialDatePicker.frame.height + TOP_PADDING/2,
+                                  width: LABEL_WIDTH,
+                                  height: LABEL_HEIGHT)
+        
+        finalDatePicker.frame = CGRect(x: 0,
+                                    y: finalLabel.frame.origin.y + finalLabel.frame.height,
+                                    width: SCREEN_WIDTH,
+                                    height: PICKER_HEIGHT)
+        
+        view.addSubview(initialDatePicker)
+        view.addSubview(finalDatePicker)
+        view.addSubview(initialLabel)
+        view.addSubview(finalLabel)
+    }
+    
     // MARK: - Charts
     func setupLineChart() {
-        lineChartView.frame = CGRect(x: 0, y: NAVBAR_HEIGHT + TOP_PADDING*2, width: SCREEN_WIDTH, height: (SCREEN_HEIGHT - NAVBAR_HEIGHT) / 2)
+        lineChartView.frame = CGRect(x: 0, y: NAVBAR_HEIGHT + TOP_PADDING, width: SCREEN_WIDTH, height: (SCREEN_HEIGHT - NAVBAR_HEIGHT) / 2)
         lineChartView.backgroundColor = .white
         lineChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeInSine)
         lineChartView.legend.form = .circle
