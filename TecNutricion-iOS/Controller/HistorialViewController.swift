@@ -11,7 +11,7 @@
 import UIKit
 import Charts
 
-class HistorialViewController: UIViewController {
+class HistorialViewController: UIViewController, historialManager {
     
     let SCREEN_WIDTH: CGFloat = UIScreen.main.bounds.width
     let SCREEN_HEIGHT: CGFloat = UIScreen.main.bounds.height
@@ -23,7 +23,7 @@ class HistorialViewController: UIViewController {
     let lineChartView = LineChartView()
     var lineDataEntry: [ChartDataEntry] = []
     // datos dummy
-    var x = [Double]()
+    var x = [Date]()
     var y = [Double]()
     
     var initialDatePicker: UIDatePicker!
@@ -33,9 +33,11 @@ class HistorialViewController: UIViewController {
     var finalLabel: UILabel!
     
     var menuDelegate: MenuDelegate!
+    var axisFormatDelegate: IAxisValueFormatter!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("iniclalizando HIstorial")
         NAVBAR_HEIGHT = self.navigationController?.navigationBar.bounds.height
         
         title = "Historial de CMI"
@@ -47,12 +49,25 @@ class HistorialViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        loadData()
+        axisFormatDelegate = self
+        
+        if FileManager.default.fileExists(atPath: dataFileURL().path) {
+            loadData()
+        } else {
+            notifyNoData()
+        }
+        
         setupLineChart()
         
         initDatePickers()
         initLabels()
         setFrames()
+    }
+    
+    func notifyNoData() {
+        let alert = UIAlertController(title: "Advertencia", message: "Aun no hay datos para mostrar", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     
@@ -133,7 +148,7 @@ class HistorialViewController: UIViewController {
         
         // population
         for i in 0..<x.count {
-            let dataPoint = ChartDataEntry(x: x[i], y: y[i])
+            let dataPoint = ChartDataEntry(x: Double(x[i].timeIntervalSince1970), y: y[i])
             lineDataEntry.append(dataPoint)
         }
         
@@ -161,14 +176,103 @@ class HistorialViewController: UIViewController {
         xAxis.granularity = 1.0
         xAxis.labelPosition = .bottom
         xAxis.drawGridLinesEnabled = false
-        
-        
+        xAxis.valueFormatter = axisFormatDelegate
+          
         lineChartView.data = chartData
         view.addSubview(lineChartView)
     }
     
-    func loadData() {
-        x = [1,2,3,4,5,6,7]
-        y = [20,30,40,20,40,34,55]
+    func updateLineChart() {
+        lineChartView.removeFromSuperview()
+        setupLineChart()
     }
+    
+    // MARK: - Load/Save Data
+    
+    func dataFileURL() -> URL {
+        let url = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+        let pathFile = url.appendingPathComponent("historial.json")
+        return pathFile
+    }
+    
+    func loadData() {
+        x.removeAll()
+        y.removeAll()
+        
+        var registros: [RegistroCMI] = []
+        
+        do {
+            let data = try Data.init(contentsOf: dataFileURL())
+            registros = try JSONDecoder().decode([RegistroCMI].self, from: data)
+        } catch {
+            print("Error obteniendo registros de CMI")
+            return
+        }
+        
+        for reg in registros {
+            x.append(reg.dia)
+            y.append(reg.cmi)
+        }
+        
+        /*
+        x = [Date(timeIntervalSince1970: 1589148301), Date(timeIntervalSince1970: 1588889101), Date(timeIntervalSince1970: 1588802701), Date(timeIntervalSince1970: 1588716301)]
+        y = [20,25,15,22]
+        */
+        
+        x.sort(by: <)
+    }
+    
+    func saveData(registro: RegistroCMI) {
+        do {
+            if FileManager.default.fileExists(atPath: dataFileURL().path) {
+                let saved = try Data.init(contentsOf: dataFileURL())
+                var registros = try JSONDecoder().decode([RegistroCMI].self, from: saved)
+                
+                var found = false
+                
+                for reg in registros {
+                    if datesEqual(d1: reg.dia, d2: registro.dia) {
+                        found = true
+                        reg.cmi = registro.cmi
+                    }
+                }
+                
+                if !found {
+                    registros.append(registro)
+                }
+                
+                let data = try JSONEncoder().encode(registros)
+                try data.write(to: dataFileURL())
+             }
+        } catch {
+            print("Error guardando datos")
+        }
+    }
+    
+    func addRegistro(registro: RegistroCMI) {
+        // Mi logica para esto es que primero se guarda la data en el archivo, luego para updatear la grafica pues hay que sacar los datos del archivo con loadData y luego una vez que los arreglos x y y estan actualizados construimos otra vez la chart. Estoy seguro que debe de haber una mejor forma de hacer esto
+        saveData(registro: registro)
+        loadData()
+        updateLineChart()
+    }
+    
+    func datesEqual(d1: Date, d2: Date) -> Bool {
+        let calendar = Calendar.current
+        return calendar.component(.year, from: d1) == calendar.component(.year, from: d2) && calendar.component(.month, from: d1) == calendar.component(.month, from: d2) && calendar.component(.day, from: d1) == calendar.component(.day, from: d2)
+        
+    }
+
+}
+
+extension HistorialViewController: IAxisValueFormatter {
+  
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yy"
+        return dateFormatter.string(from: Date(timeIntervalSince1970: value))
+    }
+}
+
+protocol historialManager {
+    func addRegistro(registro: RegistroCMI)
 }

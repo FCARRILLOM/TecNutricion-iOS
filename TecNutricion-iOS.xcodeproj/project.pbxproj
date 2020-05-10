@@ -24,6 +24,7 @@
 		07A845CD2450BFFF0043B3FB /* MiDiaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A845CC2450BFFF0043B3FB /* MiDiaCollectionViewCell.swift */; };
 		07BDAAAC244E6D770089BBC9 /* MiPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */; };
 		07BDAAB0244E73ED0089BBC9 /* GpoAlimenticio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BDAAAF244E73ED0089BBC9 /* GpoAlimenticio.swift */; };
+		082685C32468BADF00F3AD96 /* RegistroCMI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082685C22468BADF00F3AD96 /* RegistroCMI.swift */; };
 		0858DA9024624B4200845D96 /* RegistroDia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0858DA8F24624B4200845D96 /* RegistroDia.swift */; };
 		687D237A2460AF5C00265E46 /* SemaforoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D23792460AF5C00265E46 /* SemaforoViewController.swift */; };
 		C6C152FF4D82E85B441B4759 /* libPods-TecNutricion-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 339F55324FB946E001AE0DBA /* libPods-TecNutricion-iOS.a */; };
@@ -49,6 +50,7 @@
 		07A845CC2450BFFF0043B3FB /* MiDiaCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiDiaCollectionViewCell.swift; sourceTree = "<group>"; };
 		07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiPlanTableViewCell.swift; sourceTree = "<group>"; };
 		07BDAAAF244E73ED0089BBC9 /* GpoAlimenticio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GpoAlimenticio.swift; sourceTree = "<group>"; };
+		082685C22468BADF00F3AD96 /* RegistroCMI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistroCMI.swift; sourceTree = "<group>"; };
 		0858DA8F24624B4200845D96 /* RegistroDia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistroDia.swift; sourceTree = "<group>"; };
 		339F55324FB946E001AE0DBA /* libPods-TecNutricion-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TecNutricion-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		687D23792460AF5C00265E46 /* SemaforoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemaforoViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				0790DB7B2446BF4D00E0EC19 /* MenuSection.swift */,
 				07BDAAAF244E73ED0089BBC9 /* GpoAlimenticio.swift */,
 				0858DA8F24624B4200845D96 /* RegistroDia.swift */,
+				082685C22468BADF00F3AD96 /* RegistroCMI.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				687D237A2460AF5C00265E46 /* SemaforoViewController.swift in Sources */,
 				0790DB7C2446BF4D00E0EC19 /* MenuSection.swift in Sources */,
 				0790DB7A2446BC1600E0EC19 /* MenuTableViewController.swift in Sources */,
+				082685C32468BADF00F3AD96 /* RegistroCMI.swift in Sources */,
 				07BDAAB0244E73ED0089BBC9 /* GpoAlimenticio.swift in Sources */,
 				0790DB762446909800E0EC19 /* MiPlanViewController.swift in Sources */,
 				0784823D243E4CBC006511C5 /* SceneDelegate.swift in Sources */,
