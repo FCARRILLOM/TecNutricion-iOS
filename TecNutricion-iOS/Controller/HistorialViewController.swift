@@ -23,7 +23,7 @@ class HistorialViewController: UIViewController {
     let lineChartView = LineChartView()
     var lineDataEntry: [ChartDataEntry] = []
     // datos dummy
-    var x = [Double]()
+    var x = [Date]()
     var y = [Double]()
     
     var initialDatePicker: UIDatePicker!
@@ -133,7 +133,7 @@ class HistorialViewController: UIViewController {
         
         // population
         for i in 0..<x.count {
-            let dataPoint = ChartDataEntry(x: x[i], y: y[i])
+            let dataPoint = ChartDataEntry(x: Double(x[i].timeIntervalSince1970), y: y[i])
             lineDataEntry.append(dataPoint)
         }
         
@@ -161,14 +161,23 @@ class HistorialViewController: UIViewController {
         xAxis.granularity = 1.0
         xAxis.labelPosition = .bottom
         xAxis.drawGridLinesEnabled = false
-        
-        
+        xAxis.valueFormatter = axisFormatDelegate
+          
         lineChartView.data = chartData
         view.addSubview(lineChartView)
     }
     
     func loadData() {
-        x = [1,2,3,4,5,6,7]
-        y = [20,30,40,20,40,34,55]
+        x = [Date(timeIntervalSince1970: 1589148301), Date(timeIntervalSince1970: 1588889101), Date(timeIntervalSince1970: 1588802701), Date(timeIntervalSince1970: 1588716301)]
+        y = [20,30,40,20]
+    }
+}
+
+extension ViewController: IAxisValueFormatter {
+  
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: Date(timeIntervalSince1970: value))
     }
 }
