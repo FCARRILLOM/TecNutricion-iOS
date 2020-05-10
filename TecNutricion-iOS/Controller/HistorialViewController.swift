@@ -35,6 +35,11 @@ class HistorialViewController: UIViewController {
         title = "Historial de CMI"
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
         navigationItem.leftBarButtonItem = menuButtonItem
+        
+        let addButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEntry))
+        
+        navigationItem.rightBarButtonItem = addButtonItem
+        
         view.backgroundColor = .white
         
         loadData()
@@ -42,9 +47,15 @@ class HistorialViewController: UIViewController {
         setupLineChart()
     }
     
+    // MARK: - Bar buttons
+    
     // Enseña o esconde el menu
     @objc func toggleMenu() {
         menuDelegate?.handleMenuToggle()
+    }
+    
+    @objc func addEntry() {
+        print("Add entry")
     }
     
     // MARK: - Charts
@@ -97,5 +108,4 @@ class HistorialViewController: UIViewController {
         x = [1,2,3,4,5,6,7]
         y = [20,30,40,20,40,34,55]
     }
-
 }
