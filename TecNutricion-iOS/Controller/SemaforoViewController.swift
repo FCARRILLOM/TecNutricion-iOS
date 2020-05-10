@@ -25,7 +25,7 @@ class SemaforoViewController: UIViewController {
         
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
         navigationItem.leftBarButtonItem = menuButtonItem
-        
+        view.backgroundColor = .white
         setupImageView()
         
         // Do any additional setup after loading the view.
