@@ -95,13 +95,16 @@ class ContainerViewController: UIViewController, MenuDelegate {
                     
                 case .Semaforo:
                     let SemaforoController = SemaforoViewController()
-                    
                     SemaforoController.menuDelegate = self
                     
                     navController.setViewControllers([SemaforoController], animated: true)
                     break;
                     
                 case .Historial:
+                    let historialController = HistorialViewController()
+                    historialController.menuDelegate = self
+                    
+                    navController.setViewControllers([historialController], animated: true)
                     break;
                     
                 case .Recetarios:

@@ -10,6 +10,7 @@
 		0753A0AB2450C17100DFEBAF /* MiDiaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790DB7224468AC500E0EC19 /* MiDiaViewController.swift */; };
 		0753A0B02450C49900DFEBAF /* MiDiaCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0753A0AF2450C49900DFEBAF /* MiDiaCollectionViewFlowLayout.swift */; };
 		075C0BE2244FD69800CC6F45 /* UIView+AnchorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C0BE1244FD69800CC6F45 /* UIView+AnchorExtension.swift */; };
+		077850422467677A0070E88B /* HistorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077850412467677A0070E88B /* HistorialViewController.swift */; };
 		0784823B243E4CBC006511C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0784823A243E4CBC006511C5 /* AppDelegate.swift */; };
 		0784823D243E4CBC006511C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0784823C243E4CBC006511C5 /* SceneDelegate.swift */; };
 		07848242243E4CBC006511C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07848240243E4CBC006511C5 /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		0753A0AF2450C49900DFEBAF /* MiDiaCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiDiaCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		075C0BE1244FD69800CC6F45 /* UIView+AnchorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AnchorExtension.swift"; sourceTree = "<group>"; };
+		077850412467677A0070E88B /* HistorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorialViewController.swift; sourceTree = "<group>"; };
 		07848237243E4CBC006511C5 /* TecNutricion-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TecNutricion-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0784823A243E4CBC006511C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0784823C243E4CBC006511C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,8 +48,8 @@
 		07A845CC2450BFFF0043B3FB /* MiDiaCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiDiaCollectionViewCell.swift; sourceTree = "<group>"; };
 		07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiPlanTableViewCell.swift; sourceTree = "<group>"; };
 		07BDAAAF244E73ED0089BBC9 /* GpoAlimenticio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GpoAlimenticio.swift; sourceTree = "<group>"; };
-		687D23792460AF5C00265E46 /* SemaforoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemaforoViewController.swift; sourceTree = "<group>"; };
 		339F55324FB946E001AE0DBA /* libPods-TecNutricion-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TecNutricion-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		687D23792460AF5C00265E46 /* SemaforoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemaforoViewController.swift; sourceTree = "<group>"; };
 		D3627485438354B247ECB7B9 /* Pods-TecNutricion-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TecNutricion-iOS.debug.xcconfig"; path = "Target Support Files/Pods-TecNutricion-iOS/Pods-TecNutricion-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		FEF97CFB66B3DFF3FBB2387B /* Pods-TecNutricion-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TecNutricion-iOS.release.xcconfig"; path = "Target Support Files/Pods-TecNutricion-iOS/Pods-TecNutricion-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				079988AA2446CA55001B4FB2 /* ContainerViewController.swift */,
+				077850412467677A0070E88B /* HistorialViewController.swift */,
 				687D23792460AF5C00265E46 /* SemaforoViewController.swift */,
 				0790DB7224468AC500E0EC19 /* MiDiaViewController.swift */,
 				0790DB752446909700E0EC19 /* MiPlanViewController.swift */,
@@ -153,7 +156,6 @@
 				D3627485438354B247ECB7B9 /* Pods-TecNutricion-iOS.debug.xcconfig */,
 				FEF97CFB66B3DFF3FBB2387B /* Pods-TecNutricion-iOS.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -261,6 +263,7 @@
 				0790DB782446B4CD00E0EC19 /* RegistraComidaViewController.swift in Sources */,
 				0753A0B02450C49900DFEBAF /* MiDiaCollectionViewFlowLayout.swift in Sources */,
 				075C0BE2244FD69800CC6F45 /* UIView+AnchorExtension.swift in Sources */,
+				077850422467677A0070E88B /* HistorialViewController.swift in Sources */,
 				079988AB2446CA55001B4FB2 /* ContainerViewController.swift in Sources */,
 				687D237A2460AF5C00265E46 /* SemaforoViewController.swift in Sources */,
 				0790DB7C2446BF4D00E0EC19 /* MenuSection.swift in Sources */,
