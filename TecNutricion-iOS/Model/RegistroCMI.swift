@@ -9,11 +9,15 @@
 import UIKit
 
 class RegistroCMI: NSObject, Codable {
-    var cmi: Double
+    var peso: Double
+    var masa: Double
+    var grasa: Double
     var dia: Date
     
-    init(cmi: Double, dia: Date) {
+    init(peso: Double, masa: Double, grasa: Double, dia: Date) {
         self.cmi = cmi
+        self.masa = masa
+        self.grasa = grasa
         self.dia = dia
     }
 }
