@@ -78,6 +78,11 @@ class HistorialViewController: UIViewController, historialManager {
     }
     
     @objc func addEntry() {
+        let RegistraCMI = RegistraCMIViewController()
+        RegistraCMI.delegate = self
+        
+        present(RegistraCMI, animated: true, completion: nil)
+        
         print("Add entry")
     }
     

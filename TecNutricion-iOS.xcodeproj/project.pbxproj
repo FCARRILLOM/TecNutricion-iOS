@@ -27,6 +27,7 @@
 		082685C32468BADF00F3AD96 /* RegistroCMI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082685C22468BADF00F3AD96 /* RegistroCMI.swift */; };
 		0858DA9024624B4200845D96 /* RegistroDia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0858DA8F24624B4200845D96 /* RegistroDia.swift */; };
 		687D237A2460AF5C00265E46 /* SemaforoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D23792460AF5C00265E46 /* SemaforoViewController.swift */; };
+		68DD9A712468CC9600DAA13A /* RegistraCMIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DD9A702468CC9600DAA13A /* RegistraCMIViewController.swift */; };
 		C6C152FF4D82E85B441B4759 /* libPods-TecNutricion-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 339F55324FB946E001AE0DBA /* libPods-TecNutricion-iOS.a */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		0858DA8F24624B4200845D96 /* RegistroDia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistroDia.swift; sourceTree = "<group>"; };
 		339F55324FB946E001AE0DBA /* libPods-TecNutricion-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TecNutricion-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		687D23792460AF5C00265E46 /* SemaforoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemaforoViewController.swift; sourceTree = "<group>"; };
+		68DD9A702468CC9600DAA13A /* RegistraCMIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistraCMIViewController.swift; sourceTree = "<group>"; };
 		D3627485438354B247ECB7B9 /* Pods-TecNutricion-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TecNutricion-iOS.debug.xcconfig"; path = "Target Support Files/Pods-TecNutricion-iOS/Pods-TecNutricion-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		FEF97CFB66B3DFF3FBB2387B /* Pods-TecNutricion-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TecNutricion-iOS.release.xcconfig"; path = "Target Support Files/Pods-TecNutricion-iOS/Pods-TecNutricion-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,6 +118,7 @@
 		0790DB7424468ACC00E0EC19 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				68DD9A702468CC9600DAA13A /* RegistraCMIViewController.swift */,
 				079988AA2446CA55001B4FB2 /* ContainerViewController.swift */,
 				077850412467677A0070E88B /* HistorialViewController.swift */,
 				687D23792460AF5C00265E46 /* SemaforoViewController.swift */,
@@ -271,6 +274,7 @@
 				0753A0B02450C49900DFEBAF /* MiDiaCollectionViewFlowLayout.swift in Sources */,
 				075C0BE2244FD69800CC6F45 /* UIView+AnchorExtension.swift in Sources */,
 				077850422467677A0070E88B /* HistorialViewController.swift in Sources */,
+				68DD9A712468CC9600DAA13A /* RegistraCMIViewController.swift in Sources */,
 				079988AB2446CA55001B4FB2 /* ContainerViewController.swift in Sources */,
 				687D237A2460AF5C00265E46 /* SemaforoViewController.swift in Sources */,
 				0790DB7C2446BF4D00E0EC19 /* MenuSection.swift in Sources */,
