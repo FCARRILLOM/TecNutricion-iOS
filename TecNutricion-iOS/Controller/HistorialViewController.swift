@@ -22,9 +22,7 @@ class HistorialViewController: UIViewController, historialManager {
     
     let lineChartView = LineChartView()
     var lineDataEntry: [ChartDataEntry] = []
-    // datos dummy
-    var x = [Date]()
-    var y = [Double]()
+    var valores: [(Date, Double)]  = []
     
     var initialDatePicker: UIDatePicker!
     var finalDatePicker: UIDatePicker!
@@ -153,8 +151,8 @@ class HistorialViewController: UIViewController, historialManager {
         lineDataEntry.removeAll()
         
         // population
-        for i in 0..<x.count {
-            let dataPoint = ChartDataEntry(x: Double(x[i].timeIntervalSince1970), y: y[i])
+        for i in 0..<valores.count {
+            let dataPoint = ChartDataEntry(x: Double(valores[i].0.timeIntervalSince1970), y: valores[i].1)
             lineDataEntry.append(dataPoint)
         }
         
@@ -177,7 +175,7 @@ class HistorialViewController: UIViewController, historialManager {
         // axis
         lineChartView.rightAxis.enabled = false
         let xAxis = lineChartView.xAxis
-        xAxis.labelCount = x.count
+        xAxis.labelCount = valores.count
         xAxis.granularityEnabled = true
         xAxis.granularity = 1.0
         xAxis.labelPosition = .bottom
@@ -202,8 +200,7 @@ class HistorialViewController: UIViewController, historialManager {
     }
     
     func loadData() {
-        x.removeAll()
-        y.removeAll()
+        valores.removeAll()
         
         var registros: [RegistroCMI] = []
         
@@ -216,8 +213,7 @@ class HistorialViewController: UIViewController, historialManager {
         }
         
         for reg in registros {
-            x.append(reg.dia)
-            y.append(reg.peso)
+            valores.append((reg.dia, reg.peso))
         }
         
         /*
@@ -225,7 +221,7 @@ class HistorialViewController: UIViewController, historialManager {
         y = [20,25,15,22]
         */
         
-        x.sort(by: <)
+        valores.sort(by: { $0.0 < $1.0 })
     }
     
     func saveData(registro: RegistroCMI) {
