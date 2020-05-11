@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RegistraCMIViewController: UIViewController {
+class RegistraCMIViewController: UIViewController, UIGestureRecognizerDelegate {
 
     let SCREEN_WIDTH: CGFloat = UIScreen.main.bounds.width
     let SCREEN_HEIGHT: CGFloat = UIScreen.main.bounds.height
@@ -26,14 +26,20 @@ class RegistraCMIViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = UIColor.white
         initNumberInputs()
         initDatePicker()
-        setFrames()
+        setupLabelsAndFrames()
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tap.delegate = self
+        view.addGestureRecognizer(tap)
         // Do any additional setup after loading the view.
     }
 
+    @objc func handleTap() {
+        view.endEditing(true)
+    }
     func initDatePicker() {
         fechaDatePicker = UIDatePicker()
         fechaDatePicker.datePickerMode = .date
@@ -42,15 +48,21 @@ class RegistraCMIViewController: UIViewController {
     func initNumberInputs() {
         pesoTf = UITextField()
         pesoTf.keyboardType = UIKeyboardType.decimalPad
+        pesoTf.font = UIFont(name: "Aria", size: 18)
+        pesoTf.borderStyle = UITextField.BorderStyle.roundedRect
         
         masaTf = UITextField()
         masaTf.keyboardType = UIKeyboardType.decimalPad
+        masaTf.font = UIFont(name: "Aria", size: 18)
+        masaTf.borderStyle = UITextField.BorderStyle.roundedRect
         
         grasaTf = UITextField()
         grasaTf.keyboardType = UIKeyboardType.decimalPad
+        grasaTf.font = UIFont(name: "Aria", size: 18)
+        grasaTf.borderStyle = UITextField.BorderStyle.roundedRect
     }
 
-    func seupLabelsAndFrames() {
+    func setupLabelsAndFrames() {
 
         // Labels
 
@@ -79,7 +91,7 @@ class RegistraCMIViewController: UIViewController {
         fechaLb.textColor = UIColor.black
 
 
-        let button UIButton(type: .system)
+        let button = UIButton(type: .system)
         button.frame = CGRect(x: self.view.center.x-65, y: SCREEN_HEIGHT - 110, width: 120, height: 50)
         
         button.setTitle("Guardar", for: .normal)
@@ -89,10 +101,10 @@ class RegistraCMIViewController: UIViewController {
 
         // Frames
 
-        let LABEL_WIDTH: CGFloat = 180
+        let LABEL_WIDTH: CGFloat = 230
         let LABEL_HEIGHT: CGFloat = 40
         let TEXTFIELD_WIDTH: CGFloat = 90
-        let TEXTFIELD_HEIGHT: CGFloat = 90
+        let TEXTFIELD_HEIGHT: CGFloat = 40
         let PICKER_HEIGHT: CGFloat = 80
 
 
@@ -125,7 +137,7 @@ class RegistraCMIViewController: UIViewController {
                                 height: TEXTFIELD_HEIGHT)
         
         fechaLb.frame = CGRect( x: SIDE_PADDING,
-                                y: masaLb.frame.origin.y + masaLb.frame.height + TOP_PADDING/2,
+                                y: grasaLb.frame.origin.y + grasaLb.frame.height + TOP_PADDING/2,
                                 width: LABEL_WIDTH,
                                 height: LABEL_HEIGHT)
         fechaDatePicker.frame = CGRect(  x: 0,
@@ -153,28 +165,28 @@ class RegistraCMIViewController: UIViewController {
     }
 
     func saveData() {
-        guard pesoTf != "", let peso = Double(pesoTf.text) else {
+        guard pesoTf.text != "", let peso = Double(pesoTf.text!) else {
             let alerta = UIAlertController(title: "Cuidado", message: "Debes ingresar un peso", preferredStyle: .alert)
             alerta.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             present(alerta, animated: true, completion: nil)
             return
         }
         
-        guard masaTf != "", let masa = Double(masaTf.text) else {
+        guard masaTf.text != "", let masa = Double(masaTf.text!) else {
             let alerta = UIAlertController(title: "Cuidado", message: "Debes ingresar una masa muscular", preferredStyle: .alert)
             alerta.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             present(alerta, animated: true, completion: nil)
             return
         }
         
-        guard grasaTf != "", let grasa = Double(grasaTf.text) else {
+        guard grasaTf.text != "", let grasa = Double(grasaTf.text!) else {
             let alerta = UIAlertController(title: "Cuidado", message: "Debes ingresar un porcentaje de grasa", preferredStyle: .alert)
             alerta.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             present(alerta, animated: true, completion: nil)
             return
         }
         
-        delegate.addRegistrp(registro: RegistroCMI(peso: peso, masa: masa, grasa: grasa, dia: fechaDatePicker.date))
+        delegate.addRegistro(registro: RegistroCMI(peso: peso, masa: masa, grasa: grasa, dia: fechaDatePicker.date))
 
         dismiss(animated: true, completion: nil)
 

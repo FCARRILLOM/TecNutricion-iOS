@@ -216,7 +216,7 @@ class HistorialViewController: UIViewController, historialManager {
         
         for reg in registros {
             x.append(reg.dia)
-            y.append(reg.cmi)
+            y.append(reg.peso)
         }
         
         /*
@@ -238,7 +238,7 @@ class HistorialViewController: UIViewController, historialManager {
                 for reg in registros {
                     if datesEqual(d1: reg.dia, d2: registro.dia) {
                         found = true
-                        reg.cmi = registro.cmi
+                        reg.peso = registro.peso
                     }
                 }
                 
@@ -256,9 +256,11 @@ class HistorialViewController: UIViewController, historialManager {
     
     func addRegistro(registro: RegistroCMI) {
         // Mi logica para esto es que primero se guarda la data en el archivo, luego para updatear la grafica pues hay que sacar los datos del archivo con loadData y luego una vez que los arreglos x y y estan actualizados construimos otra vez la chart. Estoy seguro que debe de haber una mejor forma de hacer esto
+        print("Si llega mecos")
         saveData(registro: registro)
         loadData()
         updateLineChart()
+        print("Si funciona mecos")
     }
     
     func datesEqual(d1: Date, d2: Date) -> Bool {

@@ -15,7 +15,7 @@ class RegistroCMI: NSObject, Codable {
     var dia: Date
     
     init(peso: Double, masa: Double, grasa: Double, dia: Date) {
-        self.cmi = cmi
+        self.peso = peso
         self.masa = masa
         self.grasa = grasa
         self.dia = dia
