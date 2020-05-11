@@ -78,6 +78,11 @@ class HistorialViewController: UIViewController, historialManager {
     }
     
     @objc func addEntry() {
+        let RegistraCMI = RegistraCMIViewController()
+        RegistraCMI.delegate = self
+        
+        present(RegistraCMI, animated: true, completion: nil)
+        
         print("Add entry")
     }
     
@@ -145,6 +150,7 @@ class HistorialViewController: UIViewController, historialManager {
         
         // no data
         lineChartView.noDataText = "No data available"
+        lineDataEntry.removeAll()
         
         // population
         for i in 0..<x.count {
@@ -211,7 +217,7 @@ class HistorialViewController: UIViewController, historialManager {
         
         for reg in registros {
             x.append(reg.dia)
-            y.append(reg.cmi)
+            y.append(reg.peso)
         }
         
         /*
@@ -223,6 +229,8 @@ class HistorialViewController: UIViewController, historialManager {
     }
     
     func saveData(registro: RegistroCMI) {
+        //registro.dia = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: registro.dia)!
+        
         do {
             if FileManager.default.fileExists(atPath: dataFileURL().path) {
                 let saved = try Data.init(contentsOf: dataFileURL())
@@ -233,17 +241,24 @@ class HistorialViewController: UIViewController, historialManager {
                 for reg in registros {
                     if datesEqual(d1: reg.dia, d2: registro.dia) {
                         found = true
-                        reg.cmi = registro.cmi
+                        reg.peso = registro.peso
                     }
                 }
                 
                 if !found {
+                    print("NO hay en fecha")
                     registros.append(registro)
+                } else {
+                    print("Fecha ya existe")
                 }
                 
                 let data = try JSONEncoder().encode(registros)
                 try data.write(to: dataFileURL())
-             }
+                print(registros	)
+            } else {
+                let data = try JSONEncoder().encode([registro])
+                try data.write(to: dataFileURL())
+            }
         } catch {
             print("Error guardando datos")
         }
