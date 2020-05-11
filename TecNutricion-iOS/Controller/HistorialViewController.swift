@@ -150,6 +150,7 @@ class HistorialViewController: UIViewController, historialManager {
         
         // no data
         lineChartView.noDataText = "No data available"
+        lineDataEntry.removeAll()
         
         // population
         for i in 0..<x.count {
@@ -228,6 +229,8 @@ class HistorialViewController: UIViewController, historialManager {
     }
     
     func saveData(registro: RegistroCMI) {
+        //registro.dia = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: registro.dia)!
+        
         do {
             if FileManager.default.fileExists(atPath: dataFileURL().path) {
                 let saved = try Data.init(contentsOf: dataFileURL())
@@ -243,12 +246,19 @@ class HistorialViewController: UIViewController, historialManager {
                 }
                 
                 if !found {
+                    print("NO hay en fecha")
                     registros.append(registro)
+                } else {
+                    print("Fecha ya existe")
                 }
                 
                 let data = try JSONEncoder().encode(registros)
                 try data.write(to: dataFileURL())
-             }
+                print(registros	)
+            } else {
+                let data = try JSONEncoder().encode([registro])
+                try data.write(to: dataFileURL())
+            }
         } catch {
             print("Error guardando datos")
         }
@@ -256,11 +266,9 @@ class HistorialViewController: UIViewController, historialManager {
     
     func addRegistro(registro: RegistroCMI) {
         // Mi logica para esto es que primero se guarda la data en el archivo, luego para updatear la grafica pues hay que sacar los datos del archivo con loadData y luego una vez que los arreglos x y y estan actualizados construimos otra vez la chart. Estoy seguro que debe de haber una mejor forma de hacer esto
-        print("Si llega mecos")
         saveData(registro: registro)
         loadData()
         updateLineChart()
-        print("Si funciona mecos")
     }
     
     func datesEqual(d1: Date, d2: Date) -> Bool {
