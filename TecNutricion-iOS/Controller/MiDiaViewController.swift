@@ -21,6 +21,8 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     var collectionView: UICollectionView!
     
     var listaGpos: [GpoAlimenticio]!
+    
+    var buttonRegistrar: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +34,8 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         view.backgroundColor = UIColor.white
         createGroups()
-        setupCollectionView()
-        
         setupAddFoodButton()
-
+        setupCollectionView()
     }
 
     func createGroups(){
@@ -73,9 +73,9 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         let layout: UICollectionViewLayout = MiDiaCollectionViewFlowLayout()
 
         collectionView = UICollectionView(frame: CGRect(x: 10,
-                                                        y: NAVBAR_HEIGHT+10,
+                                                        y: NAVBAR_HEIGHT,
                                                         width: SCREEN_WIDTH - 20,
-                                                        height: SCREEN_HEIGHT - 100),
+                                                        height: SCREEN_HEIGHT - NAVBAR_HEIGHT - (SCREEN_HEIGHT - buttonRegistrar.frame.minY) - 10),
                                                         collectionViewLayout: layout)
         
         collectionView.backgroundColor = UIColor.white
@@ -95,8 +95,8 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "miDiaCell", for: indexPath) as! MiDiaCollectionViewCell
         
         myCell.gpoAlim = listaGpos[indexPath.row]
-        myCell.layer.borderWidth = 1
-        myCell.layer.borderColor = UIColor.lightGray.cgColor
+//        myCell.layer.borderWidth = 1
+//        myCell.layer.borderColor = UIColor.lightGray.cgColor
         
         return myCell
     }
@@ -107,15 +107,15 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
 
     func setupAddFoodButton() {
-        let button = UIButton(type: .system)
-        button.frame = CGRect(x: self.view.center.x-75, y: SCREEN_HEIGHT - 80, width: 150, height: 50)
+        buttonRegistrar = UIButton(type: .system)
+        buttonRegistrar.frame = CGRect(x: self.view.center.x-75, y: SCREEN_HEIGHT - 70, width: 150, height: 50)
 
-        button.setTitle("Registrar Comida", for: .normal)
-        button.backgroundColor = .lightGray
+        buttonRegistrar.setTitle("Registrar Comida", for: .normal)
+        buttonRegistrar.backgroundColor = .lightGray
 
-        button.addTarget(self, action: #selector(showAddFood(_:)), for: .touchUpInside)
+        buttonRegistrar.addTarget(self, action: #selector(showAddFood(_:)), for: .touchUpInside)
 
-        view.addSubview(button)
+        view.addSubview(buttonRegistrar)
     }
 
     @objc func showAddFood(_ sender:UIButton!) {
@@ -135,8 +135,6 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
 
     // MARK: Load Data
-
-    
     func dataFileURL() -> URL {
         let url = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
         let pathFile = url.appendingPathComponent("registros.json")
