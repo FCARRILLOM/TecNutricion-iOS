@@ -26,7 +26,7 @@ class RegistraCMIViewController: UIViewController, UIGestureRecognizerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.clear
         initNumberInputs()
         initDatePicker()
         setupLabelsAndFrames()
@@ -34,9 +34,25 @@ class RegistraCMIViewController: UIViewController, UIGestureRecognizerDelegate {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         tap.delegate = self
         view.addGestureRecognizer(tap)
-        // Do any additional setup after loading the view.
-    }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
     @objc func handleTap() {
         view.endEditing(true)
     }
@@ -63,7 +79,13 @@ class RegistraCMIViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     func setupLabelsAndFrames() {
-
+        let LABEL_WIDTH: CGFloat = 230
+        let LABEL_HEIGHT: CGFloat = 40
+        let TEXTFIELD_WIDTH: CGFloat = 90
+        let TEXTFIELD_HEIGHT: CGFloat = 40
+        let PICKER_HEIGHT: CGFloat = 80
+        let TOP_MARGIN: CGFloat = SCREEN_HEIGHT * 0.4
+        
         // Labels
 
         let pesoLb = UILabel()
@@ -92,7 +114,7 @@ class RegistraCMIViewController: UIViewController, UIGestureRecognizerDelegate {
 
 
         let button = UIButton(type: .system)
-        button.frame = CGRect(x: self.view.center.x-65, y: SCREEN_HEIGHT - 110, width: 120, height: 50)
+        button.frame = CGRect(x: self.view.center.x-65, y: SCREEN_HEIGHT - TOP_MARGIN - 110, width: 120, height: 50)
         
         button.setTitle("Guardar", for: .normal)
         button.backgroundColor = .lightGray
@@ -101,14 +123,15 @@ class RegistraCMIViewController: UIViewController, UIGestureRecognizerDelegate {
 
         // Frames
 
-        let LABEL_WIDTH: CGFloat = 230
-        let LABEL_HEIGHT: CGFloat = 40
-        let TEXTFIELD_WIDTH: CGFloat = 90
-        let TEXTFIELD_HEIGHT: CGFloat = 40
-        let PICKER_HEIGHT: CGFloat = 80
-
-
-
+        let bg = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: TOP_MARGIN))
+        bg.backgroundColor = .clear
+        let ex = UITapGestureRecognizer(target: self, action: #selector(backToHistory))
+        ex.delegate = self
+        bg.addGestureRecognizer(ex)
+        
+        let vw = UIView(frame: CGRect(x: 0, y: TOP_MARGIN, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-TOP_MARGIN))
+        vw.backgroundColor = .white
+        
         pesoLb.frame = CGRect(  x: SIDE_PADDING,
                                 y: TOP_PADDING,
                                 width: LABEL_WIDTH,
@@ -148,16 +171,18 @@ class RegistraCMIViewController: UIViewController, UIGestureRecognizerDelegate {
 
 
 
-        view.addSubview(pesoLb)
-        view.addSubview(pesoTf)
-        view.addSubview(masaLb)
-        view.addSubview(masaTf)
-        view.addSubview(grasaLb)
-        view.addSubview(grasaTf)
-        view.addSubview(fechaLb)
-        view.addSubview(fechaDatePicker)
-        view.addSubview(button)
+        vw.addSubview(pesoLb)
+        vw.addSubview(pesoTf)
+        vw.addSubview(masaLb)
+        vw.addSubview(masaTf)
+        vw.addSubview(grasaLb)
+        vw.addSubview(grasaTf)
+        vw.addSubview(fechaLb)
+        vw.addSubview(fechaDatePicker)
+        vw.addSubview(button)
 
+        view.addSubview(bg)
+        view.addSubview(vw)
     }
 
     @objc func addCMI() {
@@ -190,6 +215,9 @@ class RegistraCMIViewController: UIViewController, UIGestureRecognizerDelegate {
 
         dismiss(animated: true, completion: nil)
 
+    }
+    @objc func backToHistory() {
+        dismiss(animated: true, completion: nil)
     }
 
     /*
