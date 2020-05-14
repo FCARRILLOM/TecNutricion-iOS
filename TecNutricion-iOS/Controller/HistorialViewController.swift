@@ -40,7 +40,7 @@ class HistorialViewController: UIViewController, historialManager {
         print("iniclalizando HIstorial")
         NAVBAR_HEIGHT = self.navigationController?.navigationBar.bounds.height
         
-        title = "Historial de CMI"
+        title = "Historial de Composición Corporal"
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
         navigationItem.leftBarButtonItem = menuButtonItem
         
