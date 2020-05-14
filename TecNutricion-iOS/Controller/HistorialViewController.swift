@@ -21,8 +21,9 @@ class HistorialViewController: UIViewController, historialManager {
     let TOP_PADDING: CGFloat = 20
     
     let lineChartView = LineChartView()
-    var lineDataEntry: [ChartDataEntry] = []
-    var valores: [(Date, Double)]  = []
+    var valoresPeso: [(Date, Double)]  = []
+    var valoresMasa: [(Date, Double)]  = []
+    var valoresGrasa: [(Date, Double)]  = []
     
     var initialDatePicker: UIDatePicker!
     var finalDatePicker: UIDatePicker!
@@ -152,41 +153,60 @@ class HistorialViewController: UIViewController, historialManager {
         
         // no data
         lineChartView.noDataText = "No data available"
-        lineDataEntry.removeAll()
         
-        // population
-        for i in 0..<valores.count {
-            let dataPoint = ChartDataEntry(x: Double(valores[i].0.timeIntervalSince1970), y: valores[i].1)
-            lineDataEntry.append(dataPoint)
+        var allLineChartDataSets: [LineChartDataSet] = [LineChartDataSet]()
+        
+        // datos de peso
+        var lineDataEntries1: [ChartDataEntry] = []
+        for i in 0..<valoresPeso.count {
+            let dataPoint = ChartDataEntry(x: Double(valoresPeso[i].0.timeIntervalSince1970), y: valoresPeso[i].1)
+            lineDataEntries1.append(dataPoint)
         }
+        let chartDataSet1 = LineChartDataSet(entries: lineDataEntries1, label: "Peso")
+        chartDataSet1.colors = [UIColor.systemGreen]
+        chartDataSet1.setCircleColor(UIColor.systemGreen)
+        chartDataSet1.circleHoleColor = UIColor.systemGreen
+        chartDataSet1.circleRadius = 4.0
+        allLineChartDataSets.append(chartDataSet1)
         
-        let chartDataSet = LineChartDataSet(entries: lineDataEntry, label: "CMI")
-        let chartData = LineChartData()
-        chartData.addDataSet(chartDataSet)
-        chartData.setDrawValues(true)
-        chartDataSet.colors = [UIColor.systemGreen]
-        chartDataSet.setCircleColor(UIColor.systemGreen)
-        chartDataSet.circleHoleColor = UIColor.systemGreen
-        chartDataSet.circleRadius = 4.0
+        // datos de masa
+        var lineDataEntries2: [ChartDataEntry] = []
+        for i in 0..<valoresMasa.count {
+            let dataPoint = ChartDataEntry(x: Double(valoresMasa[i].0.timeIntervalSince1970), y: valoresMasa[i].1)
+            lineDataEntries2.append(dataPoint)
+        }
+        let chartDataSet2 = LineChartDataSet(entries: lineDataEntries2, label: "Masa")
+        chartDataSet2.colors = [UIColor.systemBlue]
+        chartDataSet2.setCircleColor(UIColor.systemBlue)
+        chartDataSet2.circleHoleColor = UIColor.systemBlue
+        chartDataSet2.circleRadius = 4.0
+        allLineChartDataSets.append(chartDataSet2)
         
-        // gradient
-        let gradientColors = [UIColor.systemGreen.cgColor, UIColor.clear.cgColor] as CFArray
-        let colorLocations: [CGFloat] = [1.0, 0.0]
-        guard let gradient = CGGradient.init(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations) else { print("error loading gradient"); return }
-        chartDataSet.fill = Fill.fillWithLinearGradient(gradient, angle: 90.0)
-        chartDataSet.drawFilledEnabled = true
+        // datos de grasa
+        var lineDataEntries3: [ChartDataEntry] = []
+        for i in 0..<valoresGrasa.count {
+            let dataPoint = ChartDataEntry(x: Double(valoresGrasa[i].0.timeIntervalSince1970), y: valoresGrasa[i].1)
+            lineDataEntries3.append(dataPoint)
+        }
+        let chartDataSet3 = LineChartDataSet(entries: lineDataEntries3, label: "Grasa")
+        chartDataSet3.colors = [UIColor.systemYellow]
+        chartDataSet3.setCircleColor(UIColor.systemYellow)
+        chartDataSet3.circleHoleColor = UIColor.systemYellow
+        chartDataSet3.circleRadius = 4.0
+        allLineChartDataSets.append(chartDataSet3)
         
         // axis
         lineChartView.rightAxis.enabled = false
         let xAxis = lineChartView.xAxis
-        xAxis.labelCount = valores.count
+        xAxis.labelCount = valoresPeso.count
         xAxis.granularityEnabled = true
         xAxis.granularity = 1.0
         xAxis.labelPosition = .bottom
         xAxis.drawGridLinesEnabled = false
         xAxis.valueFormatter = axisFormatDelegate
           
-        lineChartView.data = chartData
+        let lineChartData = LineChartData(dataSets: allLineChartDataSets)
+        lineChartView.data = lineChartData
         view.addSubview(lineChartView)
     }
     
@@ -205,7 +225,9 @@ class HistorialViewController: UIViewController, historialManager {
     }
     
     func loadData() {
-        valores.removeAll()
+        valoresPeso.removeAll()
+        valoresMasa.removeAll()
+        valoresGrasa.removeAll()
         
         var registros: [RegistroCMI] = []
         
@@ -221,7 +243,9 @@ class HistorialViewController: UIViewController, historialManager {
             // checha que este entre las fechas indicadas
             if reg.dia >= initialDatePicker.date
                 && reg.dia <= (finalDatePicker.date.addingTimeInterval(secondsInDay)) {
-                valores.append((reg.dia, reg.peso))
+                valoresPeso.append((reg.dia, reg.peso))
+                valoresMasa.append((reg.dia, reg.masa))
+                valoresGrasa.append((reg.dia, reg.grasa))
             }
         }
         
@@ -230,7 +254,10 @@ class HistorialViewController: UIViewController, historialManager {
         y = [20,25,15,22]
         */
         
-        valores.sort(by: { $0.0 < $1.0 })
+        //TODO: cambiar tres listas por una lista del objeto RegistroCMI y averiguar como hacer el sort
+        valoresPeso.sort(by: { $0.0 < $1.0 })
+        valoresMasa.sort(by: { $0.0 < $1.0 })
+        valoresGrasa.sort(by: { $0.0 < $1.0 })
     }
     
     func saveData(registro: RegistroCMI) {
