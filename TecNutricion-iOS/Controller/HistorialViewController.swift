@@ -22,12 +22,11 @@ class HistorialViewController: UIViewController, historialManager {
     
     let lineChartView = LineChartView()
     var lineDataEntry: [ChartDataEntry] = []
-    // datos dummy
-    var x = [Date]()
-    var y = [Double]()
+    var valores: [(Date, Double)]  = []
     
     var initialDatePicker: UIDatePicker!
     var finalDatePicker: UIDatePicker!
+    let secondsInDay: Double = 24*60*60
     
     var initialLabel: UILabel!
     var finalLabel: UILabel!
@@ -51,17 +50,16 @@ class HistorialViewController: UIViewController, historialManager {
         
         axisFormatDelegate = self
         
-        if FileManager.default.fileExists(atPath: dataFileURL().path) {
-            loadData()
-        } else {
-            notifyNoData()
-        }
-        
         setupLineChart()
-        
         initDatePickers()
         initLabels()
         setFrames()
+        
+        if FileManager.default.fileExists(atPath: dataFileURL().path) {
+            updateLineChart()
+        } else {
+            notifyNoData()
+        }
     }
     
     func notifyNoData() {
@@ -90,9 +88,13 @@ class HistorialViewController: UIViewController, historialManager {
     func initDatePickers() {
         initialDatePicker = UIDatePicker()
         initialDatePicker.datePickerMode = .date
+        initialDatePicker.addTarget(self, action: #selector(updateLineChart), for: .valueChanged)
+        // pone la fecha inicial a dos semanas antes
+        initialDatePicker.setDate(Date().addingTimeInterval(-14*secondsInDay), animated: true)
         
         finalDatePicker = UIDatePicker()
         finalDatePicker.datePickerMode = .date
+        finalDatePicker.addTarget(self, action: #selector(updateLineChart), for: .valueChanged)
     }
     
     func initLabels() {
@@ -153,8 +155,8 @@ class HistorialViewController: UIViewController, historialManager {
         lineDataEntry.removeAll()
         
         // population
-        for i in 0..<x.count {
-            let dataPoint = ChartDataEntry(x: Double(x[i].timeIntervalSince1970), y: y[i])
+        for i in 0..<valores.count {
+            let dataPoint = ChartDataEntry(x: Double(valores[i].0.timeIntervalSince1970), y: valores[i].1)
             lineDataEntry.append(dataPoint)
         }
         
@@ -177,7 +179,7 @@ class HistorialViewController: UIViewController, historialManager {
         // axis
         lineChartView.rightAxis.enabled = false
         let xAxis = lineChartView.xAxis
-        xAxis.labelCount = x.count
+        xAxis.labelCount = valores.count
         xAxis.granularityEnabled = true
         xAxis.granularity = 1.0
         xAxis.labelPosition = .bottom
@@ -188,7 +190,8 @@ class HistorialViewController: UIViewController, historialManager {
         view.addSubview(lineChartView)
     }
     
-    func updateLineChart() {
+    @objc func updateLineChart() {
+        loadData()
         lineChartView.removeFromSuperview()
         setupLineChart()
     }
@@ -202,8 +205,7 @@ class HistorialViewController: UIViewController, historialManager {
     }
     
     func loadData() {
-        x.removeAll()
-        y.removeAll()
+        valores.removeAll()
         
         var registros: [RegistroCMI] = []
         
@@ -216,8 +218,11 @@ class HistorialViewController: UIViewController, historialManager {
         }
         
         for reg in registros {
-            x.append(reg.dia)
-            y.append(reg.peso)
+            // checha que este entre las fechas indicadas
+            if reg.dia >= initialDatePicker.date
+                && reg.dia <= (finalDatePicker.date.addingTimeInterval(secondsInDay)) {
+                valores.append((reg.dia, reg.peso))
+            }
         }
         
         /*
@@ -225,7 +230,7 @@ class HistorialViewController: UIViewController, historialManager {
         y = [20,25,15,22]
         */
         
-        x.sort(by: <)
+        valores.sort(by: { $0.0 < $1.0 })
     }
     
     func saveData(registro: RegistroCMI) {
@@ -267,7 +272,6 @@ class HistorialViewController: UIViewController, historialManager {
     func addRegistro(registro: RegistroCMI) {
         // Mi logica para esto es que primero se guarda la data en el archivo, luego para updatear la grafica pues hay que sacar los datos del archivo con loadData y luego una vez que los arreglos x y y estan actualizados construimos otra vez la chart. Estoy seguro que debe de haber una mejor forma de hacer esto
         saveData(registro: registro)
-        loadData()
         updateLineChart()
     }
     
