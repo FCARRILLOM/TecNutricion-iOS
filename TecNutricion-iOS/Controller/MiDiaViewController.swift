@@ -101,6 +101,14 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         return myCell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vistaEq = EquivalentesDetailTableViewController()
+        
+        vistaEq.grupo = listaGpos[indexPath.row]
+        
+        present(vistaEq, animated: true, completion: nil)
+    }
+    
     // Enseña o esconde el menu
     @objc func toggleMenu() {
         delegate?.handleMenuToggle()

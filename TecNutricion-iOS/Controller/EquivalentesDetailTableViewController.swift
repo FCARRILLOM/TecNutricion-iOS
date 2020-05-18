@@ -47,7 +47,31 @@ class EquivalentesDetailTableViewController: UITableViewController {
             DetailEntry(desc: "Carnes frias (pavo)", amount: "2 reb. chicas"),
             DetailEntry(desc: "Salchicha (pavo)", amount: "1 pza."),
             DetailEntry(desc: "Huevo", amount: "1 pza."),
-            DetailEntry(desc: "Clara de huevo", amount: "2 pza."),
+            DetailEntry(desc: "Clara de huevo", amount: "2 pza."),	
+        ]),
+        EquivalenciaEntry(grupo: "Leche", entradas: [
+            DetailEntry(desc: "Leche de vaca o soya", amount: "250 ml."),
+            DetailEntry(desc: "Yoghurt", amount: "250 ml."),
+        ]),
+        EquivalenciaEntry(grupo: "Azucares", entradas: [
+            DetailEntry(desc: "Azucar", amount: "1 C"),
+            DetailEntry(desc: "Miel", amount: "1 C"),
+            DetailEntry(desc: "Mermelada", amount: "1 (80 ml)"),
+            DetailEntry(desc: "Cajeta", amount: "1 C"),
+            DetailEntry(desc: "Gelatina regular", amount: "1/2 taza"),
+            DetailEntry(desc: "Chocolate en polvo", amount: "1 C"),
+            DetailEntry(desc: "Refrescos", amount: "1 C"),
+            DetailEntry(desc: "Catsup", amount: "1 C"),
+        ]),
+        EquivalenciaEntry(grupo: "Leguminosas", entradas: [
+            DetailEntry(desc: "Lentejas", amount: "1/2 taza"),
+            DetailEntry(desc: "Garbanzo", amount: "1/2 taza"),
+            DetailEntry(desc: "Habas", amount: "1/2 taza"),
+            DetailEntry(desc: "Alubias", amount: "1/2 taza"),
+            DetailEntry(desc: "Frijol cocido o en bola", amount: "1/2 taza"),
+            DetailEntry(desc: "Frijol refrito", amount: "1/3 taza"),
+            DetailEntry(desc: "Soya texturiuzada", amount: "3 C"),
+            DetailEntry(desc: "Soya cocida", amount: "1/3 taza"),
         ]),
     ]
     
