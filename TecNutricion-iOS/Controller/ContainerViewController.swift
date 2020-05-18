@@ -112,6 +112,8 @@ class ContainerViewController: UIViewController, MenuDelegate {
                     break;
                     
                 case .Recetarios:
+                    let url = URL(string: "https://drive.google.com/drive/folders/1lx2FhOuDAqLWwJ06bRdIfmuoV2QLsWZM?usp=sharing")
+                    UIApplication.shared.open(url!, options: [:], completionHandler: nil)
                     break;
                 }
                 
