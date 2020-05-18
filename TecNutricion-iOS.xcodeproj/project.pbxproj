@@ -123,7 +123,6 @@
 				68DD9A702468CC9600DAA13A /* RegistraCMIViewController.swift */,
 				079988AA2446CA55001B4FB2 /* ContainerViewController.swift */,
 				077850412467677A0070E88B /* HistorialViewController.swift */,
-				074E3CB324723B12007EC432 /* ProgressBar.swift */,
 				687D23792460AF5C00265E46 /* SemaforoViewController.swift */,
 				0790DB7224468AC500E0EC19 /* MiDiaViewController.swift */,
 				0790DB752446909700E0EC19 /* MiPlanViewController.swift */,
@@ -147,6 +146,7 @@
 		07BDAAA8244E6B8C0089BBC9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				074E3CB324723B12007EC432 /* ProgressBar.swift */,
 				07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */,
 				07A845CC2450BFFF0043B3FB /* MiDiaCollectionViewCell.swift */,
 				075C0BE1244FD69800CC6F45 /* UIView+AnchorExtension.swift */,

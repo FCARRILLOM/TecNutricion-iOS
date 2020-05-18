@@ -12,15 +12,14 @@ import UIKit
 
 class ProgressBar: UIView {
     
+    let okColor: CGColor = UIColor.systemBlue.cgColor
+    let errColor: CGColor = UIColor.systemRed.cgColor
+    
     var backgroundLayer: CAShapeLayer!
     var foregroundLayer: CAShapeLayer!
-    var textLayer: CATextLayer!
+    //var textLayer: CATextLayer!
     
-    var progress: CGFloat = 0 {
-        didSet {
-            didProgressUpdated()
-        }
-    }
+    var progress: CGFloat = 0
     
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -38,13 +37,15 @@ class ProgressBar: UIView {
         
         backgroundLayer = createCircularLayer(rect: rect, strokeColor: UIColor.lightGray.cgColor, fillColor: UIColor.clear.cgColor, lineWidth: lineWidth)
         
-        backgroundLayer = createCircularLayer(rect: rect, strokeColor: UIColor.systemGreen.cgColor, fillColor: UIColor.clear.cgColor, lineWidth: lineWidth)
+        foregroundLayer = createCircularLayer(rect: rect, strokeColor: okColor, fillColor: UIColor.clear.cgColor, lineWidth: lineWidth)
         
-        textLayer = createTextLayer(rect: rect, textColor: UIColor.white.cgColor)
+//        textLayer = createTextLayer(rect: rect, textColor: UIColor.blue.cgColor)
                 
         layer.addSublayer(backgroundLayer)
         layer.addSublayer(foregroundLayer)
-        layer.addSublayer(textLayer)
+        //layer.addSublayer(textLayer)
+        
+        updateProgress(progress: progress)
     }
     
     func createCircularLayer(rect: CGRect, strokeColor: CGColor, fillColor: CGColor, lineWidth: CGFloat) -> CAShapeLayer {
@@ -62,35 +63,42 @@ class ProgressBar: UIView {
         let shapeLayer = CAShapeLayer()
         
         shapeLayer.path = circularPath.cgPath
-        shapeLayer.strokeColor = UIColor.lightGray.cgColor
-        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.strokeColor = strokeColor
+        shapeLayer.fillColor = fillColor
         shapeLayer.lineWidth = lineWidth
         shapeLayer.lineCap = .round
         
         return shapeLayer
     }
     
-    func createTextLayer(rect: CGRect, textColor: CGColor) -> CATextLayer {
-        let width = rect.width
-        let height = rect.height
-        
-        let fontSize = min(width, height) / 4
-        let offset = min(width, height) * 0.1
-        
-        let layer = CATextLayer()
-        layer.string = "\(Int(progress * 100))"
-        layer.backgroundColor = UIColor.clear.cgColor
-        layer.foregroundColor = textColor
-        layer.fontSize = fontSize
-        layer.frame = CGRect(x: 0, y: (height - fontSize - offset) / 2, width: width, height: fontSize + offset)
-        layer.alignmentMode = .center
-        
-        return layer
-    }
+//    func createTextLayer(rect: CGRect, textColor: CGColor) -> CATextLayer {
+//        let width = rect.width
+//        let height = rect.height
+//
+//        let fontSize = min(width, height) / 3
+//        let offset = min(width, height) * 0.1
+//
+//        let layer = CATextLayer()
+//        layer.string = "\(Int(progress * 100))"
+//        layer.backgroundColor = UIColor.clear.cgColor
+//        layer.foregroundColor = textColor
+//        layer.fontSize = fontSize
+//        layer.frame = CGRect(x: 0, y: (height - fontSize - offset) / 2, width: width, height: fontSize + offset)
+//        layer.alignmentMode = .center
+//
+//        return layer
+//    }
     
-    func didProgressUpdated() {
-        textLayer?.string = "\(Int(progress * 100))"
-        foregroundLayer.strokeEnd = progress
-    }
+    func updateProgress(progress: CGFloat) {
+        self.progress = progress
 
+        if foregroundLayer != nil {
+            if progress > 1.0 {
+                foregroundLayer.strokeColor = errColor
+            } else {
+                foregroundLayer.strokeColor = okColor
+            }
+            foregroundLayer.strokeEnd = progress
+        }
+    }
 }

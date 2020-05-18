@@ -21,6 +21,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     var collectionView: UICollectionView!
     
     var listaGpos: [GpoAlimenticio]!
+    var listaPlan: [GpoAlimenticio]!
     
     var buttonRegistrar: UIButton!
 
@@ -33,15 +34,22 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         navigationItem.leftBarButtonItem = menuButtonItem
         
         view.backgroundColor = UIColor.white
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        setupView()
+    }
+    
+    func setupView() {
         createGroups()
         setupAddFoodButton()
         setupCollectionView()
     }
 
     func createGroups(){
-        let planLista = loadPlan()
+        listaPlan = loadPlan()
 
-        if !checkValidPlan(plan: planLista) {
+        if !checkValidPlan(plan: listaPlan) {
             let alert = UIAlertController(title: "Alerta", message: "Aun no hay un plan registrado", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ir a Mi Plan", style: .cancel, handler: sendToPlan))
             present(alert, animated: true, completion: nil)
@@ -49,6 +57,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
       
         listaGpos = loadFoodForToday()
         
+        // no hay comida registrada para el dia de hoy
         if listaGpos.count == 0 {
             listaGpos = [
                 GpoAlimenticio(name: "Vegetales", icon: "carrot-icon", portions: 0),
@@ -63,12 +72,8 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
             ]
         }
     }
-
-    func sendToPlan(_ :UIAlertAction) {
-        delegate?.handleSectionTap(forSection: MenuSection.MiPlan)
-    }
     
-    // MARK: - Table View
+    // MARK: - Collection View
     func setupCollectionView() {
         let layout: UICollectionViewLayout = MiDiaCollectionViewFlowLayout()
 
@@ -94,6 +99,9 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "miDiaCell", for: indexPath) as! MiDiaCollectionViewCell
         
+        if checkValidPlan(plan: listaPlan) {
+            myCell.completePortion = CGFloat(listaPlan[indexPath.row].portions)
+        }
         myCell.gpoAlim = listaGpos[indexPath.row]
 //        myCell.layer.borderWidth = 1
 //        myCell.layer.borderColor = UIColor.lightGray.cgColor
@@ -101,10 +109,26 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         return myCell
     }
     
+    // MARK: - Menu delegate
+    
     // Enseña o esconde el menu
     @objc func toggleMenu() {
         delegate?.handleMenuToggle()
     }
+    
+    // envia al usuario a la pantalla de mi plan
+    func sendToPlan(_ :UIAlertAction) {
+        delegate?.handleSectionTap(forSection: MenuSection.MiPlan)
+    }
+    
+    // MARK: MiDiaDataManager delegate function
+
+    func updateData(newData: [GpoAlimenticio]!, date: Date) {
+        saveFood(newData: newData, date: date)
+        setupView()
+    }
+    
+    // MARK: - Botones para agregar porciones de comida
 
     func setupAddFoodButton() {
         buttonRegistrar = UIButton(type: .system)
@@ -221,13 +245,6 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         let calendar = Calendar.current
         return calendar.component(.year, from: d1) == calendar.component(.year, from: d2) && calendar.component(.month, from: d1) == calendar.component(.month, from: d2) && calendar.component(.day, from: d1) == calendar.component(.day, from: d2)
         
-    }
-
-    // MARK: MiDiaDataManager delegate function
-
-    func updateData(newData: [GpoAlimenticio]!, date: Date) {
-        saveFood(newData: newData, date: date)
-        collectionView.reloadData()
     }
     
     // MARK: Plan verification
