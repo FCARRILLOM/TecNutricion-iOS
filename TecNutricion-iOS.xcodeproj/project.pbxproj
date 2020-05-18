@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		074E3CB424723B12007EC432 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074E3CB324723B12007EC432 /* ProgressBar.swift */; };
 		0753A0AB2450C17100DFEBAF /* MiDiaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790DB7224468AC500E0EC19 /* MiDiaViewController.swift */; };
 		0753A0B02450C49900DFEBAF /* MiDiaCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0753A0AF2450C49900DFEBAF /* MiDiaCollectionViewFlowLayout.swift */; };
 		075C0BE2244FD69800CC6F45 /* UIView+AnchorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C0BE1244FD69800CC6F45 /* UIView+AnchorExtension.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		074E3CB324723B12007EC432 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProgressBar.swift; path = "TecNutricion-iOS/View/ProgressBar.swift"; sourceTree = SOURCE_ROOT; };
 		0753A0AF2450C49900DFEBAF /* MiDiaCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiDiaCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		075C0BE1244FD69800CC6F45 /* UIView+AnchorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AnchorExtension.swift"; sourceTree = "<group>"; };
 		077850412467677A0070E88B /* HistorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorialViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				68DD9A702468CC9600DAA13A /* RegistraCMIViewController.swift */,
 				079988AA2446CA55001B4FB2 /* ContainerViewController.swift */,
 				077850412467677A0070E88B /* HistorialViewController.swift */,
+				074E3CB324723B12007EC432 /* ProgressBar.swift */,
 				687D23792460AF5C00265E46 /* SemaforoViewController.swift */,
 				0790DB7224468AC500E0EC19 /* MiDiaViewController.swift */,
 				0790DB752446909700E0EC19 /* MiPlanViewController.swift */,
@@ -266,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07A845CD2450BFFF0043B3FB /* MiDiaCollectionViewCell.swift in Sources */,
+				074E3CB424723B12007EC432 /* ProgressBar.swift in Sources */,
 				0784823B243E4CBC006511C5 /* AppDelegate.swift in Sources */,
 				0858DA9024624B4200845D96 /* RegistroDia.swift in Sources */,
 				07BDAAAC244E6D770089BBC9 /* MiPlanTableViewCell.swift in Sources */,
