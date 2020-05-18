@@ -91,6 +91,10 @@ class ContainerViewController: UIViewController, MenuDelegate {
                     break;
                     
                 case .Equivalentes:
+                    let equivalentesViewController = EquivalentesTableViewController()
+                    equivalentesViewController.menuDelegate = self
+                    
+                    navController.setViewControllers([equivalentesViewController], animated: true)
                     break;
                     
                 case .Semaforo:
