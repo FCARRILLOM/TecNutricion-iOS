@@ -38,16 +38,18 @@ class MiDiaLayout: UICollectionViewLayout {
         let cvWidth = collectionView.bounds.size.width
         
         while currentIndex < count {
-            let fullWidthRect = CGRect(x: 0, y: lastFrame.maxY, width: cvWidth, height: itemHeight)
+            let fullWidthRect = CGRect(x: 0, y: lastFrame.maxY + spacing, width: cvWidth, height: itemHeight)
             var segmentRects = [CGRect]()
             
             switch segment {
             case .half:
-                let divs = fullWidthRect.divided(atDistance: fullWidthRect.width/2, from: .minXEdge)
-                segmentRects = [divs.slice, divs.remainder]
+                let itemWidth = (self.collectionView!.frame.width - 1 - spacing) / 2
+                let itemHeight = MiDiaCollectionViewCell.CELL_HEIGHT
+                segmentRects = [CGRect(x: 0, y: lastFrame.maxY, width: itemWidth, height: itemHeight), CGRect(x: itemWidth + spacing, y: lastFrame.maxY, width: itemWidth, height: itemHeight)]
             case .fullWidth:
                 segmentRects = [fullWidthRect]
             }
+            
             for rect in segmentRects {
                 let attributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: currentIndex, section: 0))
                 attributes.frame = rect
