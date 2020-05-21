@@ -1,14 +1,14 @@
 //
-//  CollectionViewCell.swift
+//  MiDiaLongCollectionViewCell.swift
 //  TecNutricion-iOS
 //
-//  Created by user168638 on 4/21/20.
+//  Created by user168638 on 5/21/20.
 //  Copyright © 2020 FernandoCarrillo. All rights reserved.
 //
 
 import UIKit
 
-class MiDiaCollectionViewCell: UICollectionViewCell {
+class MiDiaLongCollectionViewCell: UICollectionViewCell {
     class var CELL_HEIGHT: CGFloat {
         return 110
     }
@@ -38,7 +38,7 @@ class MiDiaCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let cellPortionsLabel: UILabel = {        
+    let cellPortionsLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 16)
@@ -47,7 +47,7 @@ class MiDiaCollectionViewCell: UICollectionViewCell {
     }()
     
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: .zero)
         addSubview(cellIcon)
         addSubview(cellTitleLabel)
         addSubview(cellPortionsLabel)

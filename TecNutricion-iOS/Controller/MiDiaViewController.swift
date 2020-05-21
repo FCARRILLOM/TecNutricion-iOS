@@ -70,7 +70,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     // MARK: - Table View
     func setupCollectionView() {
-        let layout: UICollectionViewLayout = MiDiaCollectionViewFlowLayout()
+        let layout = MiDiaLayout()
 
         collectionView = UICollectionView(frame: CGRect(x: 10,
                                                         y: NAVBAR_HEIGHT,
