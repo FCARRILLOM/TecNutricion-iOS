@@ -125,7 +125,7 @@ class HistorialViewController: UIViewController, historialManager {
         let PICKER_HEIGHT: CGFloat = 80
 
         initialLabel.frame = CGRect(x: SIDE_PADDING,
-                                    y: lineChartContainer.frame.origin.y + lineChartContainer.frame.height + TOP_PADDING,
+                                    y: lineChartContainer.frame.origin.y + lineChartContainer.frame.height + TOP_PADDING * 2,
                                     width: LABEL_WIDTH,
                                     height: LABEL_HEIGHT)
         
@@ -152,29 +152,30 @@ class HistorialViewController: UIViewController, historialManager {
     
     // MARK: - Charts
     func setupLineCharts() {
-        let PADDING: CGFloat = 10
+        let TOP_PADDING: CGFloat = 12
+        let SIDE_PADDING: CGFloat = 10
         lineChartContainer.frame = CGRect(x: 0,
                                           y: NAVBAR_HEIGHT + 20,
                                           width: SCREEN_WIDTH,
-                                          height: LINE_CHART_HEIGHT * 3 + PADDING * 3)
+                                          height: LINE_CHART_HEIGHT * 3 + TOP_PADDING * 3)
         let containerFrame = lineChartContainer.frame
         
         let pesoLineChart = createLineChart(valores: valoresPeso, color: UIColor.systemGreen, label: "Peso", xAxisEnabled: false)
-        pesoLineChart.frame = CGRect(x: containerFrame.origin.x,
-                                     y: PADDING,
-                                     width: containerFrame.width,
+        pesoLineChart.frame = CGRect(x: SIDE_PADDING,
+                                     y: TOP_PADDING,
+                                     width: containerFrame.width - SIDE_PADDING * 2,
                                      height: LINE_CHART_HEIGHT)
         
         let masaLineChart = createLineChart(valores: valoresMasa, color: UIColor.systemBlue, label: "Masa", xAxisEnabled: false)
-        masaLineChart.frame = CGRect(x: containerFrame.origin.x,
-                                     y: LINE_CHART_HEIGHT + PADDING,
-                                     width: containerFrame.width,
+        masaLineChart.frame = CGRect(x: SIDE_PADDING,
+                                     y: LINE_CHART_HEIGHT + TOP_PADDING,
+                                     width: containerFrame.width - SIDE_PADDING * 2,
                                      height: LINE_CHART_HEIGHT)
         
         let grasaLineChart = createLineChart(valores: valoresGrasa, color: UIColor.systemOrange, label:"Grasa", xAxisEnabled: true)
-        grasaLineChart.frame = CGRect(x: containerFrame.origin.x,
-                                      y: (LINE_CHART_HEIGHT + PADDING) * 2,
-                                      width: containerFrame.width,
+        grasaLineChart.frame = CGRect(x: SIDE_PADDING,
+                                      y: (LINE_CHART_HEIGHT + TOP_PADDING) * 2,
+                                      width: containerFrame.width - SIDE_PADDING * 2,
                                       height: LINE_CHART_HEIGHT)
         
         lineChartContainer.addSubview(pesoLineChart)
@@ -208,6 +209,13 @@ class HistorialViewController: UIViewController, historialManager {
         chartDataSet.circleHoleColor = color
         chartDataSet.circleRadius = 4.0
         lineChartDataSets.append(chartDataSet)
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 1
+        formatter.maximumFractionDigits = 1
+        
+        chartDataSet.valueFormatter = DefaultValueFormatter(formatter: formatter)
         
         // axis
         tempChartView.rightAxis.enabled = false
