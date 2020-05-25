@@ -70,10 +70,11 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
 
     // MARK: - Collection View
     func setupCollectionView() {
+        let TOP_PADDING: CGFloat = 30
         let layout: UICollectionViewLayout = MiDiaCollectionViewFlowLayout()
 
         collectionView = UICollectionView(frame: CGRect(x: 10,
-                                                        y: NAVBAR_HEIGHT + 10,
+                                                        y: NAVBAR_HEIGHT + TOP_PADDING,
                                                         width: SCREEN_WIDTH - 20,
                                                         height: SCREEN_HEIGHT - NAVBAR_HEIGHT),
                                                         collectionViewLayout: layout)
