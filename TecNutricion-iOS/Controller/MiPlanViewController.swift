@@ -27,9 +27,11 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         title = "Mi Plan"
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
+        menuButtonItem.tintColor = .white
         navigationItem.leftBarButtonItem = menuButtonItem
         
         let saveButtonItem = UIBarButtonItem(title: "Guardar", style: .plain, target: self, action: #selector(savePlanButton))
+        saveButtonItem.tintColor = .white
         navigationItem.rightBarButtonItem = saveButtonItem
         
         createGroups()

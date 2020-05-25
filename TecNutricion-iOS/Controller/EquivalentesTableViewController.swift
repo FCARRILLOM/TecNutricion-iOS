@@ -21,6 +21,7 @@ class EquivalentesTableViewController: UITableViewController {
         
         title = "Equivalentes"
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
+        menuButtonItem.tintColor = .white
         navigationItem.leftBarButtonItem = menuButtonItem
     }
     

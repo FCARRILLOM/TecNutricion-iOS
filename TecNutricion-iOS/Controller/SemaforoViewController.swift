@@ -24,6 +24,7 @@ class SemaforoViewController: UIViewController {
         title = "Semáforo Nutricional"
         
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
+        menuButtonItem.tintColor = .white
         navigationItem.leftBarButtonItem = menuButtonItem
         view.backgroundColor = .white
         setupImageView()
