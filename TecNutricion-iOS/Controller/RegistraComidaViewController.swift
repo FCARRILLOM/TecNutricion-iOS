@@ -154,7 +154,7 @@ class RegistraComidaViewController: UIViewController, UITableViewDataSource, UIT
 
     func createGroups(){
         
-        listaGpos = BaseLista
+        listaGpos = GpoAlimenticio.NewBase()
         
     }
 

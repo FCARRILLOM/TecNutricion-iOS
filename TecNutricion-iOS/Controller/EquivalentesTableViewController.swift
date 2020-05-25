@@ -10,7 +10,7 @@ import UIKit
 
 class EquivalentesTableViewController: UITableViewController {
     
-    let grupos = BaseLista
+    let grupos = GpoAlimenticio.NewBase()
     
     var menuDelegate: MenuDelegate!
 

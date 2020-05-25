@@ -64,7 +64,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
 
         // no hay comida registrada para el dia de hoy
         if listaGpos.count == 0 {
-            listaGpos = BaseLista
+            listaGpos = GpoAlimenticio.NewBase()
         }
     }
 

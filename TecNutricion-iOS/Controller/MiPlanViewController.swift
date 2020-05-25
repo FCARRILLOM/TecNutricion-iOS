@@ -144,7 +144,7 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
         listaGpos = loadPlan()
         
         if listaGpos.count == 0 {
-            listaGpos = BaseLista
+            listaGpos = GpoAlimenticio.NewBase()
         }
     }
     
