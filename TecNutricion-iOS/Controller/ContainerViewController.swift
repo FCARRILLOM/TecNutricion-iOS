@@ -17,9 +17,15 @@ class ContainerViewController: UIViewController, MenuDelegate {
     var isExpanded = false
     var currentSection: MenuSection = .MiDia
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        view.backgroundColor = UIColor.theme
+        
         setupMiDiaController()
     }
     

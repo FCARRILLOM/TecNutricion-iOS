@@ -112,15 +112,6 @@ class RegistraCMIViewController: UIViewController, UIGestureRecognizerDelegate {
         fechaLb.textAlignment = .left
         fechaLb.textColor = UIColor.black
 
-
-        let button = UIButton(type: .system)
-        button.frame = CGRect(x: self.view.center.x-65, y: SCREEN_HEIGHT - TOP_MARGIN - 110, width: 120, height: 50)
-        
-        button.setTitle("Guardar", for: .normal)
-        button.backgroundColor = .lightGray
-        
-        button.addTarget(self, action: #selector(addCMI), for: .touchUpInside)
-
         // Frames
 
         let bg = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: TOP_MARGIN))
@@ -128,9 +119,6 @@ class RegistraCMIViewController: UIViewController, UIGestureRecognizerDelegate {
         let ex = UITapGestureRecognizer(target: self, action: #selector(backToHistory))
         ex.delegate = self
         bg.addGestureRecognizer(ex)
-        
-        let vw = UIView(frame: CGRect(x: 0, y: TOP_MARGIN, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-TOP_MARGIN))
-        vw.backgroundColor = .white
         
         pesoLb.frame = CGRect(  x: SIDE_PADDING,
                                 y: TOP_PADDING,
@@ -168,8 +156,18 @@ class RegistraCMIViewController: UIViewController, UIGestureRecognizerDelegate {
                                 width: SCREEN_WIDTH,
                                 height: PICKER_HEIGHT)
 
-
-
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: self.view.center.x-65, y: fechaDatePicker.frame.maxY+20, width: 120, height: 50)
+        
+        button.setTitle("Guardar", for: .normal)
+        button.backgroundColor = .theme
+        button.layer.cornerRadius = 15
+        button.tintColor = .white
+        
+        button.addTarget(self, action: #selector(addCMI), for: .touchUpInside)
+        let ySize = button.frame.maxY+TOP_PADDING*5
+        let vw = UIView(frame: CGRect(x: 0, y: SCREEN_HEIGHT - ySize, width: SCREEN_WIDTH, height: ySize))
+        vw.backgroundColor = .white
 
         vw.addSubview(pesoLb)
         vw.addSubview(pesoTf)

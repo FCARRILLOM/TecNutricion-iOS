@@ -60,11 +60,12 @@ class RegistraComidaViewController: UIViewController, UITableViewDataSource, UIT
 
     func setupSaveButton() {
         let button = UIButton(type: .system)
-        button.frame = CGRect(x: self.view.center.x-65, y: SCREEN_HEIGHT - 110, width: 120, height: 50)
+        button.frame = CGRect(x: self.view.center.x-65, y: SCREEN_HEIGHT - 120, width: 120, height: 50)
 
         button.setTitle("Guardar", for: .normal)
-        button.backgroundColor = .lightGray
-
+        button.backgroundColor = .theme
+        button.tintColor = .white
+        button.layer.cornerRadius = 15
         button.addTarget(self, action: #selector(addFood(_:)), for: .touchUpInside)
 
         view.addSubview(button)

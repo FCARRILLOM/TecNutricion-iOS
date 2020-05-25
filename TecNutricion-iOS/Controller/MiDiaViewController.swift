@@ -23,14 +23,19 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     var listaGpos: [GpoAlimenticio]!
     var listaPlan: [GpoAlimenticio]!
 
-    var buttonRegistrar: UIButton!
+    var buttonRegistrar: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         NAVBAR_HEIGHT = self.navigationController?.navigationBar.bounds.height
 
+        self.navigationController?.navigationBar.barTintColor = .theme
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        
         title = "Mi Día"
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
+        menuButtonItem.tintColor = .white
         navigationItem.leftBarButtonItem = menuButtonItem
 
         view.backgroundColor = UIColor.white
@@ -42,8 +47,8 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
 
     func setupView() {
         createGroups()
-        setupAddFoodButton()
         setupCollectionView()
+        setupAddFoodButton()
     }
 
     func createGroups(){
@@ -68,12 +73,12 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         let layout: UICollectionViewLayout = MiDiaCollectionViewFlowLayout()
 
         collectionView = UICollectionView(frame: CGRect(x: 10,
-                                                        y: NAVBAR_HEIGHT,
+                                                        y: NAVBAR_HEIGHT + 10,
                                                         width: SCREEN_WIDTH - 20,
-                                                        height: SCREEN_HEIGHT - NAVBAR_HEIGHT - (SCREEN_HEIGHT - buttonRegistrar.frame.minY) - 10),
+                                                        height: SCREEN_HEIGHT - NAVBAR_HEIGHT),
                                                         collectionViewLayout: layout)
-
-        collectionView.backgroundColor = UIColor.white
+            
+        collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
 
@@ -129,15 +134,21 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     // MARK: - Botones para agregar porciones de comida
 
     func setupAddFoodButton() {
-        buttonRegistrar = UIButton(type: .system)
-        buttonRegistrar.frame = CGRect(x: self.view.center.x-75, y: SCREEN_HEIGHT - 70, width: 150, height: 50)
+        
+        buttonRegistrar = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAddFood(_:)))
+        buttonRegistrar.tintColor = .white
+        navigationItem.rightBarButtonItem = buttonRegistrar
+//        buttonRegistrar.frame = CGRect(x: self.view.center.x-40 + ((self.view.center.x-40) / 2), y: SCREEN_HEIGHT - 120, width: 80, height: 80)
 
-        buttonRegistrar.setTitle("Registrar Comida", for: .normal)
-        buttonRegistrar.backgroundColor = .lightGray
+//        buttonRegistrar.setTitle("+", for: .normal)
+//        buttonRegistrar.titleLabel?.font = UIFont(name: "Arial", size: 35)
+//        buttonRegistrar.backgroundColor = .theme
+//        buttonRegistrar.tintColor = .white
+//        buttonRegistrar.layer.cornerRadius = 0.5 * buttonRegistrar.bounds.size.width
+//        buttonRegistrar.clipsToBounds = true
+//        buttonRegistrar.addTarget(self, action: #selector(showAddFood(_:)), for: .touchUpInside)
 
-        buttonRegistrar.addTarget(self, action: #selector(showAddFood(_:)), for: .touchUpInside)
-
-        view.addSubview(buttonRegistrar)
+//        view.addSubview(buttonRegistrar)
     }
 
     @objc func showAddFood(_ sender:UIButton!) {

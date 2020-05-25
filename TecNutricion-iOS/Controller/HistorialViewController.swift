@@ -40,11 +40,13 @@ class HistorialViewController: UIViewController, historialManager {
         print("iniclalizando HIstorial")
         NAVBAR_HEIGHT = self.navigationController?.navigationBar.bounds.height
         
-        title = "Historial de Composición Corporal"
+        title = "Historial de C.C."
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
+        menuButtonItem.tintColor = .white
         navigationItem.leftBarButtonItem = menuButtonItem
         
         let addButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEntry))
+        addButtonItem.tintColor = .white
         navigationItem.rightBarButtonItem = addButtonItem
         
         view.backgroundColor = .white

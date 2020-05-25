@@ -19,6 +19,9 @@ class MenuTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "sectionCell")
+        tableView.backgroundColor = UIColor.theme
+        tableView.separatorStyle = .none
+        tableView.separatorColor = .clear
     }
 
     // MARK: - Table view data source
@@ -36,8 +39,14 @@ class MenuTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "sectionCell", for: indexPath)
         
         let section = MenuSection(rawValue: indexPath.row)
+        
+        let background = UIView()
+        
+        background.backgroundColor = .themeHighlighted
+        cell.selectedBackgroundView = background
         cell.textLabel?.text = section?.description
-
+        cell.textLabel?.textColor = .white
+        cell.backgroundColor = UIColor.theme
         return cell
     }
     
