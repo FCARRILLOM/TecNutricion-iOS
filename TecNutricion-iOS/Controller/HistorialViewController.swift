@@ -222,7 +222,12 @@ class HistorialViewController: UIViewController, historialManager {
         xAxis.valueFormatter = axisFormatDelegate
           
         let lineChartData = LineChartData(dataSets: lineChartDataSets)
-        lineChartData.setDrawValues(false)
+        if valores.count < 8 {
+            lineChartData.setDrawValues(true)
+        } else {
+            lineChartData.setDrawValues(false)
+        }
+        lineChartData.setValueFont(NSUIFont.init(name: "arial", size: 11)!)
         
         tempChartView.legend.orientation = .horizontal
         tempChartView.legend.horizontalAlignment = .right
