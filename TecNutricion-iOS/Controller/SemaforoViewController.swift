@@ -8,7 +8,9 @@
 
 import UIKit
 
-class SemaforoViewController: UIViewController {
+class SemaforoViewController: UIViewController, showable {
+
+    
 
     let SCREEN_WIDTH: CGFloat = UIScreen.main.bounds.width
     let SCREEN_HEIGHT: CGFloat = UIScreen.main.bounds.height
@@ -16,11 +18,18 @@ class SemaforoViewController: UIViewController {
     
     var menuDelegate: MenuDelegate!
     
+    var touchable: Bool!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         NAVBAR_HEIGHT = self.navigationController?.navigationBar.bounds.height
         
+        touchable = true;
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
+        navigationController?.navigationBar.addGestureRecognizer(tap)
+        view.addGestureRecognizer(tap)
         title = "Semáforo Nutricional"
         
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
@@ -39,12 +48,22 @@ class SemaforoViewController: UIViewController {
         view.addSubview(imgView)
     }
     
+    func setTouchable(touchable: Bool) {
+        self.touchable = touchable
+    }
     
     // MARK: - Menu delegate
     
     // Enseña o esconde el menu
     @objc func toggleMenu() {
+        touchable = !touchable
         menuDelegate?.handleMenuToggle()
+    }
+    
+    @objc func hideMenu() {
+        if !touchable {
+            toggleMenu()
+        }
     }
 
     /*

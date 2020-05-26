@@ -8,12 +8,16 @@
 
 import UIKit
 
-class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MiPlanCellDelegate {
+class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MiPlanCellDelegate, UIGestureRecognizerDelegate, showable {
+    func setTouchable(touchable: Bool) {
+        self.touchable = touchable
+    }
+    
     
     let SCREEN_WIDTH: CGFloat = UIScreen.main.bounds.width
     let SCREEN_HEIGHT: CGFloat = UIScreen.main.bounds.height
     var NAVBAR_HEIGHT: CGFloat!
-    
+    var touchable: Bool!
     var menuDelegate: MenuDelegate!
     
     var tableView: UITableView!
@@ -24,7 +28,10 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         
         NAVBAR_HEIGHT = self.navigationController?.navigationBar.bounds.height
-        
+        touchable = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
+
+        navigationController?.navigationBar.addGestureRecognizer(tap)
         title = "Mi Plan"
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
         menuButtonItem.tintColor = .white
@@ -39,6 +46,10 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
         setupTableView()
         
         view.backgroundColor = UIColor.white
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return touch.view == gestureRecognizer.view
     }
     
     @objc func savePlanButton() {
@@ -72,15 +83,28 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
                                  width: SCREEN_WIDTH,
                                  height: SCREEN_HEIGHT - 40)
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
+        tap.delegate = self
+        tableView.addGestureRecognizer(tap)
+        
         view.addSubview(tableView)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listaGpos.count
+    }
+    
+    @objc func hideMenu() {
+        if !touchable {
+            toggleMenu()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        hideMenu()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -88,7 +112,7 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.delegate = self
         
         cell.gpoAlim = listaGpos[indexPath.row]
-
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -136,6 +160,7 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // Enseña o esconde el menu
     @objc func toggleMenu() {
+        touchable = !touchable
         menuDelegate?.handleMenuToggle()
     }
     

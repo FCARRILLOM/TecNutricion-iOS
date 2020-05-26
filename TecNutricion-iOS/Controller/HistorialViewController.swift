@@ -11,7 +11,7 @@
 import UIKit
 import Charts
 
-class HistorialViewController: UIViewController, historialManager {
+class HistorialViewController: UIViewController, historialManager, showable {
     
     let SCREEN_WIDTH: CGFloat = UIScreen.main.bounds.width
     let SCREEN_HEIGHT: CGFloat = UIScreen.main.bounds.height
@@ -37,11 +37,15 @@ class HistorialViewController: UIViewController, historialManager {
     var menuDelegate: MenuDelegate!
     var axisFormatDelegate: IAxisValueFormatter!
 
+    var touchable: Bool!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("iniclalizando HIstorial")
+        touchable = true
         NAVBAR_HEIGHT = self.navigationController?.navigationBar.bounds.height
-        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
+        navigationController?.navigationBar.addGestureRecognizer(tap)
         title = "Historial de C.C."
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
         menuButtonItem.tintColor = .white
@@ -67,6 +71,12 @@ class HistorialViewController: UIViewController, historialManager {
         } else {
             notifyNoData()
         }
+        view.addGestureRecognizer(tap)
+        
+    }
+    
+    func setTouchable(touchable: Bool) {
+        self.touchable = touchable
     }
     
     func notifyNoData() {
@@ -79,7 +89,14 @@ class HistorialViewController: UIViewController, historialManager {
     // MARK: - Bar buttons
     // Enseña o esconde el menu
     @objc func toggleMenu() {
+        touchable = !touchable
         menuDelegate?.handleMenuToggle()
+    }
+    
+    @objc func hideMenu() {
+        if !touchable {
+            toggleMenu()
+        }
     }
     
     @objc func addEntry() {
@@ -177,6 +194,9 @@ class HistorialViewController: UIViewController, historialManager {
         lineChartContainer.addSubview(pesoLineChart)
         lineChartContainer.addSubview(masaLineChart)
         lineChartContainer.addSubview(grasaLineChart)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
+        lineChartContainer.addGestureRecognizer(tap)
         
         view.addSubview(lineChartContainer)
     }
