@@ -125,7 +125,7 @@ class HistorialViewController: UIViewController, historialManager {
         let PICKER_HEIGHT: CGFloat = 80
 
         initialLabel.frame = CGRect(x: SIDE_PADDING,
-                                    y: lineChartContainer.frame.origin.y + lineChartContainer.frame.height + TOP_PADDING * 2,
+                                    y: lineChartContainer.frame.origin.y + lineChartContainer.frame.height + TOP_PADDING,
                                     width: LABEL_WIDTH,
                                     height: LABEL_HEIGHT)
         
@@ -152,31 +152,27 @@ class HistorialViewController: UIViewController, historialManager {
     
     // MARK: - Charts
     func setupLineCharts() {
-        let TOP_PADDING: CGFloat = 12
-        let SIDE_PADDING: CGFloat = 10
+        let top_padding: CGFloat = 12
+        let side_padding: CGFloat = 10
+        
         lineChartContainer.frame = CGRect(x: 0,
                                           y: NAVBAR_HEIGHT + 20,
                                           width: SCREEN_WIDTH,
-                                          height: LINE_CHART_HEIGHT * 3 + TOP_PADDING * 3)
+                                          height: LINE_CHART_HEIGHT * 3 + top_padding * 4)
         let containerFrame = lineChartContainer.frame
         
-        let pesoLineChart = createLineChart(valores: valoresPeso, color: UIColor.systemGreen, label: "Peso", xAxisEnabled: false)
-        pesoLineChart.frame = CGRect(x: SIDE_PADDING,
-                                     y: TOP_PADDING,
-                                     width: containerFrame.width - SIDE_PADDING * 2,
-                                     height: LINE_CHART_HEIGHT)
+        let chart_size: CGSize = CGSize(width: containerFrame.width - side_padding * 2, height: LINE_CHART_HEIGHT)
+        let pesoLineChart = createLineChart(valores: valoresPeso, color: UIColor.systemGreen, label: "Peso", size: chart_size)
+        pesoLineChart.frame.origin = CGPoint(x: side_padding,
+                                             y: top_padding)
         
-        let masaLineChart = createLineChart(valores: valoresMasa, color: UIColor.systemBlue, label: "Masa", xAxisEnabled: false)
-        masaLineChart.frame = CGRect(x: SIDE_PADDING,
-                                     y: LINE_CHART_HEIGHT + TOP_PADDING,
-                                     width: containerFrame.width - SIDE_PADDING * 2,
-                                     height: LINE_CHART_HEIGHT)
+        let masaLineChart = createLineChart(valores: valoresMasa, color: UIColor.systemBlue, label: "Masa", size: chart_size)
+        masaLineChart.frame.origin = CGPoint(x: side_padding,
+                                             y: LINE_CHART_HEIGHT + top_padding * 2)
         
-        let grasaLineChart = createLineChart(valores: valoresGrasa, color: UIColor.systemOrange, label:"Grasa", xAxisEnabled: true)
-        grasaLineChart.frame = CGRect(x: SIDE_PADDING,
-                                      y: (LINE_CHART_HEIGHT + TOP_PADDING) * 2,
-                                      width: containerFrame.width - SIDE_PADDING * 2,
-                                      height: LINE_CHART_HEIGHT)
+        let grasaLineChart = createLineChart(valores: valoresGrasa, color: UIColor.systemOrange, label:"Grasa", size: chart_size)
+        grasaLineChart.frame.origin = CGPoint(x: side_padding,
+                                              y: (LINE_CHART_HEIGHT * 2) + (top_padding * 3))
         
         lineChartContainer.addSubview(pesoLineChart)
         lineChartContainer.addSubview(masaLineChart)
@@ -185,9 +181,9 @@ class HistorialViewController: UIViewController, historialManager {
         view.addSubview(lineChartContainer)
     }
     
-    func createLineChart(valores: [(Date, Double)], color: UIColor, label: String, xAxisEnabled: Bool) -> LineChartView {
+    func createLineChart(valores: [(Date, Double)], color: UIColor, label: String, size: CGSize) -> LineChartView {
         let tempChartView = LineChartView()
-        tempChartView.frame = CGRect(x: 0, y: NAVBAR_HEIGHT + TOP_PADDING, width: SCREEN_WIDTH, height: LINE_CHART_HEIGHT)
+        tempChartView.frame.size = size
         tempChartView.backgroundColor = .white
         tempChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeInSine)
         tempChartView.legend.form = .circle
@@ -221,7 +217,7 @@ class HistorialViewController: UIViewController, historialManager {
         tempChartView.rightAxis.enabled = false
         tempChartView.leftAxis.enabled = false
         let xAxis = tempChartView.xAxis
-        xAxis.drawLabelsEnabled = xAxisEnabled
+        xAxis.drawLabelsEnabled = false
         xAxis.labelCount = valores.count
         xAxis.granularityEnabled = true
         xAxis.granularity = 1.0
