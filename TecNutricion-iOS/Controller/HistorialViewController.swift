@@ -195,8 +195,10 @@ class HistorialViewController: UIViewController, historialManager {
         
         // datos de peso
         var lineDataEntries: [ChartDataEntry] = []
+        let tempXValues: [Int] = Array(0...valores.count)
+        print(tempXValues)
         for i in 0..<valores.count {
-            let dataPoint = ChartDataEntry(x: Double(valores[i].0.timeIntervalSince1970), y: valores[i].1)
+            let dataPoint = ChartDataEntry(x: Double(tempXValues[i]), y: valores[i].1)
             lineDataEntries.append(dataPoint)
         }
         let chartDataSet = LineChartDataSet(entries: lineDataEntries, label: label)
@@ -219,8 +221,6 @@ class HistorialViewController: UIViewController, historialManager {
         let xAxis = tempChartView.xAxis
         xAxis.drawLabelsEnabled = false
         xAxis.labelCount = valores.count
-        xAxis.granularityEnabled = true
-        xAxis.granularity = 1.0
         xAxis.labelPosition = .bottom
         xAxis.drawGridLinesEnabled = false
         xAxis.valueFormatter = axisFormatDelegate
