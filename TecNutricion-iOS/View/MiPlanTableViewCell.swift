@@ -55,6 +55,7 @@ class MiPlanTableViewCell: UITableViewCell {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "plusBtn"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
+        button.imageView?.frame.size.width = 25
         return button
     }()
     
@@ -64,8 +65,10 @@ class MiPlanTableViewCell: UITableViewCell {
     
     let decreaseButton: UIButton = {
         let button = UIButton(type: .custom)
+        button.frame.size.width = 10
         button.setImage(UIImage(named: "minusBtn"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
+        button.imageView?.frame.size.width = 25
         return button
     }()
     
@@ -78,8 +81,8 @@ class MiPlanTableViewCell: UITableViewCell {
         addSubview(icon)
         addSubview(titleLabel)
         addSubview(portionsLabel)
-        addSubview(increaseButton)
         addSubview(decreaseButton)
+        addSubview(increaseButton)
         
         icon.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 0, width: 50, height: 0, enableInsets: false)
         titleLabel.anchor(top: topAnchor, left: icon.rightAnchor, bottom: nil, right: nil, paddingTop: 20, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: frame.size.width / 2, height: 0, enableInsets: false)
@@ -89,7 +92,7 @@ class MiPlanTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.spacing = 10
         addSubview(stackView)
-        stackView.anchor(top: topAnchor, left: nil, bottom: bottomAnchor, right: rightAnchor, paddingTop: 15, paddingLeft: 0, paddingBottom: 15, paddingRight: 10, width: 0, height: 30, enableInsets: false)
+        stackView.anchor(top: topAnchor, left: titleLabel.rightAnchor1, bottom: bottomAnchor, right: rightAnchor, paddingTop: 15, paddingLeft: 0, paddingBottom: 15, paddingRight: 10, width: 0, height: 30, enableInsets: false)
         
         decreaseButton.addTarget(self, action: #selector(decreasePortion), for: .touchUpInside)
         increaseButton.addTarget(self, action: #selector(increasePortion), for: .touchUpInside)
