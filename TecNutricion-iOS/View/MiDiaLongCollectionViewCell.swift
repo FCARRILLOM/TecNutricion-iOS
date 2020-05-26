@@ -1,14 +1,14 @@
 //
-//  CollectionViewCell.swift
+//  MiDiaLongCollectionViewCell.swift
 //  TecNutricion-iOS
 //
-//  Created by user168638 on 4/21/20.
+//  Created by user168638 on 5/21/20.
 //  Copyright © 2020 FernandoCarrillo. All rights reserved.
 //
 
 import UIKit
 
-class MiDiaCollectionViewCell: UICollectionViewCell {
+class MiDiaLongCollectionViewCell: UICollectionViewCell {
     var completePortion: CGFloat = 0
     
     class var CELL_HEIGHT: CGFloat {
@@ -54,7 +54,7 @@ class MiDiaCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let cellPortionsLabel: UILabel = {        
+    let cellPortionsLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 16)
@@ -71,11 +71,11 @@ class MiDiaCollectionViewCell: UICollectionViewCell {
         
         cellIcon.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 15, paddingLeft: 15, paddingBottom: 0, paddingRight: 0, width: 60, height: 60, enableInsets: false)
         
-        cellTitleLabel.anchor(top: cellIcon.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 5, paddingLeft: 20, paddingBottom: 5, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+        cellTitleLabel.anchor(top: topAnchor, left: cellIcon.rightAnchor, bottom: bottomAnchor, right: nil, paddingTop: 5, paddingLeft: 20, paddingBottom: 5, paddingRight: 0, width: 0, height: 0, enableInsets: false)
         
-        progressBar.anchor(top: topAnchor, left: cellIcon.rightAnchor, bottom: nil, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 0, paddingRight: 5, width: 0, height: 60, enableInsets: false)
+        progressBar.anchor(top: topAnchor, left: cellTitleLabel.rightAnchor, bottom: nil, right: rightAnchor, paddingTop: 15, paddingLeft: 5, paddingBottom: 0, paddingRight: 30, width: 0, height: 60, enableInsets: false)
         
-        cellPortionsLabel.anchor(top: topAnchor, left: cellIcon.rightAnchor, bottom: nil, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 0, paddingRight: 5, width: 0, height: 60, enableInsets: false)
+        cellPortionsLabel.anchor(top: topAnchor, left: cellTitleLabel.rightAnchor, bottom: nil, right: rightAnchor, paddingTop: 15, paddingLeft: 5, paddingBottom: 0, paddingRight: 30, width: 60, height: 60, enableInsets: false)
     }
     
     required init?(coder: NSCoder) {

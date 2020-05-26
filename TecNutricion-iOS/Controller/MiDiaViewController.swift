@@ -70,7 +70,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
 
     // MARK: - Collection View
     func setupCollectionView() {
-        let layout: UICollectionViewLayout = MiDiaCollectionViewFlowLayout()
+        let layout = MiDiaLayout()
 
         collectionView = UICollectionView(frame: CGRect(x: 10,
                                                         y: NAVBAR_HEIGHT + 10,
@@ -83,6 +83,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         collectionView.delegate = self
 
         collectionView.register(MiDiaCollectionViewCell.self, forCellWithReuseIdentifier: "miDiaCell")
+        collectionView.register(MiDiaLongCollectionViewCell.self, forCellWithReuseIdentifier: "miDiaLongCell")
         view.addSubview(collectionView)
     }
 
@@ -91,17 +92,29 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if indexPath.row != (listaGpos.count-1) {
+            let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "miDiaCell", for: indexPath) as! MiDiaCollectionViewCell
+            if checkValidPlan(plan: listaPlan) {
+                myCell.completePortion = CGFloat(listaPlan[indexPath.row].portions)
+            }
+            myCell.gpoAlim = listaGpos[indexPath.row]
+            //        myCell.layer.borderWidth = 1
+            //        myCell.layer.borderColor = UIColor.lightGray.cgColor
+            return myCell
+        } else {
+            let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "miDiaLongCell", for: indexPath) as! MiDiaLongCollectionViewCell
+            if checkValidPlan(plan: listaPlan) {
+                    myCell.completePortion = CGFloat(listaPlan[indexPath.row].portions)
+            }
+            myCell.gpoAlim = listaGpos[indexPath.row]
+            //        myCell.layer.borderWidth = 1
+            //        myCell.layer.borderColor = UIColor.lightGray.cgColor
 
-        let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "miDiaCell", for: indexPath) as! MiDiaCollectionViewCell
-
-        if checkValidPlan(plan: listaPlan) {
-            myCell.completePortion = CGFloat(listaPlan[indexPath.row].portions)
+            return myCell
         }
-        myCell.gpoAlim = listaGpos[indexPath.row]
-//        myCell.layer.borderWidth = 1
-//        myCell.layer.borderColor = UIColor.lightGray.cgColor
-
-        return myCell
+        
+        
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
