@@ -36,6 +36,7 @@
 		684826B92476DC6E000298B5 /* MiDiaLongCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684826B82476DC6E000298B5 /* MiDiaLongCollectionViewFlowLayout.swift */; };
 		684826BB2476E5A1000298B5 /* MiDiaLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684826BA2476E5A1000298B5 /* MiDiaLayout.swift */; };
 		687D237A2460AF5C00265E46 /* SemaforoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D23792460AF5C00265E46 /* SemaforoViewController.swift */; };
+		68A2E418247B47D0007E2BDE /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2E417247B47D0007E2BDE /* ColorExtension.swift */; };
 		68DD9A712468CC9600DAA13A /* RegistraCMIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DD9A702468CC9600DAA13A /* RegistraCMIViewController.swift */; };
 		C6C152FF4D82E85B441B4759 /* libPods-TecNutricion-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 339F55324FB946E001AE0DBA /* libPods-TecNutricion-iOS.a */; };
 /* End PBXBuildFile section */
@@ -73,6 +74,7 @@
 		684826B82476DC6E000298B5 /* MiDiaLongCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiDiaLongCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		684826BA2476E5A1000298B5 /* MiDiaLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MiDiaLayout.swift; path = "TecNutricion-iOS/View/MiDiaLayout.swift"; sourceTree = SOURCE_ROOT; };
 		687D23792460AF5C00265E46 /* SemaforoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemaforoViewController.swift; sourceTree = "<group>"; };
+		68A2E417247B47D0007E2BDE /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		68DD9A702468CC9600DAA13A /* RegistraCMIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistraCMIViewController.swift; sourceTree = "<group>"; };
 		D3627485438354B247ECB7B9 /* Pods-TecNutricion-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TecNutricion-iOS.debug.xcconfig"; path = "Target Support Files/Pods-TecNutricion-iOS/Pods-TecNutricion-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		FEF97CFB66B3DFF3FBB2387B /* Pods-TecNutricion-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TecNutricion-iOS.release.xcconfig"; path = "Target Support Files/Pods-TecNutricion-iOS/Pods-TecNutricion-iOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				074E3CB324723B12007EC432 /* ProgressBar.swift */,
+				68A2E417247B47D0007E2BDE /* ColorExtension.swift */,
 				07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */,
 				07A845CC2450BFFF0043B3FB /* MiDiaCollectionViewCell.swift */,
 				684826B62476DBAB000298B5 /* MiDiaLongCollectionViewCell.swift */,
@@ -296,6 +299,7 @@
 				074E3CB424723B12007EC432 /* ProgressBar.swift in Sources */,
 				0784823B243E4CBC006511C5 /* AppDelegate.swift in Sources */,
 				0858DA9024624B4200845D96 /* RegistroDia.swift in Sources */,
+				68A2E418247B47D0007E2BDE /* ColorExtension.swift in Sources */,
 				08EC463F2471FD68009D5370 /* EquivalenciaEntry.swift in Sources */,
 				08EC4641247205F3009D5370 /* EquivalenteDetailTableViewCell.swift in Sources */,
 				684826B72476DBAB000298B5 /* MiDiaLongCollectionViewCell.swift in Sources */,

@@ -27,9 +27,11 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         title = "Mi Plan"
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
+        menuButtonItem.tintColor = .white
         navigationItem.leftBarButtonItem = menuButtonItem
         
         let saveButtonItem = UIBarButtonItem(title: "Guardar", style: .plain, target: self, action: #selector(savePlanButton))
+        saveButtonItem.tintColor = .white
         navigationItem.rightBarButtonItem = saveButtonItem
         
         createGroups()
@@ -142,17 +144,7 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
         listaGpos = loadPlan()
         
         if listaGpos.count == 0 {
-            listaGpos = [
-                GpoAlimenticio(name: "Vegetales", icon: "carrot-icon", portions: 0),
-                GpoAlimenticio(name: "Carnes", icon: "meat-icon", portions: 0),
-                GpoAlimenticio(name: "Azucares", icon: "candy-icon", portions: 0),
-                GpoAlimenticio(name: "Cereales", icon: "wheat-icon", portions: 0),
-                GpoAlimenticio(name: "Leguminosas", icon: "pea-icon", portions: 0),
-                GpoAlimenticio(name: "Frutas", icon: "apple", portions: 0),
-                GpoAlimenticio(name: "Grasas", icon: "avocado-icon", portions: 0),
-                GpoAlimenticio(name: "Leche", icon: "milk-icon", portions: 0),
-                GpoAlimenticio(name: "Agua", icon: "milk-icon", portions: 0),
-            ]
+            listaGpos = GpoAlimenticio.NewBase()
         }
     }
     

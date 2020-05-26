@@ -24,6 +24,7 @@ class SemaforoViewController: UIViewController {
         title = "Semáforo Nutricional"
         
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
+        menuButtonItem.tintColor = .white
         navigationItem.leftBarButtonItem = menuButtonItem
         view.backgroundColor = .white
         setupImageView()
@@ -32,9 +33,9 @@ class SemaforoViewController: UIViewController {
     }
     
     func setupImageView() {
-        let imgView = UIImageView(frame: CGRect(x: 0, y: NAVBAR_HEIGHT + 20, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-NAVBAR_HEIGHT))
+        let imgView = UIImageView(frame: CGRect(x: 0, y: NAVBAR_HEIGHT + 5, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-NAVBAR_HEIGHT))
         imgView.contentMode = .scaleAspectFit
-        imgView.image = UIImage(named: "semaforo")
+        imgView.image = UIImage(named: "semaforov2")
         view.addSubview(imgView)
     }
     

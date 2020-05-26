@@ -20,7 +20,9 @@ class HistorialViewController: UIViewController, historialManager {
     let SIDE_PADDING: CGFloat = 18
     let TOP_PADDING: CGFloat = 20
     
-    let lineChartView = LineChartView()
+    let LINE_CHART_HEIGHT: CGFloat = 80
+    
+    let lineChartContainer = UIView()
     var valoresPeso: [(Date, Double)]  = []
     var valoresMasa: [(Date, Double)]  = []
     var valoresGrasa: [(Date, Double)]  = []
@@ -40,20 +42,24 @@ class HistorialViewController: UIViewController, historialManager {
         print("iniclalizando HIstorial")
         NAVBAR_HEIGHT = self.navigationController?.navigationBar.bounds.height
         
-        title = "Historial de Composición Corporal"
+        title = "Historial de C.C."
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
+        menuButtonItem.tintColor = .white
         navigationItem.leftBarButtonItem = menuButtonItem
         
         let addButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addEntry))
+        addButtonItem.tintColor = .white
         navigationItem.rightBarButtonItem = addButtonItem
         
         view.backgroundColor = .white
         
         axisFormatDelegate = self
+    
+        setupLineCharts()
         
-        setupLineChart()
         initDatePickers()
         initLabels()
+        
         setFrames()
         
         if FileManager.default.fileExists(atPath: dataFileURL().path) {
@@ -114,12 +120,12 @@ class HistorialViewController: UIViewController, historialManager {
     
     func setFrames() {
         let LABEL_WIDTH: CGFloat = 180
-        let LABEL_HEIGHT: CGFloat = 40
+        let LABEL_HEIGHT: CGFloat = 30
         
         let PICKER_HEIGHT: CGFloat = 80
 
         initialLabel.frame = CGRect(x: SIDE_PADDING,
-                                    y: lineChartView.frame.origin.y + lineChartView.frame.height + TOP_PADDING,
+                                    y: lineChartContainer.frame.origin.y + lineChartContainer.frame.height + TOP_PADDING,
                                     width: LABEL_WIDTH,
                                     height: LABEL_HEIGHT)
         
@@ -129,7 +135,7 @@ class HistorialViewController: UIViewController, historialManager {
                                          height: PICKER_HEIGHT)
         
         finalLabel.frame = CGRect(x: SIDE_PADDING,
-                                  y: initialDatePicker.frame.origin.y + initialDatePicker.frame.height + TOP_PADDING/2,
+                                  y: initialDatePicker.frame.origin.y + initialDatePicker.frame.height + TOP_PADDING,
                                   width: LABEL_WIDTH,
                                   height: LABEL_HEIGHT)
         
@@ -145,75 +151,91 @@ class HistorialViewController: UIViewController, historialManager {
     }
     
     // MARK: - Charts
-    func setupLineChart() {
-        lineChartView.frame = CGRect(x: 0, y: NAVBAR_HEIGHT + TOP_PADDING, width: SCREEN_WIDTH, height: (SCREEN_HEIGHT - NAVBAR_HEIGHT) / 2)
-        lineChartView.backgroundColor = .white
-        lineChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeInSine)
-        lineChartView.legend.form = .circle
+    func setupLineCharts() {
+        let PADDING: CGFloat = 10
+        lineChartContainer.frame = CGRect(x: 0,
+                                          y: NAVBAR_HEIGHT + 20,
+                                          width: SCREEN_WIDTH,
+                                          height: LINE_CHART_HEIGHT * 3 + PADDING * 3)
+        let containerFrame = lineChartContainer.frame
+        
+        let pesoLineChart = createLineChart(valores: valoresPeso, color: UIColor.systemGreen, label: "Peso", xAxisEnabled: false)
+        pesoLineChart.frame = CGRect(x: containerFrame.origin.x,
+                                     y: PADDING,
+                                     width: containerFrame.width,
+                                     height: LINE_CHART_HEIGHT)
+        
+        let masaLineChart = createLineChart(valores: valoresMasa, color: UIColor.systemBlue, label: "Masa", xAxisEnabled: false)
+        masaLineChart.frame = CGRect(x: containerFrame.origin.x,
+                                     y: LINE_CHART_HEIGHT + PADDING,
+                                     width: containerFrame.width,
+                                     height: LINE_CHART_HEIGHT)
+        
+        let grasaLineChart = createLineChart(valores: valoresGrasa, color: UIColor.systemOrange, label:"Grasa", xAxisEnabled: true)
+        grasaLineChart.frame = CGRect(x: containerFrame.origin.x,
+                                      y: (LINE_CHART_HEIGHT + PADDING) * 2,
+                                      width: containerFrame.width,
+                                      height: LINE_CHART_HEIGHT)
+        
+        lineChartContainer.addSubview(pesoLineChart)
+        lineChartContainer.addSubview(masaLineChart)
+        lineChartContainer.addSubview(grasaLineChart)
+        
+        view.addSubview(lineChartContainer)
+    }
+    
+    func createLineChart(valores: [(Date, Double)], color: UIColor, label: String, xAxisEnabled: Bool) -> LineChartView {
+        let tempChartView = LineChartView()
+        tempChartView.frame = CGRect(x: 0, y: NAVBAR_HEIGHT + TOP_PADDING, width: SCREEN_WIDTH, height: LINE_CHART_HEIGHT)
+        tempChartView.backgroundColor = .white
+        tempChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeInSine)
+        tempChartView.legend.form = .circle
         
         // no data
-        lineChartView.noDataText = "No data available"
+        tempChartView.noDataText = "No data available"
         
-        var allLineChartDataSets: [LineChartDataSet] = [LineChartDataSet]()
+        var lineChartDataSets: [LineChartDataSet] = [LineChartDataSet]()
         
         // datos de peso
-        var lineDataEntries1: [ChartDataEntry] = []
-        for i in 0..<valoresPeso.count {
-            let dataPoint = ChartDataEntry(x: Double(valoresPeso[i].0.timeIntervalSince1970), y: valoresPeso[i].1)
-            lineDataEntries1.append(dataPoint)
+        var lineDataEntries: [ChartDataEntry] = []
+        for i in 0..<valores.count {
+            let dataPoint = ChartDataEntry(x: Double(valores[i].0.timeIntervalSince1970), y: valores[i].1)
+            lineDataEntries.append(dataPoint)
         }
-        let chartDataSet1 = LineChartDataSet(entries: lineDataEntries1, label: "Peso")
-        chartDataSet1.colors = [UIColor.systemGreen]
-        chartDataSet1.setCircleColor(UIColor.systemGreen)
-        chartDataSet1.circleHoleColor = UIColor.systemGreen
-        chartDataSet1.circleRadius = 4.0
-        allLineChartDataSets.append(chartDataSet1)
-        
-        // datos de masa
-        var lineDataEntries2: [ChartDataEntry] = []
-        for i in 0..<valoresMasa.count {
-            let dataPoint = ChartDataEntry(x: Double(valoresMasa[i].0.timeIntervalSince1970), y: valoresMasa[i].1)
-            lineDataEntries2.append(dataPoint)
-        }
-        let chartDataSet2 = LineChartDataSet(entries: lineDataEntries2, label: "Masa")
-        chartDataSet2.colors = [UIColor.systemBlue]
-        chartDataSet2.setCircleColor(UIColor.systemBlue)
-        chartDataSet2.circleHoleColor = UIColor.systemBlue
-        chartDataSet2.circleRadius = 4.0
-        allLineChartDataSets.append(chartDataSet2)
-        
-        // datos de grasa
-        var lineDataEntries3: [ChartDataEntry] = []
-        for i in 0..<valoresGrasa.count {
-            let dataPoint = ChartDataEntry(x: Double(valoresGrasa[i].0.timeIntervalSince1970), y: valoresGrasa[i].1)
-            lineDataEntries3.append(dataPoint)
-        }
-        let chartDataSet3 = LineChartDataSet(entries: lineDataEntries3, label: "Grasa")
-        chartDataSet3.colors = [UIColor.systemYellow]
-        chartDataSet3.setCircleColor(UIColor.systemYellow)
-        chartDataSet3.circleHoleColor = UIColor.systemYellow
-        chartDataSet3.circleRadius = 4.0
-        allLineChartDataSets.append(chartDataSet3)
+        let chartDataSet = LineChartDataSet(entries: lineDataEntries, label: label)
+        chartDataSet.colors = [color]
+        chartDataSet.setCircleColor(color)
+        chartDataSet.circleHoleColor = color
+        chartDataSet.circleRadius = 4.0
+        lineChartDataSets.append(chartDataSet)
         
         // axis
-        lineChartView.rightAxis.enabled = false
-        let xAxis = lineChartView.xAxis
-        xAxis.labelCount = valoresPeso.count
+        tempChartView.rightAxis.enabled = false
+        tempChartView.leftAxis.enabled = false
+        let xAxis = tempChartView.xAxis
+        xAxis.drawLabelsEnabled = xAxisEnabled
+        xAxis.labelCount = valores.count
         xAxis.granularityEnabled = true
         xAxis.granularity = 1.0
         xAxis.labelPosition = .bottom
         xAxis.drawGridLinesEnabled = false
         xAxis.valueFormatter = axisFormatDelegate
           
-        let lineChartData = LineChartData(dataSets: allLineChartDataSets)
-        lineChartView.data = lineChartData
-        view.addSubview(lineChartView)
+        let lineChartData = LineChartData(dataSets: lineChartDataSets)
+        lineChartData.setDrawValues(false)
+        
+        tempChartView.legend.orientation = .horizontal
+        tempChartView.legend.horizontalAlignment = .right
+        tempChartView.legend.verticalAlignment = .top
+        tempChartView.data = lineChartData
+        
+        return tempChartView
     }
     
     @objc func updateLineChart() {
         loadData()
-        lineChartView.removeFromSuperview()
-        setupLineChart()
+        lineChartContainer.removeFromSuperview()
+        setupLineCharts()
     }
     
     // MARK: - Load/Save Data

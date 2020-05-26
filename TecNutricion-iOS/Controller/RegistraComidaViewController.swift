@@ -60,11 +60,12 @@ class RegistraComidaViewController: UIViewController, UITableViewDataSource, UIT
 
     func setupSaveButton() {
         let button = UIButton(type: .system)
-        button.frame = CGRect(x: self.view.center.x-65, y: SCREEN_HEIGHT - 110, width: 120, height: 50)
+        button.frame = CGRect(x: self.view.center.x-65, y: SCREEN_HEIGHT - 120, width: 120, height: 50)
 
         button.setTitle("Guardar", for: .normal)
-        button.backgroundColor = .lightGray
-
+        button.backgroundColor = .theme
+        button.tintColor = .white
+        button.layer.cornerRadius = 15
         button.addTarget(self, action: #selector(addFood(_:)), for: .touchUpInside)
 
         view.addSubview(button)
@@ -153,17 +154,7 @@ class RegistraComidaViewController: UIViewController, UITableViewDataSource, UIT
 
     func createGroups(){
         
-        listaGpos = [
-            GpoAlimenticio(name: "Vegetales", icon: "carrot-icon", portions: 0),
-            GpoAlimenticio(name: "Carnes", icon: "meat-icon", portions: 0),
-            GpoAlimenticio(name: "Azucares", icon: "candy-icon", portions: 0),
-            GpoAlimenticio(name: "Cereales", icon: "wheat-icon", portions: 0),
-            GpoAlimenticio(name: "Leguminosas", icon: "pea-icon", portions: 0),
-            GpoAlimenticio(name: "Frutas", icon: "apple", portions: 0),
-            GpoAlimenticio(name: "Grasas", icon: "avocado-icon", portions: 0),
-            GpoAlimenticio(name: "Leche", icon: "milk-icon", portions: 0),
-            GpoAlimenticio(name: "Agua", icon: "milk-icon", portions: 0),
-        ]
+        listaGpos = GpoAlimenticio.NewBase()
         
     }
 
