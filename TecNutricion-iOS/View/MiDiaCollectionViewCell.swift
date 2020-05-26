@@ -63,7 +63,7 @@ class MiDiaCollectionViewCell: UICollectionViewCell {
     }()
     
     override init(frame: CGRect) {
-        super.init(frame: .zero)
+        super.init(frame: frame)
         addSubview(cellIcon)
         addSubview(cellTitleLabel)
         addSubview(progressBar)

@@ -37,7 +37,7 @@ class GpoAlimenticio: Equatable, Codable, CustomStringConvertible {
             GpoAlimenticio(name: "Frutas", icon: "apple-icon-color", portions: 0),
             GpoAlimenticio(name: "Grasas", icon: "fat-icon-color", portions: 0),
             GpoAlimenticio(name: "Leche", icon: "milk-icon-color", portions: 0),
-            GpoAlimenticio(name: "Agua", icon: "water-icon-color", portions: 0),
+            GpoAlimenticio(name: "Agua (1 vaso = 250ml)", icon: "water-icon-color", portions: 0),
         ]
     }
 }
