@@ -20,11 +20,11 @@ enum MenuSection: Int, CustomStringConvertible {
     
     var description: String {
         switch self {
-        case .MiDia: return "Mi Dia"
+        case .MiDia: return "Mi Día"
         case .MiPlan: return "Mi Plan"
         case .Equivalentes: return "Equivalentes"
         case .Semaforo: return "Semáforo Nutricional"
-        case .Historial: return "Historial"
+        case .Historial: return "Historial de C.C."
         case .Recetarios: return "Recetarios"
         }
     }

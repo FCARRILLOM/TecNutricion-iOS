@@ -86,13 +86,14 @@ class ContainerViewController: UIViewController, MenuDelegate {
                 
                 switch section {
                 case .MiDia:
+                    miDiaController = MiDiaViewController()
+                    miDiaController.delegate = self
                     navController.setViewControllers([miDiaController], animated: true)
                     break;
                     
                 case .MiPlan:
                     let miPlanController = MiPlanViewController()
                     miPlanController.menuDelegate = self
-                    
                     navController.setViewControllers([miPlanController], animated: true)
                     break;
                     
@@ -120,11 +121,20 @@ class ContainerViewController: UIViewController, MenuDelegate {
                 case .Recetarios:
                     let url = URL(string: "https://drive.google.com/drive/folders/1lx2FhOuDAqLWwJ06bRdIfmuoV2QLsWZM?usp=sharing")
                     UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+                    let vc = navController.topViewController as! showable
+                    vc.setTouchable(touchable: true)
                     break;
                 }
                 
                 print(section.description)
+            } else {
+                let vc = navController?.topViewController as! showable
+                vc.setTouchable(touchable: true)
             }
         }
     }
+}
+
+protocol showable {
+    func setTouchable(touchable: Bool)
 }

@@ -8,14 +8,26 @@
 
 import UIKit
 
-class EquivalentesTableViewController: UITableViewController {
+class EquivalentesTableViewController: UITableViewController, showable, UIGestureRecognizerDelegate {
+    func setTouchable(touchable: Bool) {
+        self.touchable = touchable
+    }
+    
     
     let grupos = GpoAlimenticio.NewBase()
     
     var menuDelegate: MenuDelegate!
 
+    var touchable : Bool!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        touchable = true;
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
+        navigationController?.navigationBar.addGestureRecognizer(tap)
+
         
         tableView.register(EquivalenteTableViewCell.self, forCellReuseIdentifier: "sectionCell")
         
@@ -25,11 +37,29 @@ class EquivalentesTableViewController: UITableViewController {
         navigationItem.leftBarButtonItem = menuButtonItem
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
+        tap.delegate = self
+        
+        tableView.addGestureRecognizer(tap)
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return touch.view == gestureRecognizer.view
+    }
+    
     // MARK: - Menu delegate
     
     // Enseña o esconde el menu
     @objc func toggleMenu() {
+        touchable = !touchable
         menuDelegate?.handleMenuToggle()
+    }
+    
+    @objc func hideMenu() {
+        if !touchable {
+            toggleMenu()
+        }
     }
 
     // MARK: - Table view data source
@@ -53,6 +83,10 @@ class EquivalentesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard touchable else {
+            hideMenu()
+            return
+        }
         let eqView = EquivalentesDetailTableViewController()
         
         eqView.grupo = grupos[indexPath.row]

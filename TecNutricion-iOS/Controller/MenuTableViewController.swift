@@ -11,7 +11,7 @@ import UIKit
 class MenuTableViewController: UITableViewController {
     
     // Numero de opciones en el menu
-    let NUM_SECTIONS = 6
+    let NUM_SECTIONS = 7
     
     var delegate: MenuDelegate!
 
@@ -38,12 +38,17 @@ class MenuTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "sectionCell", for: indexPath)
         
-        let section = MenuSection(rawValue: indexPath.row)
+        let section = MenuSection(rawValue: indexPath.row-1)
         
-        let background = UIView()
         
-        background.backgroundColor = .themeHighlighted
-        cell.selectedBackgroundView = background
+        if indexPath.row == 0 {
+            cell.selectionStyle = .none
+        } else {
+            let background = UIView()
+            
+            background.backgroundColor = .themeHighlighted
+            cell.selectedBackgroundView = background
+        }
         cell.textLabel?.text = section?.description
         cell.textLabel?.textColor = .white
         cell.backgroundColor = UIColor.theme
@@ -51,7 +56,7 @@ class MenuTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let selectecSection = MenuSection(rawValue: indexPath.row) {
+        if indexPath.row > 0, let selectecSection = MenuSection(rawValue: indexPath.row-1) {
             delegate?.handleSectionTap(forSection: selectecSection)
         }
     }

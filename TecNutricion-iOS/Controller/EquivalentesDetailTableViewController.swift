@@ -20,7 +20,7 @@ class EquivalentesDetailTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.register(EquivalenteDetailTableViewCell.self, forCellReuseIdentifier: "sectionCell")
-        
+        tableView.allowsSelection = false
         selectGrupo()
     }
     

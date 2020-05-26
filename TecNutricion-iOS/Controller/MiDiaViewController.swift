@@ -12,11 +12,16 @@ protocol MiDiaDataManager {
     func updateData(newData: [GpoAlimenticio]!, date: Date)
 }
 
-class MiDiaViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, MiDiaDataManager {
+class MiDiaViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, MiDiaDataManager, UIGestureRecognizerDelegate, showable {
+    func setTouchable(touchable: Bool) {
+        self.touchable = touchable
+    }
+    
     let SCREEN_WIDTH: CGFloat = UIScreen.main.bounds.width
     let SCREEN_HEIGHT: CGFloat = UIScreen.main.bounds.height
     var NAVBAR_HEIGHT: CGFloat!
 
+    var touchable: Bool!
     var delegate: MenuDelegate!
     var collectionView: UICollectionView!
 
@@ -27,7 +32,12 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        touchable = true
         NAVBAR_HEIGHT = self.navigationController?.navigationBar.bounds.height
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
+
+        navigationController?.navigationBar.addGestureRecognizer(tap)
 
         self.navigationController?.navigationBar.barTintColor = .theme
         
@@ -41,8 +51,15 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         view.backgroundColor = UIColor.white
     }
 
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return touch.view == gestureRecognizer.view
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         setupView()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
+        tap.delegate = self
+        collectionView.addGestureRecognizer(tap)
     }
 
     func setupView() {
@@ -118,6 +135,11 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(touchable)
+        guard touchable else {
+            toggleMenu()
+            return
+        }
         let vistaEq = EquivalentesDetailTableViewController()
 
         vistaEq.grupo = listaGpos[indexPath.row]
@@ -127,8 +149,14 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
 
     // MARK: - Menu delegate
 
+    @objc func hideMenu() {
+        if !touchable {
+            toggleMenu()
+        }
+    }
     // Enseña o esconde el menu
     @objc func toggleMenu() {
+        touchable = !touchable
         delegate?.handleMenuToggle()
     }
 
