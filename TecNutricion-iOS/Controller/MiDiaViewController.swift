@@ -73,7 +73,7 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         let layout = MiDiaLayout()
 
         collectionView = UICollectionView(frame: CGRect(x: 10,
-                                                        y: NAVBAR_HEIGHT + 10,
+                                                        y: NAVBAR_HEIGHT + 0.08*SCREEN_HEIGHT,
                                                         width: SCREEN_WIDTH - 20,
                                                         height: SCREEN_HEIGHT - NAVBAR_HEIGHT),
                                                         collectionViewLayout: layout)
