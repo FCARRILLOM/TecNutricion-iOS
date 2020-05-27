@@ -206,7 +206,7 @@ class HistorialViewController: UIViewController, historialManager, showable {
         tempChartView.frame.size = size
         tempChartView.backgroundColor = .white
         tempChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeInSine)
-        tempChartView.legend.form = .circle
+        tempChartView.isUserInteractionEnabled = false
         
         // no data
         tempChartView.noDataText = "No data available"
@@ -253,6 +253,7 @@ class HistorialViewController: UIViewController, historialManager, showable {
         }
         lineChartData.setValueFont(NSUIFont.init(name: "arial", size: 11)!)
         
+        tempChartView.legend.form = .circle
         tempChartView.legend.orientation = .horizontal
         tempChartView.legend.horizontalAlignment = .right
         tempChartView.legend.verticalAlignment = .top
