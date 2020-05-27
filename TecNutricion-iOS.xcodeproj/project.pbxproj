@@ -25,6 +25,7 @@
 		07A845CD2450BFFF0043B3FB /* MiDiaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A845CC2450BFFF0043B3FB /* MiDiaCollectionViewCell.swift */; };
 		07BDAAAC244E6D770089BBC9 /* MiPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */; };
 		07BDAAB0244E73ED0089BBC9 /* GpoAlimenticio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BDAAAF244E73ED0089BBC9 /* GpoAlimenticio.swift */; };
+		080AC441247E0CB500F9B0F6 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080AC440247E0CB500F9B0F6 /* AboutViewController.swift */; };
 		082685C32468BADF00F3AD96 /* RegistroCMI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082685C22468BADF00F3AD96 /* RegistroCMI.swift */; };
 		0858DA9024624B4200845D96 /* RegistroDia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0858DA8F24624B4200845D96 /* RegistroDia.swift */; };
 		08EC46372471F315009D5370 /* EquivalentesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC46362471F315009D5370 /* EquivalentesTableViewController.swift */; };
@@ -62,6 +63,7 @@
 		07A845CC2450BFFF0043B3FB /* MiDiaCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiDiaCollectionViewCell.swift; sourceTree = "<group>"; };
 		07BDAAAB244E6D770089BBC9 /* MiPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiPlanTableViewCell.swift; sourceTree = "<group>"; };
 		07BDAAAF244E73ED0089BBC9 /* GpoAlimenticio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GpoAlimenticio.swift; sourceTree = "<group>"; };
+		080AC440247E0CB500F9B0F6 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		082685C22468BADF00F3AD96 /* RegistroCMI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistroCMI.swift; sourceTree = "<group>"; };
 		0858DA8F24624B4200845D96 /* RegistroDia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistroDia.swift; sourceTree = "<group>"; };
 		08EC46362471F315009D5370 /* EquivalentesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquivalentesTableViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				0790DB772446B4CD00E0EC19 /* RegistraComidaViewController.swift */,
 				08EC46362471F315009D5370 /* EquivalentesTableViewController.swift */,
 				08EC463C2471FD26009D5370 /* EquivalentesDetailTableViewController.swift */,
+				080AC440247E0CB500F9B0F6 /* AboutViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				08EC46392471F490009D5370 /* EquivalenteTableViewCell.swift in Sources */,
 				082685C32468BADF00F3AD96 /* RegistroCMI.swift in Sources */,
 				07BDAAB0244E73ED0089BBC9 /* GpoAlimenticio.swift in Sources */,
+				080AC441247E0CB500F9B0F6 /* AboutViewController.swift in Sources */,
 				0790DB762446909800E0EC19 /* MiPlanViewController.swift in Sources */,
 				0784823D243E4CBC006511C5 /* SceneDelegate.swift in Sources */,
 			);

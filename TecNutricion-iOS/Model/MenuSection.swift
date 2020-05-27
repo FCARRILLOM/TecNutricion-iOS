@@ -17,6 +17,7 @@ enum MenuSection: Int, CustomStringConvertible {
     case Semaforo
     case Historial
     case Recetarios
+    case Acerca
     
     var description: String {
         switch self {
@@ -26,6 +27,7 @@ enum MenuSection: Int, CustomStringConvertible {
         case .Semaforo: return "Semáforo Nutricional"
         case .Historial: return "Historial de C.C."
         case .Recetarios: return "Recetarios"
+        case .Acerca: return "Acerca"
         }
     }
 }

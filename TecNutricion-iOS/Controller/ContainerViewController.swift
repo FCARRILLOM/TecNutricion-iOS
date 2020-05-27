@@ -124,6 +124,11 @@ class ContainerViewController: UIViewController, MenuDelegate {
                     let vc = navController.topViewController as! showable
                     vc.setTouchable(touchable: true)
                     break;
+                case .Acerca:
+                    let aboutController = AboutViewController()
+                    aboutController.menuDelegate = self
+                    
+                    navController.setViewControllers([aboutController], animated: true)
                 }
                 
                 print(section.description)
