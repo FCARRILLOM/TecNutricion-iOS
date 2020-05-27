@@ -11,7 +11,7 @@ import UIKit
 class MenuTableViewController: UITableViewController {
     
     // Numero de opciones en el menu
-    let NUM_SECTIONS = 7
+    let NUM_SECTIONS = 8
     
     var delegate: MenuDelegate!
 

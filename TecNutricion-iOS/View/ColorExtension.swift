@@ -22,4 +22,6 @@ extension UIColor {
     
     static let theme = UIColor(netHex: 0x45B4BE)
     static let themeHighlighted = UIColor(netHex: 0x45B4C8)
+    static let background = UIColor(netHex: 0xf4f4f4)
+    static let darkFont = UIColor(netHex: 0x717171)
 }
