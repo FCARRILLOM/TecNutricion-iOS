@@ -13,7 +13,7 @@ class AboutViewController: UIViewController {
         self.touchable = touchable
     }
     
-    let developers: [String] = ["Jose Guillermo Salda;a", "Fernando Carrillo", "Carlos Estrada"]
+    let developers: [String] = ["José Guillermo Saldaña", "Fernando Carrillo", "Carlos Estrada"]
     
     let SCREEN_WIDTH: CGFloat = UIScreen.main.bounds.width
     let SCREEN_HEIGHT: CGFloat = UIScreen.main.bounds.height
@@ -60,7 +60,7 @@ class AboutViewController: UIViewController {
         let versionText = UILabel()
         let versionNum = UILabel()
         
-        versionText.text = "Version"
+        versionText.text = "Versión"
         versionNum.text = "1.0.0"
         
         versionView.addSubview(versionText)
