@@ -58,7 +58,7 @@ class HistorialViewController: UIViewController, historialManager, showable {
         view.backgroundColor = .white
         
         axisFormatDelegate = self
-    
+        
         setupLineCharts()
         
         initDatePickers()
@@ -67,10 +67,13 @@ class HistorialViewController: UIViewController, historialManager, showable {
         setFrames()
         
         if FileManager.default.fileExists(atPath: dataFileURL().path) {
-            updateLineChart()
+            loadInitData()
         } else {
             notifyNoData()
         }
+        
+        setupLineCharts()
+        
         view.addGestureRecognizer(tap)
         
     }
@@ -113,8 +116,9 @@ class HistorialViewController: UIViewController, historialManager, showable {
         initialDatePicker = UIDatePicker()
         initialDatePicker.datePickerMode = .date
         initialDatePicker.addTarget(self, action: #selector(updateLineChart), for: .valueChanged)
+        
         // pone la fecha inicial a dos semanas antes
-        initialDatePicker.setDate(Date().addingTimeInterval(-14*secondsInDay), animated: true)
+        //initialDatePicker.setDate(initialDate, animated: true)
         
         finalDatePicker = UIDatePicker()
         finalDatePicker.datePickerMode = .date
@@ -173,7 +177,7 @@ class HistorialViewController: UIViewController, historialManager, showable {
         let side_padding: CGFloat = 10
         
         lineChartContainer.frame = CGRect(x: 0,
-                                          y: NAVBAR_HEIGHT + 20,
+                                          y: NAVBAR_HEIGHT + 50,
                                           width: SCREEN_WIDTH,
                                           height: LINE_CHART_HEIGHT * 3 + top_padding * 4)
         let containerFrame = lineChartContainer.frame
@@ -292,8 +296,7 @@ class HistorialViewController: UIViewController, historialManager, showable {
         
         for reg in registros {
             // checha que este entre las fechas indicadas
-            if reg.dia >= initialDatePicker.date
-                && reg.dia <= (finalDatePicker.date.addingTimeInterval(secondsInDay)) {
+            if (dateGreater(d1: reg.dia, d2: initialDatePicker.date) || datesEqual(d1: reg.dia, d2: initialDatePicker.date)) && !dateGreater(d1: reg.dia, d2: finalDatePicker.date) {
                 valoresPeso.append((reg.dia, reg.peso))
                 valoresMasa.append((reg.dia, reg.masa))
                 valoresGrasa.append((reg.dia, reg.grasa))
@@ -309,6 +312,48 @@ class HistorialViewController: UIViewController, historialManager, showable {
         valoresPeso.sort(by: { $0.0 < $1.0 })
         valoresMasa.sort(by: { $0.0 < $1.0 })
         valoresGrasa.sort(by: { $0.0 < $1.0 })
+    }
+    
+    func loadInitData() {
+        valoresPeso.removeAll()
+        valoresMasa.removeAll()
+        valoresGrasa.removeAll()
+        
+        var registros: [RegistroCMI] = []
+        
+        do {
+            let data = try Data.init(contentsOf: dataFileURL())
+            registros = try JSONDecoder().decode([RegistroCMI].self, from: data)
+        } catch {
+            print("Error obteniendo registros de CMI")
+            return
+        }
+        
+        for reg in registros {
+            valoresPeso.append((reg.dia, reg.peso))
+            valoresMasa.append((reg.dia, reg.masa))
+            valoresGrasa.append((reg.dia, reg.grasa))
+        }
+
+        
+        //TODO: cambiar tres listas por una lista del objeto RegistroCMI y averiguar como hacer el sort
+        valoresPeso.sort(by: { $0.0 < $1.0 })
+        valoresMasa.sort(by: { $0.0 < $1.0 })
+        valoresGrasa.sort(by: { $0.0 < $1.0 })
+        
+        if valoresPeso.count < 5 {
+            initialDatePicker.setDate(valoresPeso[0].0, animated: true)
+            print("VALORES ", valoresPeso)
+            return
+        }
+        
+        valoresPeso = Array(valoresPeso.dropFirst(valoresPeso.count-5))
+        valoresMasa = Array(valoresMasa.dropFirst(valoresMasa.count-5))
+        valoresGrasa = Array(valoresGrasa.dropFirst(valoresGrasa.count-5))
+        
+        initialDatePicker.setDate(valoresPeso[0].0, animated: true)
+        
+        print("VALORES ", valoresPeso)
     }
     
     func saveData(registro: RegistroCMI) {
@@ -356,6 +401,26 @@ class HistorialViewController: UIViewController, historialManager, showable {
     func datesEqual(d1: Date, d2: Date) -> Bool {
         let calendar = Calendar.current
         return calendar.component(.year, from: d1) == calendar.component(.year, from: d2) && calendar.component(.month, from: d1) == calendar.component(.month, from: d2) && calendar.component(.day, from: d1) == calendar.component(.day, from: d2)
+        
+    }
+    
+    func dateGreater(d1: Date, d2: Date) -> Bool {
+        let calendar = Calendar.current
+        if calendar.component(.year, from: d1) > calendar.component(.year, from: d2) {
+            return true
+        }
+        
+        if calendar.component(.year, from: d1) == calendar.component(.year, from: d2) {
+            if calendar.component(.month, from: d1) > calendar.component(.month, from: d2) {
+                return true
+            }
+            
+            if calendar.component(.month, from: d1) == calendar.component(.month, from: d2) {
+                return calendar.component(.day, from: d1) > calendar.component(.day, from: d2)
+            }
+        }
+        
+        return false
         
     }
 
