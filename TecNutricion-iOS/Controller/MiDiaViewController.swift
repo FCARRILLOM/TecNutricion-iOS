@@ -140,7 +140,6 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(touchable)
         guard touchable else {
             toggleMenu()
             return

@@ -10,6 +10,8 @@ import UIKit
 
 class EquivalentesDetailTableViewController: UITableViewController {
     
+    let SCREEN_WIDTH: CGFloat = UIScreen.main.bounds.width
+    let SCREEN_HEIGHT: CGFloat = UIScreen.main.bounds.height
     var grupo: GpoAlimenticio!
     
     var info: [EquivalenciaEntry] = equivalencias
@@ -22,8 +24,23 @@ class EquivalentesDetailTableViewController: UITableViewController {
         tableView.register(EquivalenteDetailTableViewCell.self, forCellReuseIdentifier: "sectionCell")
         tableView.allowsSelection = false
         selectGrupo()
+        addTVCHeader()
     }
     
+    func addTVCHeader() {
+        let header = UIView.init(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT*0.08))
+        
+        let title = UILabel(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT*0.06))
+        title.backgroundColor = .theme
+        title.center.x = header.center.x
+        title.textAlignment = .center
+        title.text = "Una porción equivale a..."
+        title.font = UIFont(name: "Arial", size: 20.0)
+        title.textColor = .white
+        header.addSubview(title)
+        self.tableView.tableHeaderView = header
+        self.tableView.reloadData()
+    }
     func selectGrupo() {
         for i in info {
             if i.grupo == grupo.name {
