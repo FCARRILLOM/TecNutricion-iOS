@@ -75,7 +75,7 @@ class AboutViewController: UIViewController {
     }
     
     func setupDevelopers() {
-        let developersView = UIView(frame: CGRect(x: 0, y: SCREEN_HEIGHT * 0.23, width: SCREEN_WIDTH, height: 210))
+        let developersView = UIView(frame: CGRect(x: 0, y: SCREEN_HEIGHT * 0.26, width: SCREEN_WIDTH, height: 200))
         let developersList = UIView()
         let developersTitle = UILabel()
         
