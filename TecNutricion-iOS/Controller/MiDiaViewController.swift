@@ -33,14 +33,11 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         touchable = true
-        NAVBAR_HEIGHT = self.navigationController?.navigationBar.bounds.height
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
 
-        navigationController?.navigationBar.addGestureRecognizer(tap)
-
+        self.navigationController?.navigationBar.addGestureRecognizer(tap)
         self.navigationController?.navigationBar.barTintColor = .theme
-        
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         
         title = "Mi Día"
@@ -48,6 +45,13 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
         menuButtonItem.tintColor = .white
         navigationItem.leftBarButtonItem = menuButtonItem
 
+        if let height = self.navigationController?.navigationBar.frame.height,
+            let origin = self.navigationController?.navigationBar.frame.origin.y {
+            NAVBAR_HEIGHT = origin + height
+        } else {
+            NAVBAR_HEIGHT = 40.0
+        }
+        
         view.backgroundColor = UIColor.white
     }
 
@@ -88,10 +92,11 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
     // MARK: - Collection View
     func setupCollectionView() {
         let layout = MiDiaLayout()
+        let padding: CGFloat = 10
 
-        collectionView = UICollectionView(frame: CGRect(x: 10,
-                                                        y: NAVBAR_HEIGHT + 0.08*SCREEN_HEIGHT,
-                                                        width: SCREEN_WIDTH - 20,
+        collectionView = UICollectionView(frame: CGRect(x: padding,
+                                                        y: NAVBAR_HEIGHT + padding,
+                                                        width: SCREEN_WIDTH - padding * 2,
                                                         height: SCREEN_HEIGHT - NAVBAR_HEIGHT),
                                                         collectionViewLayout: layout)
             

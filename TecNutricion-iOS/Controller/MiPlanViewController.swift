@@ -26,9 +26,8 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NAVBAR_HEIGHT = self.navigationController?.navigationBar.bounds.height
         touchable = true
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
 
         navigationController?.navigationBar.addGestureRecognizer(tap)
@@ -40,6 +39,13 @@ class MiPlanViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let saveButtonItem = UIBarButtonItem(title: "Guardar", style: .plain, target: self, action: #selector(savePlanButton))
         saveButtonItem.tintColor = .white
         navigationItem.rightBarButtonItem = saveButtonItem
+        
+        if let height = self.navigationController?.navigationBar.frame.height,
+            let origin = self.navigationController?.navigationBar.frame.origin.y {
+            NAVBAR_HEIGHT = origin + height
+        } else {
+            NAVBAR_HEIGHT = 40.0
+        }
         
         createGroups()
         

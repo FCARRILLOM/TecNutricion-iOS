@@ -43,10 +43,11 @@ class HistorialViewController: UIViewController, historialManager, showable {
         super.viewDidLoad()
         print("iniclalizando HIstorial")
         touchable = true
-        NAVBAR_HEIGHT = self.navigationController?.navigationBar.bounds.height
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
         navigationController?.navigationBar.addGestureRecognizer(tap)
         title = "Historial de C.C."
+        
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
         menuButtonItem.tintColor = .white
         navigationItem.leftBarButtonItem = menuButtonItem
@@ -57,8 +58,14 @@ class HistorialViewController: UIViewController, historialManager, showable {
         
         view.backgroundColor = .white
         
-        axisFormatDelegate = self
+        if let height = self.navigationController?.navigationBar.frame.height,
+            let origin = self.navigationController?.navigationBar.frame.origin.y {
+            NAVBAR_HEIGHT = origin + height
+        } else {
+            NAVBAR_HEIGHT = 40.0
+        }
         
+        axisFormatDelegate = self
         setupLineCharts()
         
         initDatePickers()
@@ -174,25 +181,24 @@ class HistorialViewController: UIViewController, historialManager, showable {
     // MARK: - Charts
     func setupLineCharts() {
         let top_padding: CGFloat = 12
-        let side_padding: CGFloat = 10
         
         lineChartContainer.frame = CGRect(x: 0,
-                                          y: NAVBAR_HEIGHT + 50,
+                                          y: NAVBAR_HEIGHT,
                                           width: SCREEN_WIDTH,
                                           height: LINE_CHART_HEIGHT * 3 + top_padding * 4)
         let containerFrame = lineChartContainer.frame
         
-        let chart_size: CGSize = CGSize(width: containerFrame.width - side_padding * 2, height: LINE_CHART_HEIGHT)
+        let chart_size: CGSize = CGSize(width: containerFrame.width, height: LINE_CHART_HEIGHT)
         let pesoLineChart = createLineChart(valores: valoresPeso, color: UIColor.systemGreen, label: "Peso", size: chart_size)
-        pesoLineChart.frame.origin = CGPoint(x: side_padding,
+        pesoLineChart.frame.origin = CGPoint(x: 0,
                                              y: top_padding)
         
         let masaLineChart = createLineChart(valores: valoresMasa, color: UIColor.systemBlue, label: "Masa", size: chart_size)
-        masaLineChart.frame.origin = CGPoint(x: side_padding,
+        masaLineChart.frame.origin = CGPoint(x: 0,
                                              y: LINE_CHART_HEIGHT + top_padding * 2)
         
         let grasaLineChart = createLineChart(valores: valoresGrasa, color: UIColor.systemOrange, label:"Grasa", size: chart_size)
-        grasaLineChart.frame.origin = CGPoint(x: side_padding,
+        grasaLineChart.frame.origin = CGPoint(x: 0,
                                               y: (LINE_CHART_HEIGHT * 2) + (top_padding * 3))
         
         lineChartContainer.addSubview(pesoLineChart)
@@ -206,11 +212,14 @@ class HistorialViewController: UIViewController, historialManager, showable {
     }
     
     func createLineChart(valores: [(Date, Double)], color: UIColor, label: String, size: CGSize) -> LineChartView {
+        let side_padding: CGFloat = 20
         let tempChartView = LineChartView()
         tempChartView.frame.size = size
         tempChartView.backgroundColor = .white
         tempChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeInSine)
-        tempChartView.legend.form = .circle
+        tempChartView.isUserInteractionEnabled = false
+        tempChartView.setViewPortOffsets(left: side_padding, top: side_padding,
+                                         right: side_padding, bottom: side_padding)
         
         // no data
         tempChartView.noDataText = "No data available"
@@ -255,11 +264,13 @@ class HistorialViewController: UIViewController, historialManager, showable {
         } else {
             lineChartData.setDrawValues(false)
         }
-        lineChartData.setValueFont(NSUIFont.init(name: "arial", size: 11)!)
+        lineChartData.setValueFont(NSUIFont.init(name: "arial", size: 12)!)
         
+        tempChartView.legend.form = .circle
         tempChartView.legend.orientation = .horizontal
         tempChartView.legend.horizontalAlignment = .right
-        tempChartView.legend.verticalAlignment = .top
+        tempChartView.legend.verticalAlignment = .bottom
+        tempChartView.legend.font = NSUIFont.init(name: "arial", size: 12)!
         tempChartView.data = lineChartData
         
         return tempChartView
