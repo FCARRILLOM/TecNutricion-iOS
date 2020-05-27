@@ -22,8 +22,6 @@ class SemaforoViewController: UIViewController, showable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        NAVBAR_HEIGHT = self.navigationController?.navigationBar.bounds.height
         
         touchable = true;
         
@@ -36,13 +34,19 @@ class SemaforoViewController: UIViewController, showable {
         menuButtonItem.tintColor = .white
         navigationItem.leftBarButtonItem = menuButtonItem
         view.backgroundColor = .white
-        setupImageView()
         
-        // Do any additional setup after loading the view.
+        if let height = self.navigationController?.navigationBar.frame.height,
+            let origin = self.navigationController?.navigationBar.frame.origin.y {
+            NAVBAR_HEIGHT = origin + height
+        } else {
+            NAVBAR_HEIGHT = 40.0
+        }
+        
+        setupImageView()
     }
     
     func setupImageView() {
-        let imgView = UIImageView(frame: CGRect(x: 0, y: NAVBAR_HEIGHT + 5, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-NAVBAR_HEIGHT))
+        let imgView = UIImageView(frame: CGRect(x: 0, y: NAVBAR_HEIGHT, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-NAVBAR_HEIGHT))
         imgView.contentMode = .scaleAspectFit
         imgView.image = UIImage(named: "semaforov24")
         view.addSubview(imgView)
@@ -65,15 +69,4 @@ class SemaforoViewController: UIViewController, showable {
             toggleMenu()
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

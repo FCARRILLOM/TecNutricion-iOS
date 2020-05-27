@@ -17,7 +17,6 @@ class AboutViewController: UIViewController {
     
     let SCREEN_WIDTH: CGFloat = UIScreen.main.bounds.width
     let SCREEN_HEIGHT: CGFloat = UIScreen.main.bounds.height
-    var NAVBAR_HEIGHT: CGFloat!
     var touchable: Bool!
     
     var menuDelegate: MenuDelegate!
@@ -25,7 +24,6 @@ class AboutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NAVBAR_HEIGHT = self.navigationController?.navigationBar.bounds.height
         touchable = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
 
@@ -103,15 +101,4 @@ class AboutViewController: UIViewController {
         
         view.addSubview(developersView)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

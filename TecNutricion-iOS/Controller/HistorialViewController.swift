@@ -43,10 +43,11 @@ class HistorialViewController: UIViewController, historialManager, showable {
         super.viewDidLoad()
         print("iniclalizando HIstorial")
         touchable = true
-        NAVBAR_HEIGHT = self.navigationController?.navigationBar.frame.height
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(hideMenu))
         navigationController?.navigationBar.addGestureRecognizer(tap)
         title = "Historial de C.C."
+        
         let menuButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(toggleMenu))
         menuButtonItem.tintColor = .white
         navigationItem.leftBarButtonItem = menuButtonItem
@@ -57,8 +58,14 @@ class HistorialViewController: UIViewController, historialManager, showable {
         
         view.backgroundColor = .white
         
+        if let height = self.navigationController?.navigationBar.frame.height,
+            let origin = self.navigationController?.navigationBar.frame.origin.y {
+            NAVBAR_HEIGHT = origin + height
+        } else {
+            NAVBAR_HEIGHT = 40.0
+        }
+        
         axisFormatDelegate = self
-    
         setupLineCharts()
         
         initDatePickers()
@@ -169,11 +176,10 @@ class HistorialViewController: UIViewController, historialManager, showable {
     
     // MARK: - Charts
     func setupLineCharts() {
-        let navbar_position: CGFloat = (self.navigationController?.navigationBar.frame.origin.y)!
         let top_padding: CGFloat = 12
         
         lineChartContainer.frame = CGRect(x: 0,
-                                          y: navbar_position + NAVBAR_HEIGHT,
+                                          y: NAVBAR_HEIGHT,
                                           width: SCREEN_WIDTH,
                                           height: LINE_CHART_HEIGHT * 3 + top_padding * 4)
         let containerFrame = lineChartContainer.frame
