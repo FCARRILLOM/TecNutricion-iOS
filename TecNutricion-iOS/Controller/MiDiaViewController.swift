@@ -145,7 +145,11 @@ class MiDiaViewController: UIViewController, UICollectionViewDataSource, UIColle
             return
         }
         let vistaEq = EquivalentesDetailTableViewController()
-
+        
+        if listaGpos[indexPath.row].name == "Agua (1 vaso = 250ml)" {
+            return
+        }
+        
         vistaEq.grupo = listaGpos[indexPath.row]
 
         present(vistaEq, animated: true, completion: nil)

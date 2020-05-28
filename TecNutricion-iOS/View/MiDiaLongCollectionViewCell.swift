@@ -71,7 +71,7 @@ class MiDiaLongCollectionViewCell: UICollectionViewCell {
         
         cellIcon.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 15, paddingLeft: 15, paddingBottom: 0, paddingRight: 0, width: 60, height: 60, enableInsets: false)
         
-        cellTitleLabel.anchor(top: topAnchor, left: cellIcon.rightAnchor, bottom: bottomAnchor, right: nil, paddingTop: 5, paddingLeft: 20, paddingBottom: 5, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+        cellTitleLabel.anchor(top: topAnchor, left: cellIcon.rightAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 10, paddingBottom: 5, paddingRight: 0, width: 0, height: 0, enableInsets: false)
         
         progressBar.anchor(top: topAnchor, left: cellTitleLabel.rightAnchor, bottom: nil, right: rightAnchor, paddingTop: 15, paddingLeft: 5, paddingBottom: 0, paddingRight: 30, width: 0, height: 60, enableInsets: false)
         

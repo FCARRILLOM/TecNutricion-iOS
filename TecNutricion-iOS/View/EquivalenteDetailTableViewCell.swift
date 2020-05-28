@@ -44,8 +44,8 @@ class EquivalenteDetailTableViewCell: UITableViewCell {
         addSubview(amountLabel)
         addSubview(titleLabel)
         
-        amountLabel.anchor(top: topAnchor, left: nil, bottom: bottomAnchor, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 25, width: frame.size.width / 2, height: 0, enableInsets: false)
-        titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 5, paddingLeft: 15, paddingBottom: 5, paddingRight: 5, width: frame.size.width / 2, height: 0, enableInsets: false)
+        amountLabel.anchor(top: topAnchor, left: nil, bottom: bottomAnchor, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 25, width: frame.size.width * 0.25, height: 0, enableInsets: false)
+        titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 5, paddingLeft: 15, paddingBottom: 5, paddingRight: 5, width: frame.size.width * 0.75, height: 0, enableInsets: false)
     }
     
     required init?(coder: NSCoder) {
