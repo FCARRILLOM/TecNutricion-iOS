@@ -14,7 +14,9 @@ class MenuTableViewController: UITableViewController {
     let NUM_SECTIONS = 8
     
     var delegate: MenuDelegate!
-
+    
+    let SCREEN_WIDTH: CGFloat = UIScreen.main.bounds.width
+    let SCREEN_HEIGHT: CGFloat = UIScreen.main.bounds.height
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,9 +45,24 @@ class MenuTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "sectionCell", for: indexPath)
-        
         let section = MenuSection(rawValue: indexPath.row-1)
         
+        if indexPath.row == NUM_SECTIONS-2 {
+            print(SCREEN_WIDTH)
+//            let image = UIImageView(frame: CGRect(x: cell.frame.size.width - 10, y: 10, width: 20, height: 20))
+//            let img = UIImage(systemName: "escape")
+//            let whiteImg = img?.withRenderingMode(.alwaysTemplate)
+//            image.image = whiteImg
+//            image.tintColor = .white
+            let image = UIImageView(image: UIImage(systemName: "escape"))
+            image.tintColor = .white
+            print(SCREEN_WIDTH)
+            image.frame = CGRect(x: cell.frame.minX+SCREEN_WIDTH*0.5, y:SCREEN_HEIGHT*0.015, width: 20, height: 20)
+            image.center.y = cell.center.y+2
+            
+            cell.addSubview(image)
+        }
+
         
         if indexPath.row == 0 {
             cell.selectionStyle = .none
