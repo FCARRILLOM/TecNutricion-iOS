@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AboutViewController: UIViewController {
+class AboutViewController: UIViewController, showable {
     func setTouchable(touchable: Bool) {
         self.touchable = touchable
     }

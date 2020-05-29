@@ -39,6 +39,7 @@ class RegistraComidaViewController: UIViewController, UITableViewDataSource, UIT
         setupDatePicker()
 
         view.backgroundColor = UIColor.white
+        tableView.allowsSelection = false
     }
     
     @objc func addFood(_ sender:UIButton!) {

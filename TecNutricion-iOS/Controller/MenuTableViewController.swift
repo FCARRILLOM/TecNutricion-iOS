@@ -22,6 +22,12 @@ class MenuTableViewController: UITableViewController {
         tableView.backgroundColor = UIColor.theme
         tableView.separatorStyle = .none
         tableView.separatorColor = .clear
+        tableView.allowsMultipleSelection = false
+        tableView.allowsSelection = true
+        tableView.reloadData()
+        print("loaded")
+        //tableView.selectRow(at: IndexPath(row: 1, section: 0), animated: false, scrollPosition: .bottom)
+
     }
 
     // MARK: - Table view data source

@@ -49,6 +49,9 @@ class ContainerViewController: UIViewController, MenuDelegate {
             view.insertSubview(menuController.view, at: 0)
             addChild(menuController)
             menuController.didMove(toParent: self)
+            menuController.tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.isSelected = true
+        } else if menuController.tableView.cellForRow(at: IndexPath(row: 1, section: 0))!.isSelected {
+            menuController.tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.isSelected = false
         }
     }
 
@@ -82,6 +85,7 @@ class ContainerViewController: UIViewController, MenuDelegate {
         // crea y desmuestra nueva vista
         if let section = section {
             if currentSection != section {
+                let prevSection = currentSection
                 currentSection = section
                 
                 switch section {
@@ -121,8 +125,10 @@ class ContainerViewController: UIViewController, MenuDelegate {
                 case .Recetarios:
                     let url = URL(string: "https://drive.google.com/drive/folders/1lx2FhOuDAqLWwJ06bRdIfmuoV2QLsWZM?usp=sharing")
                     UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-                    let vc = navController.topViewController as! showable
-                    vc.setTouchable(touchable: true)
+
+                    currentSection = prevSection
+                    menuController.tableView.selectRow(at: IndexPath(row: prevSection.rawValue, section: 0), animated: true, scrollPosition: .none)
+                    
                     break;
                 case .Acerca:
                     let aboutController = AboutViewController()

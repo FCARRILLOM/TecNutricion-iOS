@@ -71,7 +71,7 @@ class EquivalentesTableViewController: UITableViewController, showable, UIGestur
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return grupos.count
+        return grupos.count - 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -85,6 +85,10 @@ class EquivalentesTableViewController: UITableViewController, showable, UIGestur
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard touchable else {
             hideMenu()
+            return
+        }
+        
+        guard grupos[indexPath.row].name != "Agua (1 vaso = 250ml)" else {
             return
         }
         let eqView = EquivalentesDetailTableViewController()
