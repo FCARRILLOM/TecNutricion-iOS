@@ -37,6 +37,7 @@ class AboutViewController: UIViewController, showable {
         
         setupVersion()
         setupDevelopers()
+        setupLicense()
     }
     
     @objc func hideMenu() {
@@ -54,18 +55,17 @@ class AboutViewController: UIViewController, showable {
     }
     
     func setupVersion() {
-        let versionView = UIView(frame: CGRect(x: 0, y: SCREEN_HEIGHT * 0.15, width: SCREEN_WIDTH, height: 50))
+        let versionView = UIView(frame: CGRect(x: 0, y: SCREEN_HEIGHT * 0.15, width: SCREEN_WIDTH, height: 140))
         let versionText = UILabel()
-        let versionNum = UILabel()
         
-        versionText.text = "Versión"
-        versionNum.text = "1.0.0"
+        versionText.numberOfLines = 0
+        
+        versionText.text = "TecNutricion ha sido desarrollada por estudiantes del Tecnologico de Monterrey durante el semestre Febrero Junio de 2020, como parte del curso Desarrollo de Aplicaciones Moviles y asesorados por la maestra Yolanda Martinez Trevino"
+        versionText.font = UIFont(name: "Helvetica Neue", size: 15)
         
         versionView.addSubview(versionText)
-        versionView.addSubview(versionNum)
         
-        versionText.anchor(top: versionView.topAnchor, left: versionView.leftAnchor, bottom: nil, right: nil, paddingTop: 10, paddingLeft: 30, paddingBottom: 0, paddingRight: 0, width: 100, height: 30, enableInsets: false)
-        versionNum.anchor(top: versionView.topAnchor, left: nil, bottom: nil, right: versionView.rightAnchor, paddingTop: 10, paddingLeft: 0, paddingBottom: 0, paddingRight: 10, width: 100, height: 30, enableInsets: false)
+        versionText.anchor(top: versionView.topAnchor, left: versionView.leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 30, paddingBottom: 0, paddingRight: 30, width: SCREEN_WIDTH-45, height: 140, enableInsets: false)
         
         versionView.backgroundColor = UIColor.white
         
@@ -73,11 +73,11 @@ class AboutViewController: UIViewController, showable {
     }
     
     func setupDevelopers() {
-        let developersView = UIView(frame: CGRect(x: 0, y: SCREEN_HEIGHT * 0.26, width: SCREEN_WIDTH, height: 200))
+        let developersView = UIView(frame: CGRect(x: 0, y: SCREEN_HEIGHT * 0.15 + 150, width: SCREEN_WIDTH, height: 200))
         let developersList = UIView()
         let developersTitle = UILabel()
         
-        developersTitle.text = "Desarrolladores (Alumnos del Tec de Monterrey)"
+        developersTitle.text = "Desarrolladores"
         developersTitle.font = UIFont(name: "Helvetica Neue", size: 15)
         developersTitle.textColor = UIColor.darkFont
         
@@ -100,5 +100,23 @@ class AboutViewController: UIViewController, showable {
         developersList.anchor(top: nil, left: developersView.leftAnchor, bottom: developersView.bottomAnchor, right: developersView.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: SCREEN_WIDTH, height: 160, enableInsets: false)
         
         view.addSubview(developersView)
+    }
+    
+    func setupLicense() {
+        let versionView = UIView(frame: CGRect(x: 0, y: SCREEN_HEIGHT * 0.15 + 390, width: SCREEN_WIDTH, height: 80))
+        let versionText = UILabel()
+        
+        versionText.numberOfLines = 0
+        
+        versionText.text = "TecNutricion se distribuye como esta de manera gratuita y se prohibe su distribucion con fines de lucro."
+        versionText.font = UIFont(name: "Helvetica Neue", size: 15)
+        
+        versionView.addSubview(versionText)
+        
+        versionText.anchor(top: versionView.topAnchor, left: versionView.leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 30, paddingBottom: 0, paddingRight: 30, width: SCREEN_WIDTH-45, height: 80, enableInsets: false)
+        
+        versionView.backgroundColor = UIColor.white
+        
+        view.addSubview(versionView)
     }
 }
