@@ -60,7 +60,7 @@ class AboutViewController: UIViewController, showable {
         
         versionText.numberOfLines = 0
         
-        versionText.text = "TecNutricion ha sido desarrollada por estudiantes del Tecnologico de Monterrey durante el semestre Febrero Junio de 2020, como parte del curso Desarrollo de Aplicaciones Moviles y asesorados por la maestra Yolanda Martinez Trevino"
+        versionText.text = "TecNutricion ha sido desarrollada por estudiantes del Tecnológico de Monterrey durante el semestre Febrero Junio de 2020, como parte del curso Desarrollo de Aplicaciones Móviles y asesorados por la maestra Yolanda Martínez Treviño"
         versionText.font = UIFont(name: "Helvetica Neue", size: 15)
         
         versionView.addSubview(versionText)
@@ -108,7 +108,7 @@ class AboutViewController: UIViewController, showable {
         
         versionText.numberOfLines = 0
         
-        versionText.text = "TecNutricion se distribuye como esta de manera gratuita y se prohibe su distribucion con fines de lucro."
+        versionText.text = "TecNutricion se distribuye como esta de manera gratuita y se prohibe su distribución con fines de lucro."
         versionText.font = UIFont(name: "Helvetica Neue", size: 15)
         
         versionView.addSubview(versionText)
