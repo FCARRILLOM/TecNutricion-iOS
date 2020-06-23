@@ -47,7 +47,7 @@
 		0753A0AF2450C49900DFEBAF /* MiDiaCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiDiaCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		075C0BE1244FD69800CC6F45 /* UIView+AnchorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AnchorExtension.swift"; sourceTree = "<group>"; };
 		077850412467677A0070E88B /* HistorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorialViewController.swift; sourceTree = "<group>"; };
-		07848237243E4CBC006511C5 /* TecNutricion-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TecNutricion-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		07848237243E4CBC006511C5 /* ITC_MTY: Tec Nutrición.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ITC_MTY: Tec Nutrición.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0784823A243E4CBC006511C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0784823C243E4CBC006511C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		07848241243E4CBC006511C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 		07848238243E4CBC006511C5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				07848237243E4CBC006511C5 /* TecNutricion-iOS.app */,
+				07848237243E4CBC006511C5 /* ITC_MTY: Tec Nutrición.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -219,7 +219,7 @@
 			);
 			name = "TecNutricion-iOS";
 			productName = "TecNutricion-iOS";
-			productReference = 07848237243E4CBC006511C5 /* TecNutricion-iOS.app */;
+			productReference = 07848237243E4CBC006511C5 /* ITC_MTY: Tec Nutrición.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -474,12 +474,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M7CAKG9848;
 				INFOPLIST_FILE = "TecNutricion-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "FernandoCarrillo.TecNutricion-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.itesmalumnos.ITC-MTY-TecNutricion";
+				PRODUCT_NAME = "ITC_MTY: Tec Nutrición";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -493,12 +494,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M7CAKG9848;
 				INFOPLIST_FILE = "TecNutricion-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "FernandoCarrillo.TecNutricion-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.itesmalumnos.ITC-MTY-TecNutricion";
+				PRODUCT_NAME = "ITC_MTY: Tec Nutrición";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
